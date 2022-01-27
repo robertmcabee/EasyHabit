@@ -1,7 +1,7 @@
 'use strict';
 
 const overlay = document.getElementById('overlay');
-overlay.addEventListener('click', (e) => {
+overlay.addEventListener('mousedown', (e) => {
   if (e.target.tagName === "DIV") {
     overlay.style.display = "none"
   }
@@ -64,16 +64,18 @@ let testTimeC = new Date(2022, 0, 20); //for debugging purposes
 function createDayObj(date) {
   let name = formatDateForObj(date)
   dayList[name] = {}
-  habitArray.forEach(habit => { //load habits into given day
-    // for (let key in habitArray) {
-    //   dayList[key] = habitArray[key]
-    // }
-    // dayList[name] = habit.id  //011722: "g7pfviy"
-    dayList[name][habit.id] = 0
+  habitArray.forEach(habit => { // puts all habits in with a value of 0
+    dayList[name][habit.id] = 0 
   });
   console.log("the current daylist is")
   console.log(dayList)
 };
+
+function loadDays(listOfHabits, listOfDays) {
+  listOfHabits.forEach(element => {
+    
+  });
+}
     
 let now = new Date();
     
@@ -86,6 +88,15 @@ const StartDate = now;
     return false //no new day needed
   }
 };
+
+function update(params) { //TODO 
+  // check if new days needed
+    // hasDayChanged(mostRecentDay, currentTime)
+  // create new days
+    // createDayObj(date)
+  // load habits into all days
+  // display habit grid
+}      
 
 const idGen = () => {
   return Math.random().toString(36).substr(2, 7); //creates a string like "fz680z"
@@ -105,15 +116,6 @@ function formatDateForObj(date) {
   return dateFNS.format(date,'MMddyy') //returns string in MMDDYY format, i.e. '120520'
 };
     
-// const Day = (date, ...habits) => {
-//   habits.forEach(habit => {
-//     this.habit = 0
-//   });
-//   return {...habits}
-// }
-  
-  
-
 // const tasks = {
 //   011822: {
 //     habit_123aax: true,
