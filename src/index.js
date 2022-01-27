@@ -1,5 +1,11 @@
 'use strict';
 
+import { format, differenceInCalendarDays } from 'date-fns';
+
+const form = document.querySelector('form');
+const formName = document.getElementById('form-name');
+const submitButton = document.getElementById('submit-button');
+
 const overlay = document.getElementById('overlay');
 overlay.addEventListener('mousedown', (e) => {
   if (e.target.tagName === "DIV") {
@@ -12,18 +18,11 @@ showOverlayBtn.addEventListener('click', (e) => {
  overlay.style.display = "block"
 });
 
-import { format, differenceInCalendarDays } from 'date-fns';
 
+const habitArray = [] //stores habit objects in array i.e. 
+// [{name: "anki", id: "0d7611i"}, {name: "stretch", id: "l7pky86"}]
 
-//differenceInCalendarDays
-//format
-
-const form = document.querySelector('form');
-const formName = document.getElementById('form-name');
-const submitButton = document.getElementById('submit-button');
-
-const habitArray = [] //stores habit objects
-const dayList = {
+const dayList = { //stores day objects in object
   // '011722': {
   //   'fz680z': 100,
   //   '98sh8a': 0
