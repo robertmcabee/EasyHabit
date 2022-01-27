@@ -1,0 +1,140 @@
+'use strict';
+
+const overlay = document.getElementById('overlay');
+overlay.addEventListener('click', (e) => {
+  if (e.target.tagName === "DIV") {
+    overlay.style.display = "none"
+  }
+});
+
+const showOverlayBtn = document.getElementById('show-overlay');
+showOverlayBtn.addEventListener('click', (e) => {
+ overlay.style.display = "block"
+});
+
+import { format, differenceInCalendarDays } from 'date-fns';
+
+
+//differenceInCalendarDays
+//format
+
+const form = document.querySelector('form');
+const formName = document.getElementById('form-name');
+const submitButton = document.getElementById('submit-button');
+
+const habitArray = [] //stores habit objects
+const dayList = {
+  // '011722': {
+  //   'fz680z': 100,
+  //   '98sh8a': 0
+  // },
+  // '011822': {
+  //   'fz680z': 0,
+  //   '98sh8a': 0
+  // }
+} //stores day objects
+
+submitButton.addEventListener("click", (event) => {
+  event.preventDefault()
+  createHabit(form)
+  console.log("the current habitArray is:")
+  console.log(habitArray)
+});
+
+function createHabit(HTMLFormData) {
+  let formData = new FormData(HTMLFormData) //using formdata to support any number of form inputs without re-writng code
+  formData.append('id', idGen()) //create id
+  const habit = {}
+  for (let key of formData.keys()) { //assign formdata key values to habit object
+    habit[key] = formData.get(key)
+  }
+  habitArray.push(habit)
+  createDayObj(now)
+};
+    
+let dateFNS = require('date-fns');
+
+let testTimeA = new Date(2022, 0, 17); //for debugging purposes
+let testTimeB = new Date(2021, 4, 10); //for debugging purposes
+let testTimeC = new Date(2022, 0, 20); //for debugging purposes
+
+
+
+
+function createDayObj(date) {
+  let name = formatDateForObj(date)
+  dayList[name] = {}
+  habitArray.forEach(habit => { //load habits into given day
+    // for (let key in habitArray) {
+    //   dayList[key] = habitArray[key]
+    // }
+    // dayList[name] = habit.id  //011722: "g7pfviy"
+    dayList[name][habit.id] = 0
+  });
+  console.log("the current daylist is")
+  console.log(dayList)
+};
+    
+let now = new Date();
+    
+const StartDate = now;
+  
+  function hasDayChanged(mostRecentDay, currentTime) { //returns true if 1+ days have elapsed
+  if (dateFNS.differenceInCalendarDays(mostRecentDay, currentTime) > 0) { 
+    return true //new day will need to be displayed
+  } else {
+    return false //no new day needed
+  }
+};
+
+const idGen = () => {
+  return Math.random().toString(36).substr(2, 7); //creates a string like "fz680z"
+};
+    
+function createDateHTMLTemplate(day) {
+  let month = dateFNS.format(day, 'MMM') //i.e. 'Jan'
+  let dayOfMonth = dateFNS.format(day, 'd') //i.e. 'Monday'
+  let dayOfWeek = dateFNS.format(day, 'iiii') //i.e. '18'
+  let templateString =
+  `<span class="day-of-week">${dayOfWeek},</span>
+  <span class="date">${month} ${dayOfMonth}</span>`
+  return templateString
+};
+
+function formatDateForObj(date) {
+  return dateFNS.format(date,'MMddyy') //returns string in MMDDYY format, i.e. '120520'
+};
+    
+// const Day = (date, ...habits) => {
+//   habits.forEach(habit => {
+//     this.habit = 0
+//   });
+//   return {...habits}
+// }
+  
+  
+
+// const tasks = {
+//   011822: {
+//     habit_123aax: true,
+//     habit_653zdz: false,
+//   }
+//   011922: {
+//     habit_123aax: 0,
+//     habit_653zdz: 100,
+//   }
+// };
+    
+
+  
+
+
+
+    
+
+    
+    
+    
+    
+    
+    
