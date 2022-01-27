@@ -35,10 +35,9 @@ const dayList = {
 } //stores day objects
 
 submitButton.addEventListener("click", (event) => {
-  event.preventDefault()
+  event.preventDefault() //prevent reload
   createHabit(form)
-  console.log("the current habitArray is:")
-  console.log(habitArray)
+  form.reset() //reset fields
 });
 
 function createHabit(HTMLFormData) {
@@ -49,6 +48,8 @@ function createHabit(HTMLFormData) {
     habit[key] = formData.get(key)
   }
   habitArray.push(habit)
+  console.log("the current habitArray is:")
+  console.log(habitArray)
   createDayObj(now)
 };
     
