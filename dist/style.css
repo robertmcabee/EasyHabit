@@ -2,7 +2,8 @@
 html, body, div, form, fieldset, legend, label
 {
  margin: 0;
- padding: 0; 
+ padding: 0;
+ box-sizing: border-box;
 }
 table
 {
@@ -25,8 +26,9 @@ a {
 
 
 body {
-  background: #f0f0f0;
+  background: #1b1b1b;
   font-family: 'Nunito', sans-serif;
+  color: #fff
 }
 
 #overlay{
@@ -43,9 +45,10 @@ body {
 .form-container{
   width: 500px;
   height: 200px;
-  background: #fff;
+  background: rgb(0, 0, 0);
   margin: 5% auto;
-  border-radius: 10px;
+  border-radius: 10px;  
+  border: solid 2px rgb(97, 97, 97);
 }
 
 .btn{
@@ -60,6 +63,27 @@ body {
 }
 
 .background-accent{
-  background: #91eb76;
+  background: #11395a;
 }
 
+.row{
+  width: 100%;
+  background: black;
+  height: 150px;
+  border: 1px solid rgb(255, 166, 0);
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.date{
+  
+}
+
+.column{
+  background: linear-gradient(47deg, rgba(11,39,64,1) 0%, rgba(18,115,79,1) 100%); 
+  width: 20%;
+  min-width: 150px;
+  /* height: 150px; */
+  border: 1px solid rgb(119, 119, 119);
+}
