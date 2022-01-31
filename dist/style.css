@@ -76,10 +76,6 @@ body {
   flex-grow: 1;
 }
 
-.date{
-  
-}
-
 .column{
   background: linear-gradient(47deg, rgba(11,39,64,1) 0%, rgba(18,115,79,1) 100%); 
   width: 20%;
