@@ -65,69 +65,69 @@ let testTimeD = new Date(2023, 0, 29); //for debugging purposes
 
 
 function createDayObj(date) {
-  let name = dateFNS.format(date,'MMddyy')
-  dayList[name] = {date: date}
+  let name = dateFNS.format(date, 'MMddyy');
+  dayList[name] = { date: date };
   habitArray.forEach(habit => { // puts all habits in with a value of 0
     dayList[name][habit.id] = 0 
   });
 };   
   
 function daysElapsed(currentTime, mostRecentDay) { //returns true if 1+ days have elapsed
-  const numOfDays = dateFNS.differenceInCalendarDays(currentTime, mostRecentDay)
-  const result = []
-  if (numOfDays < 1) return result
+  const numOfDays = dateFNS.differenceInCalendarDays(currentTime, mostRecentDay);
+  const result = [];
+  if (numOfDays < 1) return result;
   for (let i = 0; i < numOfDays; i++) {
     result.unshift(dateFNS.add(mostRecentDay, {days: i + 1})) //adds 1 plus the current index
-  }
-  return result
+  };
+  return result;
   // TODO: add err on negative length 
 };
 
 function refresh(currentTime, mostRecentDay) {
-  const dayArr = daysElapsed(currentTime, mostRecentDay)
-  if (dayArr.length === 0) return //guard
+  const dayArr = daysElapsed(currentTime, mostRecentDay);
+  if (dayArr.length === 0) return; //guard
   for (let i = 0; i < dayArr.length; i++) { //create days
-    createDayObj(dayArr[i])
-  }
-  console.log("the current daylist is")
-  console.log(dayList)
+    createDayObj(dayArr[i]);
+  };
+  console.log("the current daylist is");
+  console.log(dayList);
 }
 
-refresh(now, testTimeA)
-displayGrid(dayList, habitArray)
+refresh(now, testTimeA);
+displayGrid(dayList, habitArray);
 
 function displayGrid(dayList, habitArray) {
-  let result = ''
-  const rows = (Object.keys(dayList)).length
-  const columns = habitArray.length
-  const openingTemplate = `<section class="row">`
-  const closingTemplate = `</section>`
-  const columnTemplate = `<div class="column"></div>`
+  let result = '';
+  const rows = (Object.keys(dayList)).length;
+  const columns = habitArray.length;
+  const openingTemplate = `<section class="row">`;
+  const closingTemplate = `</section>`;
+  const columnTemplate = `<div class="column"></div>`;
   for (let i = 0; i < rows; i++) {
-    result += openingTemplate
-    result += createDateHTMLTemplate(Object.values(dayList)[i]['date'])
+    result += openingTemplate;
+    result += createDateHTMLTemplate(Object.values(dayList)[i]['date']);
     for (let j = 0; j < columns; j++) {
-      result += columnTemplate
-    }
-    result += closingTemplate
+      result += columnTemplate;
+    };
+    result += closingTemplate;
   }
-  habitContainer.innerHTML = result
-}
+  habitContainer.innerHTML = result;
+};
 
 const idGen = () => {
   return Math.random().toString(36).substr(2, 7); //creates a string like "fz680z"
 };
     
 function createDateHTMLTemplate(day) {
-  let month = dateFNS.format(day, 'MMM') //i.e. 'Jan'
-  let dayOfMonth = dateFNS.format(day, 'd') //i.e. 'Monday'
-  let dayOfWeek = dateFNS.format(day, 'iiii') //i.e. '18'
+  let month = dateFNS.format(day, 'MMM'); //i.e. 'Jan'
+  let dayOfMonth = dateFNS.format(day, 'd'); //i.e. 'Monday'
+  let dayOfWeek = dateFNS.format(day, 'iiii'); //i.e. '18'
   let templateString =
   `<div class="column">
   <span class="day-of-week">${dayOfWeek},</span>
   <span class="date">${month} ${dayOfMonth}</span>
-  </div>`
-  return templateString
+  </div>`;
+  return templateString;
 };
 
 // const tasks = {
