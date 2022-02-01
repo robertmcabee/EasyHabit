@@ -123,9 +123,9 @@ function createDateHTMLTemplate(day) {
   let dayOfMonth = dateFNS.format(day, 'd'); //i.e. 'Monday'
   let dayOfWeek = dateFNS.format(day, 'iiii'); //i.e. '18'
   let templateString =
-  `<div class="column">
-  <span class="day-of-week">${dayOfWeek},</span>
-  <span class="date">${month} ${dayOfMonth}</span>
+  `<div class="column date-container">
+  <span class="day-of-week medium-plus">${dayOfWeek},</span>
+  <span class="date large">${month} ${dayOfMonth}</span>
   </div>`;
   return templateString;
 };
