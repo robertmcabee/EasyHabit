@@ -22,7 +22,29 @@ a {
 }
 /* CSS Mini Reset */
 
+.large-plus{
+  font-size: 2rem;
+}
 
+.large{
+  font-size: 1.5rem;
+}
+
+.medium-plus{
+  font-size: 1.2rem;
+}
+
+.medium{
+  font-size: 1rem;
+}
+
+.small-plus{
+  font-size: 0.9rem;
+}
+
+.small{
+  font-size: 0.8rem;
+}
 
 
 body {
@@ -54,12 +76,12 @@ body {
 .btn{
   border-radius: 5px;
   height: 25px;
-  font-size: 16px;
   font-weight: 600;
   border: none;
   margin: 10px;
   color: rgb(255, 255, 255);
   cursor: pointer;
+  font-family: 'Nunito', sans-serif;
 }
 
 .background-accent{
@@ -80,6 +102,20 @@ body {
   background: linear-gradient(47deg, rgba(11,39,64,1) 0%, rgba(18,115,79,1) 100%); 
   width: 20%;
   min-width: 150px;
-  /* height: 150px; */
-  border: 1px solid rgb(119, 119, 119);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.day-of-week{
+  color: aquamarine;
+}
+
+.date{
+  color: rgb(185, 219, 208);
+}
+
+.date-container{
+  border-right: 2px solid #fff;
 }
