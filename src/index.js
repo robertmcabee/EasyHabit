@@ -42,6 +42,10 @@ submitButton.addEventListener("click", (event) => {
   form.reset(); //reset fields
 });
 
+const idGen = () => {
+  return Math.random().toString(36).substr(2, 7); //creates a string like "fz680z"
+};
+
 function createHabit(HTMLFormData) {
   let formData = new FormData(HTMLFormData); //using formdata to support any number of form inputs without re-writng code
   formData.append('id', idGen()); //create id
@@ -61,7 +65,7 @@ let now = new Date();
 let testTimeA = new Date(2022, 0, 17); // 1-17-22 for debugging purposes
 let testTimeB = new Date(2022, 0, 29); // 1-29-22 for debugging purposes
 let testTimeC = new Date(2022, 0, 30); // 1-29-22 for debugging purposes
-let testTimeD = new Date(2023, 0, 29); //for debugging purposes
+let testTimeD = new Date(2022, 1, 1); //for debugging purposes
 
 
 function createDayObj(date) {
@@ -74,18 +78,18 @@ function createDayObj(date) {
   
 function daysElapsed(currentTime, mostRecentDay) { //returns true if 1+ days have elapsed
   const numOfDays = dateFNS.differenceInCalendarDays(currentTime, mostRecentDay);
+  if (numOfDays < 0) return null;
   const result = [];
-  if (numOfDays < 1) return result;
-  for (let i = 0; i < numOfDays; i++) {
-    result.unshift(dateFNS.add(mostRecentDay, {days: i + 1})) //adds 1 plus the current index
+  for (let i = 0; i < numOfDays + 1; i++) {
+    console.log('a')
+    result.unshift(dateFNS.add(mostRecentDay, {days: i})) //adds 1 plus the current index
   };
   return result;
-  // TODO: add err on negative length 
 };
 
 function refresh(currentTime, mostRecentDay) {
   const dayArr = daysElapsed(currentTime, mostRecentDay);
-  if (dayArr.length === 0) return; //guard
+  if (dayArr === null) return; //guard
   for (let i = 0; i < dayArr.length; i++) { //create days
     createDayObj(dayArr[i]);
   };
@@ -112,10 +116,6 @@ function displayGrid(dayList, habitArray) {
     result += closingTemplate;
   }
   habitContainer.innerHTML = result;
-};
-
-const idGen = () => {
-  return Math.random().toString(36).substr(2, 7); //creates a string like "fz680z"
 };
     
 function createDateHTMLTemplate(day) {
