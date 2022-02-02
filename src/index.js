@@ -7,6 +7,7 @@ const form = document.querySelector('form');
 const formName = document.getElementById('form-name');
 const submitButton = document.getElementById('submit-button');
 const habitContainer = document.getElementById('habit-container');
+const formErrorMsg = document.getElementById('form-error-msg');
 
 const overlay = document.getElementById('overlay');
 overlay.addEventListener('mousedown', (e) => {
@@ -47,6 +48,11 @@ const idGen = () => {
 };
 
 function createHabit(HTMLFormData) {
+  if (formName.value.trim() === '') { //do nothing if name field is empty
+    formErrorMsg.innerText = 'Please enter a name'
+    return
+  }
+  formErrorMsg.innerText = '' // clear error msg
   let formData = new FormData(HTMLFormData); //using formdata to support any number of form inputs without re-writng code
   formData.append('id', idGen()); //create id
   const habit = {};
@@ -62,7 +68,7 @@ function createHabit(HTMLFormData) {
 
 let now = new Date();
 
-let testTimeA = new Date(2022, 0, 17); // 1-17-22 for debugging purposes
+let testTimeA = new Date(2022, 0, 27); // 1-27-22 for debugging purposes
 let testTimeB = new Date(2022, 0, 29); // 1-29-22 for debugging purposes
 let testTimeC = new Date(2022, 0, 30); // 1-29-22 for debugging purposes
 let testTimeD = new Date(2022, 1, 1); //for debugging purposes
@@ -76,13 +82,12 @@ function createDayObj(date) {
   });
 };   
   
-function daysElapsed(currentTime, mostRecentDay) { //returns true if 1+ days have elapsed
+function daysElapsed(currentTime, mostRecentDay) { //returns ascending series of day objects that have elapsed or null
   const numOfDays = dateFNS.differenceInCalendarDays(currentTime, mostRecentDay);
   if (numOfDays < 0) return null;
   const result = [];
   for (let i = 0; i < numOfDays + 1; i++) {
-    console.log('a')
-    result.unshift(dateFNS.add(mostRecentDay, {days: i})) //adds 1 plus the current index
+    result.unshift(dateFNS.add(mostRecentDay, {days: i})) //adds a ascending series of day objects to the result array
   };
   return result;
 };

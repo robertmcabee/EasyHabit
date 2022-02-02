@@ -73,6 +73,15 @@ body {
   border: solid 2px rgb(97, 97, 97);
 }
 
+.error-msg-container{
+  min-height: 30px;
+  background-color: rgb(75, 75, 75);
+}
+
+#form-error-msg{
+
+}
+
 .btn{
   border-radius: 5px;
   height: 25px;
