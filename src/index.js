@@ -109,16 +109,21 @@ function displayGrid(dayList, habitArray) {
   let result = '';
   const rows = (Object.keys(dayList)).length;
   const columns = habitArray.length;
-  const openingTemplate = `<section class="row">`;
-  const closingTemplate = `</section>`;
-  const columnTemplate = `<div class="column"></div>`;
+  //create top row
+  result += `<section class="row row-top">`;
+  result += `<div class="column column-top"></div>`;
+  for (let i = 0; i < columns; i++) {
+    result += `<div class="column column-top"></div>`;
+  };
+  result += `</section>`; //close top section
+  //create main body
   for (let i = 0; i < rows; i++) {
-    result += openingTemplate;
-    result += createDateHTMLTemplate(Object.values(dayList)[i]['date']);
+    result += `<section class="row row-body">`;
+    result += createDateHTMLTemplate(Object.values(dayList)[i]['date']); //creates column div to hold date
     for (let j = 0; j < columns; j++) {
-      result += columnTemplate;
+      result += `<div class="column"></div>`;
     };
-    result += closingTemplate;
+    result += `</section>`; //close main grid section
   }
   habitContainer.innerHTML = result;
 };

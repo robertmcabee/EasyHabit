@@ -100,11 +100,18 @@ body {
 .row{
   width: 100%;
   background: black;
-  height: 150px;
   border: 1px solid rgb(255, 166, 0);
   display: flex;
   justify-content: center;
   flex-grow: 1;
+}
+
+.row-top{
+  height: 100px;
+}
+
+.row-body{
+  height: 150px;
 }
 
 .column{
