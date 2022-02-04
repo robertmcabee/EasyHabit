@@ -60,8 +60,11 @@ function createHabit(HTMLFormData) {
     habit[key] = formData.get(key);
   };
   habitArray.push(habit)
+  addID(habit.id)
   console.log("the current habitArray is:")
   console.log(habitArray)
+  console.log("the current daylist is");
+  console.log(dayList);
   displayGrid(dayList, habitArray)
 };
 
@@ -80,8 +83,18 @@ function createDayObj(date) {
   habitArray.forEach(habit => { // puts all habits in with a value of 0
     dayList[name][habit.id] = 0 
   });
-};   
-  
+};
+
+function addID(id) {
+  const numOfDays = Object.keys(dayList).length
+  for (let i = 0; i < numOfDays; i++) {
+    dayList[Object.keys(dayList)[i]]['id'] = id
+  }
+};
+
+refresh(now, testTimeA);
+displayGrid(dayList, habitArray);  
+
 function daysElapsed(currentTime, mostRecentDay) { //returns ascending series of day objects that have elapsed or null
   const numOfDays = dateFNS.differenceInCalendarDays(currentTime, mostRecentDay);
   if (numOfDays < 0) return null;
@@ -98,12 +111,9 @@ function refresh(currentTime, mostRecentDay) {
   for (let i = 0; i < dayArr.length; i++) { //create days
     createDayObj(dayArr[i]);
   };
-  console.log("the current daylist is");
-  console.log(dayList);
 }
 
-refresh(now, testTimeA);
-displayGrid(dayList, habitArray);
+
 
 function displayGrid(dayList, habitArray) {
   let result = '';
