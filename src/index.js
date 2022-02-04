@@ -6,7 +6,6 @@ import { format, differenceInCalendarDays } from 'date-fns';
 const form = document.querySelector('form');
 const formName = document.getElementById('form-name');
 const submitButton = document.getElementById('submit-button');
-const addPastDayButton = document.getElementById('add-past-day-button');
 const addFutureDayButton = document.getElementById('add-future-day-button');
 const habitContainer = document.getElementById('habit-container');
 const formErrorMsg = document.getElementById('form-error-msg');
@@ -23,20 +22,26 @@ showOverlayBtn.addEventListener('click', (e) => {
   overlay.style.display = "block";
 });
 
+addFutureDayButton.addEventListener('click', (e) => {
+  const newestDay = dayArray[0].date
+  createDayObj(dateFNS.add(newestDay, {days: 1}), habitArray)
+});
 
 const habitArray = [];
 //stores habit objects in array i.e. [{name: "anki", id: "0d7611i"}, {name: "stretch", id: "l7pky86"}]
 
-const dayList = { //stores day objects in object
-  // '011822': {
+const dayArray = [ //stores day objects in array
+  // {
+  //   date: Thu Jan 18 2022 00:00:00 GMT-0700 (MST),
   //   'fz680z': 0,
   //   '98sh8a': 0
-  // }
-  // '011722': {
+  // },
+  // {
+  //   date: Thu Jan 17 2022 00:00:00 GMT-0700 (MST),
   //   'fz680z': 100,
   //   '98sh8a': 0
   // },
-};
+];
 
 submitButton.addEventListener("click", (event) => {
   event.preventDefault(); //prevent reload
@@ -64,9 +69,9 @@ function createHabit(HTMLFormData) {
   addID(habit.id)
   console.log("the current habitArray is:")
   console.log(habitArray)
-  console.log("the current daylist is");
-  console.log(dayList);
-  displayGrid(dayList, habitArray)
+  console.log("the current dayArray is");
+  console.log(dayArray);
+  displayGrid(dayArray, habitArray)
 };
 
 
@@ -74,66 +79,68 @@ let now = new Date();
 
 let testTimeA = new Date(2022, 0, 27); // 1-27-22 for debugging purposes
 let testTimeB = new Date(2022, 0, 29); // 1-29-22 for debugging purposes
-let testTimeC = new Date(2022, 0, 30); // 1-29-22 for debugging purposes
-let testTimeD = new Date(2022, 1, 1); //for debugging purposes
+let testTimeC = new Date(2022, 0, 30); // 1-30-22 for debugging purposes
+let testTimeD = new Date(2022, 1, 5); //for debugging purposes
+let testTimeE = new Date(2022, 1, 7); //for debugging purposes
 
 
-function createDayObj(date) {
-  let name = dateFNS.format(date, 'MMddyy');
-  dayList[name] = { date: date };
-  habitArray.forEach(habit => { // puts all habits in with a value of 0
-    dayList[name][habit.id] = 0 
+function createDayObj(date, habitArray) {
+  let resultObj = {}
+  resultObj['date'] = date
+  habitArray.forEach(habit => {  // puts all habits in with a value of 0
+    resultObj[habit.id] = 0
   });
-  displayGrid(dayList, habitArray); 
+  dayArray.unshift(resultObj)
+  displayGrid(dayArray, habitArray); 
 };
 
 function addID(id) {
-  const numOfDays = Object.keys(dayList).length
-  for (let i = 0; i < numOfDays; i++) {
-    dayList[Object.keys(dayList)[i]]['id'] = id
+  for (let i = 0; i < dayArray.length; i++) {
+    dayArray[i][id] = 0
   }
 };
 
-refresh(now, testTimeA);
-displayGrid(dayList, habitArray);  
+refresh(now, now);
+displayGrid(dayArray, habitArray);  
 
 function daysElapsed(currentTime, mostRecentDay) { //returns ascending series of day objects that have elapsed or null
   const numOfDays = dateFNS.differenceInCalendarDays(currentTime, mostRecentDay);
   if (numOfDays < 0) return null;
   const result = [];
   for (let i = 0; i < numOfDays + 1; i++) {
-    result.unshift(dateFNS.add(mostRecentDay, {days: i})) //adds a ascending series of day objects to the result array
+    result.push(dateFNS.add(mostRecentDay, {days: i})) //adds a ascending series of day objects to the result array
   };
   return result;
 };
 
 function refresh(currentTime, mostRecentDay) {
-  const dayArr = daysElapsed(currentTime, mostRecentDay);
-  if (dayArr === null) return; //guard
-  for (let i = 0; i < dayArr.length; i++) { //create days
-    createDayObj(dayArr[i]);
+  const dateArr = daysElapsed(currentTime, mostRecentDay); //get series of js Date Objects
+  if (dateArr === null) return; //guard
+  for (let i = 0; i < dateArr.length; i++) { //create days
+    createDayObj(dateArr[i], habitArray);
   };
 }
 
 
 
-function displayGrid(dayList, habitArray) {
+function displayGrid(dayArray, habitArray) {
   let result = '';
-  const rows = (Object.keys(dayList)).length;
-  const columns = habitArray.length;
+  const numOfDays = dayArray.length; //rows
+  const numOfHabits = habitArray.length; //columns
   //create top row
   result += `<section class="row row-top">`;
   result += `<div class="column column-top"></div>`;
-  for (let i = 0; i < columns; i++) {
-    result += `<div class="column column-top"></div>`;
+  for (let i = 0; i < numOfHabits; i++) {
+    result += `<div class="column column-top ${habitArray[i].id}">${habitArray[i].id}</div>`;
   };
   result += `</section>`; //close top section
   //create main body
-  for (let i = 0; i < rows; i++) {
+  for (let i = 0; i < numOfDays; i++) {
     result += `<section class="row row-body">`;
-    result += createDateHTMLTemplate(Object.values(dayList)[i]['date']); //creates column div to hold date
-    for (let j = 0; j < columns; j++) {
-      result += `<div class="column"></div>`;
+    result += createDateHTMLTemplate(dayArray[i]['date']); //creates column div to hold date
+    for (let j = 0; j < numOfHabits; j++) {
+      let habitName = habitArray[j].name
+      result += `<div class="column ${habitArray[j].id}">${habitArray[j].id} <br> ${habitName}</div>`;
     };
     result += `</section>`; //close main grid section
   }
