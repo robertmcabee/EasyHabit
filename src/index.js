@@ -6,9 +6,11 @@ import { format, differenceInCalendarDays } from 'date-fns';
 const form = document.querySelector('form');
 const formName = document.getElementById('form-name');
 const submitButton = document.getElementById('submit-button');
+const addPastDayButton = document.getElementById('add-past-day-button');
+const addFutureDayButton = document.getElementById('add-future-day-button');
 const habitContainer = document.getElementById('habit-container');
 const formErrorMsg = document.getElementById('form-error-msg');
-
+const showOverlayBtn = document.getElementById('show-overlay');
 const overlay = document.getElementById('overlay');
 overlay.addEventListener('mousedown', (e) => {
   // @ts-ignore
@@ -17,7 +19,6 @@ overlay.addEventListener('mousedown', (e) => {
   }
 });
 
-const showOverlayBtn = document.getElementById('show-overlay');
 showOverlayBtn.addEventListener('click', (e) => {
   overlay.style.display = "block";
 });
@@ -83,6 +84,7 @@ function createDayObj(date) {
   habitArray.forEach(habit => { // puts all habits in with a value of 0
     dayList[name][habit.id] = 0 
   });
+  displayGrid(dayList, habitArray); 
 };
 
 function addID(id) {
