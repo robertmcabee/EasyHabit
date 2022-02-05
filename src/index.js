@@ -11,6 +11,7 @@ const habitContainer = document.getElementById('habit-container');
 const formErrorMsg = document.getElementById('form-error-msg');
 const showOverlayBtn = document.getElementById('show-overlay');
 const overlay = document.getElementById('overlay');
+
 overlay.addEventListener('mousedown', (e) => {
   // @ts-ignore
   if (e.target.tagName === "DIV") {
@@ -50,10 +51,11 @@ submitButton.addEventListener("click", (event) => {
 });
 
 const idGen = () => {
-  return Math.random().toString(36).substr(2, 7); //creates a string like "fz680z"
+  return 'id=' + Math.random().toString(36).substr(2, 7); //creates a string like "fz680z"
 };
 
 function createHabit(HTMLFormData) {
+  // @ts-ignore
   if (formName.value.trim() === '') { //do nothing if name field is empty
     formErrorMsg.innerText = 'Please enter a name'
     return
@@ -91,6 +93,10 @@ function createDayObj(date, habitArray) {
     resultObj[habit.id] = 0
   });
   dayArray.unshift(resultObj)
+  console.log("the current habitArray is:")
+  console.log(habitArray)
+  console.log("the current dayArray is");
+  console.log(dayArray);
   displayGrid(dayArray, habitArray); 
 };
 
@@ -100,10 +106,11 @@ function addID(id) {
   }
 };
 
+habitArray.push({name: "Anki", id: "id=bty4afn"}, {name: "Stretch", id: "id=ohp8eeu"}) 
 refresh(now, now);
-displayGrid(dayArray, habitArray);  
+displayGrid(dayArray, habitArray);
 
-function daysElapsed(currentTime, mostRecentDay) { //returns ascending series of day objects that have elapsed or null
+function daysElapsed(currentTime, mostRecentDay) { //returns series of day objects that have elapsed
   const numOfDays = dateFNS.differenceInCalendarDays(currentTime, mostRecentDay);
   if (numOfDays < 0) return null;
   const result = [];
@@ -121,8 +128,6 @@ function refresh(currentTime, mostRecentDay) {
   };
 }
 
-
-
 function displayGrid(dayArray, habitArray) {
   let result = '';
   const numOfDays = dayArray.length; //rows
@@ -131,20 +136,40 @@ function displayGrid(dayArray, habitArray) {
   result += `<section class="row row-top">`;
   result += `<div class="column column-top"></div>`;
   for (let i = 0; i < numOfHabits; i++) {
-    result += `<div class="column column-top ${habitArray[i].id}">${habitArray[i].id}</div>`;
+    result += `<div class="column column-top">${habitArray[i].name}</div>`;
   };
   result += `</section>`; //close top section
   //create main body
   for (let i = 0; i < numOfDays; i++) {
-    result += `<section class="row row-body">`;
+    result += `<section class="row row-body ${i}">`;
     result += createDateHTMLTemplate(dayArray[i]['date']); //creates column div to hold date
     for (let j = 0; j < numOfHabits; j++) {
       let habitName = habitArray[j].name
-      result += `<div class="column ${habitArray[j].id}">${habitArray[j].id} <br> ${habitName}</div>`;
+      //don't change order of classes below or click listner will break!
+      result += `<div class="${habitArray[j].id} ${i} column"></div>`;
     };
     result += `</section>`; //close main grid section
   }
   habitContainer.innerHTML = result;
+};
+
+habitContainer.addEventListener('click', (e) => {
+  let classList = e.target.classList;
+  const id = classList[0];
+  if (id.substring(0, 3) !== 'id=') return;
+  toggleCompletion(id, classList[1]);
+});
+
+function toggleCompletion(id, dayIndex) {
+  const targetDiv = document.querySelectorAll('div.' + CSS.escape(id))[dayIndex];
+  if (dayArray[dayIndex][id] === 1) {
+    dayArray[dayIndex][id] = 0;
+    targetDiv.classList.remove('completed');
+  } else {
+    dayArray[dayIndex][id] = 1;
+    targetDiv.classList.add('completed');
+  }
+  console.log(dayArray);
 };
     
 function createDateHTMLTemplate(day) {
@@ -158,14 +183,3 @@ function createDateHTMLTemplate(day) {
   </div>`;
   return templateString;
 };
-
-// const tasks = {
-//   011822: {
-//     habit_123aax: true,
-//     habit_653zdz: false,
-//   }
-//   011922: {
-//     habit_123aax: 0,
-//     habit_653zdz: 100,
-//   }
-// };
