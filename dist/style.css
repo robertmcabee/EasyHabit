@@ -27,7 +27,7 @@ a {
 }
 
 .large{
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 
 .medium-plus{
@@ -70,16 +70,11 @@ body {
   background: rgb(0, 0, 0);
   margin: 5% auto;
   border-radius: 10px;  
-  border: solid 2px rgb(97, 97, 97);
 }
 
 .error-msg-container{
   min-height: 30px;
-  background-color: rgb(75, 75, 75);
-}
-
-#form-error-msg{
-
+  background-color: rgb(41, 41, 41);
 }
 
 .btn{
@@ -100,7 +95,6 @@ body {
 .row{
   width: 100%;
   background: black;
-  border: 1px solid rgb(50, 133, 129);
   display: flex;
   justify-content: center;
   flex-grow: 1;
@@ -108,6 +102,7 @@ body {
 
 .row-top{
   height: 100px;
+  overflow-wrap: break-word; 
 }
 
 .row-body{
@@ -115,9 +110,9 @@ body {
 }
 
 .column{
-  background: linear-gradient(45deg, rgba(11,39,64,1) 0%, rgb(14, 85, 79) 100%); 
-  width: 15%;
-  min-width: 150px;
+  background: linear-gradient(45deg, rgb(18, 60, 97) 0%, rgb(20, 112, 104) 100%); 
+  width: 18%;
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -125,7 +120,7 @@ body {
 }
 
 .completed{
-  background: linear-gradient(45deg, rgb(22, 76, 124) 0%, rgb(26, 156, 145) 100%);
+  background: linear-gradient(125deg, rgb(24, 85, 138) 0%, rgb(26, 156, 145) 100%);
 }
 
 .day-of-week{
@@ -134,8 +129,4 @@ body {
 
 .date{
   color: rgb(185, 219, 208);
-}
-
-.date-container{
-  border-right: 2px solid rgb(127, 153, 151);
 }

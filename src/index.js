@@ -67,6 +67,7 @@ function createHabit(HTMLFormData) {
   for (let key of formData.keys()) { //assign formdata key values to habit object
     habit[key] = formData.get(key);
   };
+  habit.name = habit.name.replace(/([[{};:<>$])/g, '') //sanitize user input
   habitArray.push(habit)
   addID(habit.id)
   console.log("the current habitArray is:")
@@ -87,14 +88,14 @@ let testTimeE = new Date(2022, 1, 7); //for debugging purposes
 
 
 function createDayObj(date, habitArray) {
-  let resultObj = {}
-  resultObj['date'] = date
+  let resultObj = {};
+  resultObj['date'] = date;
   habitArray.forEach(habit => {  // puts all habits in with a value of 0
-    resultObj[habit.id] = 0
+    resultObj[habit.id] = 0;
   });
-  dayArray.unshift(resultObj)
-  console.log("the current habitArray is:")
-  console.log(habitArray)
+  dayArray.unshift(resultObj);
+  console.log("the current habitArray is:");
+  console.log(habitArray);
   console.log("the current dayArray is");
   console.log(dayArray);
   displayGrid(dayArray, habitArray); 
@@ -102,11 +103,11 @@ function createDayObj(date, habitArray) {
 
 function addID(id) {
   for (let i = 0; i < dayArray.length; i++) {
-    dayArray[i][id] = 0
-  }
+    dayArray[i][id] = 0;
+  };
 };
 
-habitArray.push({name: "Anki", id: "id=bty4afn"}, {name: "Stretch", id: "id=ohp8eeu"}) 
+habitArray.push({name: "Name0", id: "id=bty4afn"}, {name: "Name1", id: "id=ohp8eeu"}) 
 refresh(now, now);
 displayGrid(dayArray, habitArray);
 
@@ -136,7 +137,7 @@ function displayGrid(dayArray, habitArray) {
   result += `<section class="row row-top">`;
   result += `<div class="column column-top"></div>`;
   for (let i = 0; i < numOfHabits; i++) {
-    result += `<div class="column column-top">${habitArray[i].name}</div>`;
+    result += `<div class="column column-top large">${habitArray[i].name}</div>`;
   };
   result += `</section>`; //close top section
   //create main body
@@ -144,7 +145,6 @@ function displayGrid(dayArray, habitArray) {
     result += `<section class="row row-body ${i}">`;
     result += createDateHTMLTemplate(dayArray[i]['date']); //creates column div to hold date
     for (let j = 0; j < numOfHabits; j++) {
-      let habitName = habitArray[j].name
       //don't change order of classes below or click listner will break!
       result += `<div class="${habitArray[j].id} ${i} column"></div>`;
     };
@@ -154,6 +154,7 @@ function displayGrid(dayArray, habitArray) {
 };
 
 habitContainer.addEventListener('click', (e) => {
+  // @ts-ignore
   let classList = e.target.classList;
   const id = classList[0];
   if (id.substring(0, 3) !== 'id=') return;
