@@ -74,6 +74,14 @@ function createHabit(HTMLFormData) {
   consoleLists()
 };
 
+function deleteHabit(id) {
+  const targetIndex = habitArray.findIndex((habit) => habit.id === id)
+  habitArray.splice(targetIndex, 1) //deletes one habit at the specified index
+  deleteID(id)
+  displayGrid(dayArray, habitArray)
+  consoleLists()
+}
+
 
 let now = new Date();
 
@@ -98,6 +106,12 @@ function createDayObj(date, habitArray) {
 function addID(id) {
   for (let i = 0; i < dayArray.length; i++) {
     dayArray[i][id] = 0;
+  };
+};
+
+function deleteID(id) {
+  for (let i = 0; i < dayArray.length; i++) {
+    delete dayArray[i][id]
   };
 };
 
@@ -130,7 +144,7 @@ function displayGrid(dayArray, habitArray) {
   result += `<section class="row row-top">`;
   result += `<div class="column column-top"></div>`;
   for (let i = 0; i < numOfHabits; i++) {
-    result += `<div class="column column-top large">${habitArray[i].name}</div>`;
+    result += `<div class="column column-top large"><span class="close-btn ${habitArray[i].id}">X</span><span>${habitArray[i].name}</span></div>`;
   };
   result += `</section>`; //close top section
   //create main body
@@ -159,12 +173,20 @@ function createDateHTMLTemplate(day) {
   return templateString;
 };
 
-habitContainer.addEventListener('click', (e) => {
+habitContainer.addEventListener('click', (e) => { //add listener to grid items
   // @ts-ignore
   let classList = e.target.classList;
   const id = classList[0];
   if (id.substring(0, 3) !== 'id=') return;
   toggleCompletion(id, classList[1]);
+});
+
+habitContainer.addEventListener('click', (e) => { //add listener to top row
+  // @ts-ignore
+  let classList = e.target.classList;
+  if (classList[0] !== 'close-btn') return;
+  const id = classList[1]
+  deleteHabit(id)
 });
 
 function toggleCompletion(id, dayIndex) {
