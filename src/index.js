@@ -67,19 +67,19 @@ function createHabit(HTMLFormData) {
   for (let key of formData.keys()) { //assign formdata key values to habit object
     habit[key] = formData.get(key);
   };
-  habit.name = habit.name.replace(/([[{};:<>$])/g, '') //sanitize user input
-  habitArray.push(habit)
-  addID(habit.id)
-  displayGrid(dayArray, habitArray)
-  consoleLists()
+  habit.name = habit.name.replace(/([[{};:<>$])/g, ''); //sanitize user input
+  habitArray.push(habit);
+  addHabitToDayArray(habit.id);
+  displayGrid(dayArray, habitArray);
+  consoleLists();
 };
 
 function deleteHabit(id) {
   const targetIndex = habitArray.findIndex((habit) => habit.id === id)
   habitArray.splice(targetIndex, 1) //deletes one habit at the specified index
-  deleteID(id)
-  displayGrid(dayArray, habitArray)
-  consoleLists()
+  deleteHabitFromDayArray(id);
+  displayGrid(dayArray, habitArray);
+  consoleLists();
 }
 
 
@@ -99,19 +99,19 @@ function createDayObj(date, habitArray) {
     resultObj[habit.id] = 0;
   });
   dayArray.unshift(resultObj);
-  consoleLists()
+  consoleLists();
   displayGrid(dayArray, habitArray); 
 };
 
-function addID(id) {
+function addHabitToDayArray(id) {
   for (let i = 0; i < dayArray.length; i++) {
     dayArray[i][id] = 0;
   };
 };
 
-function deleteID(id) {
+function deleteHabitFromDayArray(id) {
   for (let i = 0; i < dayArray.length; i++) {
-    delete dayArray[i][id]
+    delete dayArray[i][id];
   };
 };
 
@@ -158,7 +158,7 @@ function displayGrid(dayArray, habitArray) {
     result += `</section>`; //close main grid section
   }
   habitContainer.innerHTML = result;
-  updateGridStyle()
+  updateGridStyle();
 };
 
 function createDateHTMLTemplate(day) {
@@ -185,44 +185,45 @@ habitContainer.addEventListener('click', (e) => { //add listener to top row
   // @ts-ignore
   let classList = e.target.classList;
   if (classList[0] !== 'close-btn') return;
-  const id = classList[1]
-  deleteHabit(id)
+  const id = classList[1];
+  deleteHabit(id);
 });
 
 function toggleCompletion(id, dayIndex) {
   if (dayArray[dayIndex][id] === 1) {
     dayArray[dayIndex][id] = 0;
-    removeCompletedStyle(id, dayIndex)
+    removeCompletedStyle(id, dayIndex);
   } else {
     dayArray[dayIndex][id] = 1;
-    addCompletedStyle(id, dayIndex)
-  }
+    addCompletedStyle(id, dayIndex);
+  };
 };
 
 function updateGridStyle() {
   for (let dayIndex = 0; dayIndex < dayArray.length; dayIndex++) { 
     for (let habitIndex = 0; habitIndex < habitArray.length; habitIndex++) {
-      let id = habitArray[habitIndex]['id']
+      let id = habitArray[habitIndex]['id'];
       if (dayArray[dayIndex][id] === 1) {
-        addCompletedStyle(id, dayIndex)
-      } 
-    }
-  }
-}
+        addCompletedStyle(id, dayIndex);
+      };
+    };
+  };
+};
 
 function removeCompletedStyle(id, dayIndex) {
   const targetDiv = document.querySelectorAll('div.' + CSS.escape(id))[dayIndex];
   targetDiv.classList.remove('completed');
-}
+};
 
 function addCompletedStyle(id, dayIndex) {
   const targetDiv = document.querySelectorAll('div.' + CSS.escape(id))[dayIndex];
   targetDiv.classList.add('completed');
-}
+};
 
 function consoleLists() {
-  console.log("the current habitArray is:")
-  console.log(habitArray)
+  console.log("the current habitArray is:");
+  console.log(habitArray);
   console.log("the current dayArray is");
   console.log(dayArray);
-}
+};
+
