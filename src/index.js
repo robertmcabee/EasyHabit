@@ -70,11 +70,8 @@ function createHabit(HTMLFormData) {
   habit.name = habit.name.replace(/([[{};:<>$])/g, '') //sanitize user input
   habitArray.push(habit)
   addID(habit.id)
-  console.log("the current habitArray is:")
-  console.log(habitArray)
-  console.log("the current dayArray is");
-  console.log(dayArray);
   displayGrid(dayArray, habitArray)
+  consoleLists()
 };
 
 
@@ -94,10 +91,7 @@ function createDayObj(date, habitArray) {
     resultObj[habit.id] = 0;
   });
   dayArray.unshift(resultObj);
-  console.log("the current habitArray is:");
-  console.log(habitArray);
-  console.log("the current dayArray is");
-  console.log(dayArray);
+  consoleLists()
   displayGrid(dayArray, habitArray); 
 };
 
@@ -109,7 +103,6 @@ function addID(id) {
 
 habitArray.push({name: "Name0", id: "id=bty4afn"}, {name: "Name1", id: "id=ohp8eeu"}) 
 refresh(now, now);
-displayGrid(dayArray, habitArray);
 
 function daysElapsed(currentTime, mostRecentDay) { //returns series of day objects that have elapsed
   const numOfDays = dateFNS.differenceInCalendarDays(currentTime, mostRecentDay);
@@ -146,33 +139,14 @@ function displayGrid(dayArray, habitArray) {
     result += createDateHTMLTemplate(dayArray[i]['date']); //creates column div to hold date
     for (let j = 0; j < numOfHabits; j++) {
       //don't change order of classes below or click listner will break!
-      result += `<div class="${habitArray[j].id} ${i} column"></div>`;
+      result += `<div class="${habitArray[j].id} ${i} habit column"></div>`;
     };
     result += `</section>`; //close main grid section
   }
   habitContainer.innerHTML = result;
+  updateGridStyle()
 };
 
-habitContainer.addEventListener('click', (e) => {
-  // @ts-ignore
-  let classList = e.target.classList;
-  const id = classList[0];
-  if (id.substring(0, 3) !== 'id=') return;
-  toggleCompletion(id, classList[1]);
-});
-
-function toggleCompletion(id, dayIndex) {
-  const targetDiv = document.querySelectorAll('div.' + CSS.escape(id))[dayIndex];
-  if (dayArray[dayIndex][id] === 1) {
-    dayArray[dayIndex][id] = 0;
-    targetDiv.classList.remove('completed');
-  } else {
-    dayArray[dayIndex][id] = 1;
-    targetDiv.classList.add('completed');
-  }
-  console.log(dayArray);
-};
-    
 function createDateHTMLTemplate(day) {
   let month = dateFNS.format(day, 'MMM'); //i.e. 'Jan'
   let dayOfMonth = dateFNS.format(day, 'd'); //i.e. 'Monday'
@@ -184,3 +158,49 @@ function createDateHTMLTemplate(day) {
   </div>`;
   return templateString;
 };
+
+habitContainer.addEventListener('click', (e) => {
+  // @ts-ignore
+  let classList = e.target.classList;
+  const id = classList[0];
+  if (id.substring(0, 3) !== 'id=') return;
+  toggleCompletion(id, classList[1]);
+});
+
+function toggleCompletion(id, dayIndex) {
+  if (dayArray[dayIndex][id] === 1) {
+    dayArray[dayIndex][id] = 0;
+    removeCompletedStyle(id, dayIndex)
+  } else {
+    dayArray[dayIndex][id] = 1;
+    addCompletedStyle(id, dayIndex)
+  }
+};
+
+function updateGridStyle() {
+  for (let dayIndex = 0; dayIndex < dayArray.length; dayIndex++) { 
+    for (let habitIndex = 0; habitIndex < habitArray.length; habitIndex++) {
+      let id = habitArray[habitIndex]['id']
+      if (dayArray[dayIndex][id] === 1) {
+        addCompletedStyle(id, dayIndex)
+      } 
+    }
+  }
+}
+
+function removeCompletedStyle(id, dayIndex) {
+  const targetDiv = document.querySelectorAll('div.' + CSS.escape(id))[dayIndex];
+  targetDiv.classList.remove('completed');
+}
+
+function addCompletedStyle(id, dayIndex) {
+  const targetDiv = document.querySelectorAll('div.' + CSS.escape(id))[dayIndex];
+  targetDiv.classList.add('completed');
+}
+
+function consoleLists() {
+  console.log("the current habitArray is:")
+  console.log(habitArray)
+  console.log("the current dayArray is");
+  console.log(dayArray);
+}
