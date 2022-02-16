@@ -71,6 +71,7 @@ function createHabit(HTMLFormData) {
   habitArray.push(habit);
   addHabitToDayArray(habit.id);
   displayGrid(dayArray, habitArray);
+  updateGridStyle();
   consoleLists();
 };
 
@@ -79,6 +80,7 @@ function deleteHabit(id) {
   habitArray.splice(targetIndex, 1) //deletes one habit at the specified index
   deleteHabitFromDayArray(id);
   displayGrid(dayArray, habitArray);
+  updateGridStyle();
   consoleLists();
 }
 
@@ -100,7 +102,8 @@ function createDayObj(date, habitArray) {
   });
   dayArray.unshift(resultObj);
   consoleLists();
-  displayGrid(dayArray, habitArray); 
+  displayGrid(dayArray, habitArray);
+  updateGridStyle();
 };
 
 function addHabitToDayArray(id) {
@@ -116,7 +119,7 @@ function deleteHabitFromDayArray(id) {
 };
 
 habitArray.push({name: "Name0", id: "id=bty4afn"}, {name: "Name1", id: "id=ohp8eeu"}) 
-refresh(now, now);
+refresh(now, testTimeE);
 
 function daysElapsed(currentTime, mostRecentDay) { //returns series of day objects that have elapsed
   const numOfDays = dateFNS.differenceInCalendarDays(currentTime, mostRecentDay);
@@ -158,7 +161,6 @@ function displayGrid(dayArray, habitArray) {
     result += `</section>`; //close main grid section
   }
   habitContainer.innerHTML = result;
-  updateGridStyle();
 };
 
 function createDateHTMLTemplate(day) {
