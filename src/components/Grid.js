@@ -22,33 +22,17 @@ class Grid extends Component {
     return dates;
   };
 
+  
+
   state = {
     uniqueDates: this.getUniqueDates(this.props.habitData)
   }
 
-
-  // generateDateColumn = (array) => {
-  //   let uniqueDates = this.getUniqueDates(array)
-
-  //   return uniqueDates.forEach(date => {
-  //     this.formatDate(date)
-  //   })
-  // }
-
-
   render() { 
-
-    // return this.props.habitData.map((habitItem) => (
-    //   <p>{habitItem.id}{ this.formatDate(habitItem.date) }</p>
-    // ))
 
     return (
       <div>
-        {/* <div>{ this.getUniqueDates(this.props.habitData) }</div> */}
-        <p>hmmm</p>
-        <p>{ 1+1 }</p>
         <DateColumn dates={this.state.uniqueDates} />
-        {/* <DateColumn dates={['2022-02-01','2022-02-02','2022-02-03','2022-02-01','2022-02-02','2022-02-03','2022-02-04',]} /> */}
       </div>
       ) 
   }
