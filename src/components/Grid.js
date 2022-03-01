@@ -4,35 +4,34 @@ import DateColumn from './DateColumn';
 
 class Grid extends Component {
 
-  getUniqueDates = (array) => {
-    console.log(array)
-    //collect all dates from array of objects
-    const dates = [];
+  getUniqueHabits = (array) => {
+    //collect all habits from array of objects
+    const habits = [];
     array.forEach(item => {
-      dates.push(item.date)
+      habits.push(item.habit)
     });
     //filter out duplicates
-    dates.sort();
-    for (let i = 0; i < dates.length; i++) {
-      if (dates[i] === dates[i + 1]) {
-        dates.splice(i + 1, 1)
+    habits.sort();
+    for (let i = 0; i < habits.length; i++) {
+      if (habits[i] === habits[i + 1]) {
+        habits.splice(i + 1, 1)
         i--
       }
     }
-    return dates;
+    return habits;
   };
 
-  
-
   state = {
-    uniqueDates: this.getUniqueDates(this.props.habitData)
+    uniqueHabits: this.getUniqueHabits(this.props.habits)
   }
+
 
   render() { 
 
     return (
       <div>
-        <DateColumn dates={this.state.uniqueDates} />
+        <DateColumn dates={this.props.dates} />
+        <button onClick={()=>{console.log(this.state.uniqueHabits)}}>...</button>
       </div>
       ) 
   }

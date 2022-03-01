@@ -13,8 +13,9 @@ class DateColumn extends Component {
 
   render() { 
     return this.props.dates.map((date) => (
-      <div> {this.formatDate(date)} </div>
+      <div key={date}> {this.formatDate(date)} </div>
     ))
+
   }
 }
  

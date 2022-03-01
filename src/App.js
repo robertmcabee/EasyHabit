@@ -15,19 +15,27 @@ class App extends Component {
     //   { id: 'fz680z', name: 'Anki', color: 'green' }
     // ],
 
-    habitData: [
+    habits: [
       //uniqueID
-      //date
       //habitID
       //completion
       { id: '3sk279pp', date: '2022-02-01', habit: 'fz680z', completion: 0 },
       { id: '052279dc', date: '2022-02-02', habit: 'fz680z', completion: 0 },
       { id: '152224pf', date: '2022-02-03', habit: 'fz680z', completion: 0 },
-      { id: '3sk279pp', date: '2022-02-01', habit: 'fz680z', completion: 0 },
-      { id: '052279dc', date: '2022-02-02', habit: 'fz680z', completion: 0 },
-      { id: '152224pf', date: '2022-02-03', habit: 'fz680z', completion: 0 },
-      { id: '152224pf', date: '2022-02-04', habit: 'fz680z', completion: 0 },
+      { id: '4724pfxb', date: '2022-02-04', habit: 'fz680z', completion: 0 },
+      { id: 'pi4sd282', date: '2022-02-01', habit: 'po3532', completion: 0 },
+      { id: 'pi41s182', date: '2022-02-02', habit: 'po3532', completion: 0 },
+      { id: '004sd282', date: '2022-02-03', habit: 'po3532', completion: 0 },
+      { id: '334sd23p', date: '2022-02-04', habit: 'po3532', completion: 0 },
     ],
+
+    dates: [
+      '2022-02-01',
+      '2022-02-02',
+      '2022-02-03',
+      '2022-02-04',
+    ],
+
   };
   
   tests = () => {
@@ -41,9 +49,6 @@ class App extends Component {
     const testTimeD = new Date(2022, 1, 5); //for debugging purposes
     const testTimeE = new Date(2022, 1, 7); //for debugging purposes
 }
-
-
-
   
   daysElapsed = (currentTime, mostRecentDay) => { //returns series of formatted days that have elapsed
     const numOfDays = differenceInCalendarDays(currentTime, mostRecentDay);
@@ -74,13 +79,22 @@ class App extends Component {
     console.log(this.state.habitProperties);
   };
 
-
+  addDay = () => {
+    const lastDate = this.state.dates[this.state.dates.length - 1]
+    const parsedLastDate = parse(lastDate, 'yyyy-MM-dd', new Date())
+    const newDate = add(parsedLastDate, { days: 1 })
+    const formattedNewDate = format(newDate, 'yyyy-MM-dd')
+    this.setState({
+      dates: [...this.state.dates, formattedNewDate]
+    })
+  }
 
   render() { 
   return (
     <div>
+      <button onClick={this.addDay}>New Day</button>
       <Form />
-      <Grid habitData={this.state.habitData} />
+      <Grid habits={this.state.habits} dates={this.state.dates} />
     </div>
     );
   }
