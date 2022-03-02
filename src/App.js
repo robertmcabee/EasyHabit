@@ -8,25 +8,49 @@ class App extends Component {
 
   state = {
 
-    // habitProperties: [
-    //   //habitID
-    //   //color
-    //   //name
-    //   { id: 'fz680z', name: 'Anki', color: 'green' }
-    // ],
+    habitProperties: [
+      //habitID
+      //color
+      //name
+      //childIds:
+      {
+        propertyId: '00680z',
+        displayName: 'Anki',
+        color: 'green',
+        childIds: [
+          '0sk279pp',
+          '052279dc',
+          '052224pf',
+          '0724pfxb',
+        ]
+      },
+      {
+        propertyId: '1o3532',
+        displayName: 'Anki',
+        color: 'red',
+        childIds: [
+          '1i4sd282',
+          '1i41s182',
+          '104sd282',
+          '134sd23p',
+        ]
+      },
+    ],
 
     habits: [
       //uniqueID
       //habitID
       //completion
-      { id: '3sk279pp', date: '2022-02-01', habit: 'fz680z', completion: 0 },
-      { id: '052279dc', date: '2022-02-02', habit: 'fz680z', completion: 0 },
-      { id: '152224pf', date: '2022-02-03', habit: 'fz680z', completion: 0 },
-      { id: '4724pfxb', date: '2022-02-04', habit: 'fz680z', completion: 0 },
-      { id: 'pi4sd282', date: '2022-02-01', habit: 'po3532', completion: 0 },
-      { id: 'pi41s182', date: '2022-02-02', habit: 'po3532', completion: 0 },
-      { id: '004sd282', date: '2022-02-03', habit: 'po3532', completion: 0 },
-      { id: '334sd23p', date: '2022-02-04', habit: 'po3532', completion: 0 },
+      { id: '0sk279pp', date: '2022-02-01', propertyId: '00680z', completion: 0 },
+      { id: '052279dc', date: '2022-02-02', propertyId: '00680z', completion: 0 },
+      { id: '052224pf', date: '2022-02-03', propertyId: '00680z', completion: 0 },
+      { id: '0724pfxb', date: '2022-02-04', propertyId: '00680z', completion: 0 },
+
+      { id: '1i4sd282', date: '2022-02-01', propertyId: '1o3532', completion: 0 },
+      { id: '1i41s182', date: '2022-02-02', propertyId: '1o3532', completion: 0 },
+      { id: '104sd282', date: '2022-02-03', propertyId: '1o3532', completion: 0 },
+      { id: '134sd23p', date: '2022-02-04', propertyId: '1o3532', completion: 0 },
+      
     ],
 
     dates: [
@@ -94,7 +118,7 @@ class App extends Component {
     <div>
       <button onClick={this.addDay}>New Day</button>
       <Form />
-      <Grid habits={this.state.habits} dates={this.state.dates} />
+      <Grid habits={this.state.habits} habitProperties={this.state.habitProperties} dates={this.state.dates} />
     </div>
     );
   }
