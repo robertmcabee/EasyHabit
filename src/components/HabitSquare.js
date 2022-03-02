@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
 class HabitSquare extends Component {
-  state = {  } 
   render() { 
     return (
       <div>
-        
+        <p>Square {this.props.data.id}</p>
       </div>
     );
   }

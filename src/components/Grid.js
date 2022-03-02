@@ -3,18 +3,11 @@ import DateColumn from './DateColumn';
 import HabitColumn from './HabitColumn';
 class Grid extends Component {
 
-  getUniqueHabits = () => {
-    let result = []
-    this.props.habitProperties.forEach(element => { 
-      result.push(element.propertyId)
-    })
-    return result;
-  };
-
+  //creates array of objects
   getHabitColumns = () => {
     //get parent columns
+    let resultArray = []
     let parents = []
-    let parentsObj = {}
     this.props.habitProperties.forEach(habitProperty => { 
       parents.push(habitProperty.propertyId)
     })
@@ -26,31 +19,30 @@ class Grid extends Component {
           children.push(habit)
         }
       });
-      parentsObj[thisParent] = children
+      //push child objects to array
+      resultArray.push(children)
     });
-    return parentsObj
-  }
-
-  generateColumnJSX = () => {
-    this.state.columns.forEach(column => {
-      
-    });
+    return resultArray
   }
 
   state = {
-    uniqueHabits: this.getUniqueHabits(),
     columns: this.getHabitColumns(),
   }
 
 
   render() { 
 
+    let columns = this.state.columns.map(column => {
+      return <HabitColumn squares={column}/>
+      // return <p>aa</p>
+    })
+
     return (
       <div>
+        {columns}
         <DateColumn dates={this.props.dates} />
-        <button onClick={()=>{console.log(this.state.columns)}}>...</button>
+        {/* <button onClick={()=>{console.log(this.state.columns)}}>...</button> */}
         {/* <button onClick={()=>{this.getHabitColumns()}}>...</button> */}
-        <p>{ String(this.state.columns) }</p>
       </div>
       ) 
   }
