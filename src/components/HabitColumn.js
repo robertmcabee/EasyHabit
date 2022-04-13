@@ -11,7 +11,7 @@ class HabitColumn extends Component {
   render() { 
 
     let squares = this.props.column.gridItems.map(square => {
-      return <HabitSquare data={square}/>
+      return <HabitSquare data={square} key={square.gridId}/>
     })
 
     return (

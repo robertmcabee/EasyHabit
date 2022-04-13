@@ -10,69 +10,29 @@ class App extends Component {
   state = {
 
     dates: [
-      '2022-02-01',
-      '2022-02-02',
-      '2022-02-03',
-      '2022-02-04',
+      // '2022-02-01',
+      // '2022-02-02',
+      // '2022-02-03',
+      // '2022-02-04',
     ],
 
     habits: [
 
-      {
-        habitId: '00680z',
-        displayName: 'Anki',
-        color: 'green',
-        gridItems: [
-          {
-            gridId: '00680z-1',
-            date: '2022-02-01',
-            completed: false,
-          },
-          {
-            gridId: '00680z-2',
-            date: '2022-02-02',
-            completed: true,
-          },
-          {
-            gridId: '00680z-3',
-            date: '2022-02-03',
-            completed: false,
-          },
-          {
-            gridId: '00680z-4',
-            date: '2022-02-04',
-            completed: false,
-          },
-        ],
-      },
-
-      {
-        habitId: '7er11n',
-        displayName: 'Stretch',
-        color: 'blue',
-        gridItems: [
-          {
-            gridId: '7er11n-1',
-            date: '2022-02-01',
-            completed: true,
-          },
-          {
-            gridId: '7er11n-2',
-            date: '2022-02-02',
-            completed: false,
-          },
-          {
-            gridId: '7er11n-3',
-            date: '2022-02-03',
-            completed: false,
-          },
-          {
-            gridId: '7er11n-4',
-            date: '2022-02-04',
-            completed: true,
-          },
-        ],
-      },
+      // {
+      //   habitId: '00680z',
+      //   displayName: 'Anki',
+      //   color: 'green',
+      //   gridItems: [
+      //     {
+      //       gridId: '00680z-1',
+      //       date: '2022-02-01',
+      //       completed: false,
+      //     },
+      //     ...
+      //     ...
+      //     ...
+      //   ],
+      // },
 
     ],
 
@@ -96,6 +56,74 @@ class App extends Component {
     console.log(this.state.habits);
   };
 
+  loadTestState = () => {
+    this.setState({
+      dates: [
+        '2022-02-01',
+        '2022-02-02',
+        '2022-02-03',
+        '2022-02-04',
+      ],
+      habits: [
+        {
+          habitId: '00680z',
+          displayName: 'Anki',
+          color: 'green',
+          gridItems: [
+            {
+              gridId: '00680z-1',
+              date: '2022-02-01',
+              completed: false,
+            },
+            {
+              gridId: '00680z-2',
+              date: '2022-02-02',
+              completed: true,
+            },
+            {
+              gridId: '00680z-3',
+              date: '2022-02-03',
+              completed: false,
+            },
+            {
+              gridId: '00680z-4',
+              date: '2022-02-04',
+              completed: false,
+            },
+          ],
+        },
+  
+        {
+          habitId: '7er11n',
+          displayName: 'Stretch',
+          color: 'blue',
+          gridItems: [
+            {
+              gridId: '7er11n-1',
+              date: '2022-02-01',
+              completed: true,
+            },
+            {
+              gridId: '7er11n-2',
+              date: '2022-02-02',
+              completed: false,
+            },
+            {
+              gridId: '7er11n-3',
+              date: '2022-02-03',
+              completed: false,
+            },
+            {
+              gridId: '7er11n-4',
+              date: '2022-02-04',
+              completed: true,
+            },
+          ],
+        },
+      ]
+    })
+  };
+
   addDay = () => {
     const lastDate = this.state.dates[this.state.dates.length - 1]
     const parsedLastDate = parse(lastDate, 'yyyy-MM-dd', new Date()) //convert string into js date object
@@ -104,6 +132,13 @@ class App extends Component {
     this.setState({
       dates: [...this.state.dates, formattedNewDate]
     })
+    this.state.habits.forEach(habit => { //add new grid items to each habit for the new day
+      habit.gridItems.push({
+        gridId: habit.habitId + '-' + formattedNewDate,
+        date: formattedNewDate,
+        completed: false,
+      })
+    });
   }
 
   addHabit = (name) => {
@@ -124,13 +159,31 @@ class App extends Component {
     });
   };
 
+  addStartDate = () => { 
+    this.setState({
+      dates: [...this.state.dates, format(new Date(), 'yyyy-MM-dd')],
+    });
+  }
+
+  componentDidMount() {
+    //check for no days
+    if (this.state.dates.length === 0) {
+      this.addStartDate()
+    }
+    //check if day has changed
+  }
+
   render() { 
-  return (
-    <div>
-      <button onClick={this.addDay} className="bg-black text-white rounded-md p-2">New Day</button>
-      <Form addHabit={this.addHabit}/>
-      <Grid habits={this.state.habits} dates={this.state.dates} />
-    </div>
+
+    return (
+      <div>
+        <div className='flex space-x-2 my-4'>
+          <button onClick={this.addDay} className="bg-neutral-500 text-white rounded-md p-2">New Day</button>
+          <button onClick={()=>{this.loadTestState()}} className="bg-neutral-500 text-white rounded-md p-2">Load Test</button>
+        </div>
+        <Form addHabit={this.addHabit}/>
+        <Grid habits={this.state.habits} dates={this.state.dates} />
+      </div>
     );
   }
 }

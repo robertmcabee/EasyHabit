@@ -10,9 +10,7 @@ class Grid extends Component {
   render() { 
 
     let columns = this.props.habits.map(column => {
-      // return <HabitColumn squares={column}/>
       return <HabitColumn key={column.habitId} column={column}/>
-      // return <p>{column.displayName}</p>
     })
 
     return (
