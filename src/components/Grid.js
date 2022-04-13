@@ -3,36 +3,16 @@ import DateColumn from './DateColumn';
 import HabitColumn from './HabitColumn';
 class Grid extends Component {
 
-  //creates array of objects
-  getHabitColumns = () => {
-    //get parent columns
-    let resultArray = []
-    let parents = []
-    this.props.habitProperties.forEach(habitProperty => { 
-      parents.push(habitProperty.propertyId)
-    })
-    //sort
-    parents.forEach(thisParent => {
-      let children = []
-      this.props.habitGrid.forEach(habit => {
-        if (habit.propertyId === thisParent) {
-          children.push(habit)
-        }
-      });
-      //push child objects to array
-      resultArray.push(children)
-    });
-    return resultArray
-  }
-
   state = {
-    columns: this.getHabitColumns(),
+    // habits: this.props.habits,
   }
 
   render() { 
 
-    let columns = this.state.columns.map(column => {
-      return <HabitColumn squares={column}/>
+    let columns = this.props.habits.map(column => {
+      // return <HabitColumn squares={column}/>
+      return <HabitColumn key={column.habitId} column={column}/>
+      // return <p>{column.displayName}</p>
     })
 
     return (
@@ -41,7 +21,7 @@ class Grid extends Component {
           <DateColumn dates={this.props.dates} />
         </div>
         {columns}
-        {/* <button onClick={()=>{console.log(this.state.columns)}}>...</button> */}
+        {/* <button onClick={()=>{console.log(this.state.habits)}}>...</button> */}
         {/* <button onClick={()=>{this.getHabitColumns()}}>...</button> */}
       </div>
       ) 

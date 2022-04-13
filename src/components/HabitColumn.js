@@ -10,15 +10,14 @@ class HabitColumn extends Component {
 
   render() { 
 
-    let squares = this.props.squares.map(square => {
+    let squares = this.props.column.gridItems.map(square => {
       return <HabitSquare data={square}/>
-      // return <p>aa</p>
     })
 
     return (
       <div>
         <h3 className='h-10 font-bold'>
-          {this.props.squares[0].propertyId}
+          {this.props.column.displayName}
         </h3>
         {squares}
       </div>

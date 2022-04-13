@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { format, parse, add, differenceInCalendarDays } from 'date-fns';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'; //example: 273a442e-9882-4662-8a99-16be011bd3b6
 import Grid from './components/Grid';
 import Form from './components/Form';
 import './style.css'
@@ -9,54 +9,71 @@ class App extends Component {
 
   state = {
 
-    habitProperties: [
-      //habitID
-      //color
-      //name
-      //childIds:
-      {
-        propertyId: '00680z',
-        displayName: 'Anki',
-        color: 'green',
-        childIds: [
-          '0sk279pp',
-          '052279dc',
-          '052224pf',
-          '0724pfxb',
-        ]
-      },
-      {
-        propertyId: '1o3532',
-        displayName: 'Anki',
-        color: 'red',
-        childIds: [
-          '1i4sd282',
-          '1i41s182',
-          '104sd282',
-          '134sd23p',
-        ]
-      },
-    ],
-
-    habitGrid: [
-
-      { id: '0sk279pp', date: '2022-02-01', propertyId: '00680z', completion: 0 },
-      { id: '052279dc', date: '2022-02-02', propertyId: '00680z', completion: 0 },
-      { id: '052224pf', date: '2022-02-03', propertyId: '00680z', completion: 0 },
-      { id: '0724pfxb', date: '2022-02-04', propertyId: '00680z', completion: 0 },
-
-      { id: '1i4sd282', date: '2022-02-01', propertyId: '1o3532', completion: 0 },
-      { id: '1i41s182', date: '2022-02-02', propertyId: '1o3532', completion: 0 },
-      { id: '104sd282', date: '2022-02-03', propertyId: '1o3532', completion: 0 },
-      { id: '134sd23p', date: '2022-02-04', propertyId: '1o3532', completion: 0 },
-      
-    ],
-
     dates: [
       '2022-02-01',
       '2022-02-02',
       '2022-02-03',
       '2022-02-04',
+    ],
+
+    habits: [
+
+      {
+        habitId: '00680z',
+        displayName: 'Anki',
+        color: 'green',
+        gridItems: [
+          {
+            gridId: '00680z-1',
+            date: '2022-02-01',
+            completed: false,
+          },
+          {
+            gridId: '00680z-2',
+            date: '2022-02-02',
+            completed: true,
+          },
+          {
+            gridId: '00680z-3',
+            date: '2022-02-03',
+            completed: false,
+          },
+          {
+            gridId: '00680z-4',
+            date: '2022-02-04',
+            completed: false,
+          },
+        ],
+      },
+
+      {
+        habitId: '7er11n',
+        displayName: 'Stretch',
+        color: 'blue',
+        gridItems: [
+          {
+            gridId: '7er11n-1',
+            date: '2022-02-01',
+            completed: true,
+          },
+          {
+            gridId: '7er11n-2',
+            date: '2022-02-02',
+            completed: false,
+          },
+          {
+            gridId: '7er11n-3',
+            date: '2022-02-03',
+            completed: false,
+          },
+          {
+            gridId: '7er11n-4',
+            date: '2022-02-04',
+            completed: true,
+          },
+        ],
+      },
+
     ],
 
   };
@@ -73,10 +90,10 @@ class App extends Component {
   };
 
   consoleLists = () => {
-    console.log("the current habitData is:");
-    console.log(this.state.habitData);
-    console.log("the current habitProperties is");
-    console.log(this.state.habitProperties);
+    console.log("the current dates are:");
+    console.log(this.state.dates);
+    console.log("the current habits are");
+    console.log(this.state.habits);
   };
 
   addDay = () => {
@@ -91,20 +108,28 @@ class App extends Component {
 
   addHabit = (name) => {
     name = name.replace(/([[{};:<>$])/g, ''); //sanitize user input
-    let newHabitProperty = {}
-    newHabitProperty['displayName'] = name
-    newHabitProperty['propertyName'] = uuidv4()
+    let newHabit = {};
+    newHabit['habitId'] = uuidv4().slice(0, 8);
+    newHabit['displayName'] = name;
+    newHabit['color'] = 'blue';
+    newHabit['gridItems'] = this.state.dates.map(date => {
+      return {
+        gridId: newHabit.habitId + '-' + date,
+        date: date,
+        completed: false,
+      };
+    });
     this.setState({
-      habitProperties: [...this.state.habitProperties, newHabitProperty]
-    })
-  }
+      habits: [...this.state.habits, newHabit]
+    });
+  };
 
   render() { 
   return (
     <div>
       <button onClick={this.addDay} className="bg-black text-white rounded-md p-2">New Day</button>
       <Form addHabit={this.addHabit}/>
-      <Grid habitGrid={this.state.habitGrid} habitProperties={this.state.habitProperties} dates={this.state.dates} />
+      <Grid habits={this.state.habits} dates={this.state.dates} />
     </div>
     );
   }
