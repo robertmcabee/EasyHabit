@@ -8,12 +8,17 @@ class DateColumn extends Component {
     const dayOfMonth = format(dateObj, 'd'); //i.e. 'Monday'
     const monthName = format(dateObj, 'MMM'); //i.e. 'Jan'
     const dayOfWeek = format(dateObj, 'iiii'); //i.e. '18'
-    return <div><p>{ dayOfWeek }</p><p>{monthName} {dayOfMonth}</p></div>
+    return <div className='h-20 bg-neutral-100'>
+      <p>{dayOfWeek}</p>
+      <p>{monthName} {dayOfMonth}</p>
+    </div>
   }
 
   render() { 
     return this.props.dates.map((date) => (
-      <div key={date}> {this.formatDate(date)} </div>
+      <div key={date}>
+        {this.formatDate(date)}
+      </div>
     ))
 
   }

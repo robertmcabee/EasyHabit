@@ -14,7 +14,7 @@ class Grid extends Component {
     //sort
     parents.forEach(thisParent => {
       let children = []
-      this.props.habits.forEach(habit => {
+      this.props.habitGrid.forEach(habit => {
         if (habit.propertyId === thisParent) {
           children.push(habit)
         }
@@ -29,18 +29,18 @@ class Grid extends Component {
     columns: this.getHabitColumns(),
   }
 
-
   render() { 
 
     let columns = this.state.columns.map(column => {
       return <HabitColumn squares={column}/>
-      // return <p>aa</p>
     })
 
     return (
-      <div>
+      <div className='flex h-full bg-neutral-200 space-x-3'>
+        <div className='pt-10'>
+          <DateColumn dates={this.props.dates} />
+        </div>
         {columns}
-        <DateColumn dates={this.props.dates} />
         {/* <button onClick={()=>{console.log(this.state.columns)}}>...</button> */}
         {/* <button onClick={()=>{this.getHabitColumns()}}>...</button> */}
       </div>

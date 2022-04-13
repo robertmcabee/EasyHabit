@@ -3,6 +3,7 @@ import { format, parse, add, differenceInCalendarDays } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 import Grid from './components/Grid';
 import Form from './components/Form';
+import './style.css'
 
 class App extends Component {
 
@@ -37,10 +38,8 @@ class App extends Component {
       },
     ],
 
-    habits: [
-      //uniqueID
-      //habitID
-      //completion
+    habitGrid: [
+
       { id: '0sk279pp', date: '2022-02-01', propertyId: '00680z', completion: 0 },
       { id: '052279dc', date: '2022-02-02', propertyId: '00680z', completion: 0 },
       { id: '052224pf', date: '2022-02-03', propertyId: '00680z', completion: 0 },
@@ -62,18 +61,6 @@ class App extends Component {
 
   };
   
-  tests = () => {
-    let test = parse('2022-02-01', 'yyyy-MM-dd', new Date())
-    let changed = format(test, 'yyyy-MM-dd')
-    let formatted = parse(changed, 'yyyy-MM-dd', new Date())
-    const now = new Date(); 
-    const testTimeA = new Date(2022, 0, 27); // 1-27-22 for debugging purposes
-    const testTimeB = new Date(2022, 0, 29); // 1-29-22 for debugging purposes
-    const testTimeC = new Date(2022, 0, 30); // 1-30-22 for debugging purposes
-    const testTimeD = new Date(2022, 1, 5); //for debugging purposes
-    const testTimeE = new Date(2022, 1, 7); //for debugging purposes
-}
-  
   daysElapsed = (currentTime, mostRecentDay) => { //returns series of formatted days that have elapsed
     const numOfDays = differenceInCalendarDays(currentTime, mostRecentDay);
     if (numOfDays < 0) return null;
@@ -85,17 +72,6 @@ class App extends Component {
     return result;
   };
 
-  // createHabitData = (date, habit) => {
-  //   let resultObj = {};
-  //   resultObj['date'] = date;
-  //   resultObj['id'] = uuidv4();
-  //   resultObj['habit'] = habit;
-  //   resultObj['completion'] = 0;
-  //   // habitData.unshift(resultObj);
-  //   this.setState({})
-  //   this.consoleLists();
-  // };
-
   consoleLists = () => {
     console.log("the current habitData is:");
     console.log(this.state.habitData);
@@ -105,20 +81,30 @@ class App extends Component {
 
   addDay = () => {
     const lastDate = this.state.dates[this.state.dates.length - 1]
-    const parsedLastDate = parse(lastDate, 'yyyy-MM-dd', new Date())
+    const parsedLastDate = parse(lastDate, 'yyyy-MM-dd', new Date()) //convert string into js date object
     const newDate = add(parsedLastDate, { days: 1 })
-    const formattedNewDate = format(newDate, 'yyyy-MM-dd')
+    const formattedNewDate = format(newDate, 'yyyy-MM-dd') //convert new date into string
     this.setState({
       dates: [...this.state.dates, formattedNewDate]
+    })
+  }
+
+  addHabit = (name) => {
+    name = name.replace(/([[{};:<>$])/g, ''); //sanitize user input
+    let newHabitProperty = {}
+    newHabitProperty['displayName'] = name
+    newHabitProperty['propertyName'] = uuidv4()
+    this.setState({
+      habitProperties: [...this.state.habitProperties, newHabitProperty]
     })
   }
 
   render() { 
   return (
     <div>
-      <button onClick={this.addDay}>New Day</button>
-      <Form />
-      <Grid habits={this.state.habits} habitProperties={this.state.habitProperties} dates={this.state.dates} />
+      <button onClick={this.addDay} className="bg-black text-white rounded-md p-2">New Day</button>
+      <Form addHabit={this.addHabit}/>
+      <Grid habitGrid={this.state.habitGrid} habitProperties={this.state.habitProperties} dates={this.state.dates} />
     </div>
     );
   }
