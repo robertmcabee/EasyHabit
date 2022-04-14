@@ -56,6 +56,20 @@ class App extends Component {
     console.log(this.state.habits);
   };
 
+  toggleCompletion = (id) => {
+    this.setState({
+      habits: this.state.habits.map(habit => {
+        habit.gridItems.map(item => {
+          if (item.gridId === id) {
+            item.completed = !item.completed;
+          }
+          return item;
+        })
+        return habit;
+      })
+    });
+  }
+
   loadTestState = () => {
     this.setState({
       dates: [
@@ -182,7 +196,7 @@ class App extends Component {
           <button onClick={()=>{this.loadTestState()}} className="bg-neutral-500 text-white rounded-md p-2">Load Test</button>
         </div>
         <Form addHabit={this.addHabit}/>
-        <Grid habits={this.state.habits} dates={this.state.dates} />
+        <Grid habits={this.state.habits} dates={this.state.dates} toggleCompletion={this.toggleCompletion}/>
       </div>
     );
   }
