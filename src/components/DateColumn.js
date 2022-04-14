@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 class DateColumn extends Component {
 
   formatDate = (dateString) => {
-    const dateObj = parse(dateString, 'yyyy-MM-dd', new Date())
+    const dateObj = parse(dateString, 'yyyy-MM-dd', new Date());
     const dayOfMonth = format(dateObj, 'd'); //i.e. 'Monday'
     const monthName = format(dateObj, 'MMM'); //i.e. 'Jan'
     const dayOfWeek = format(dateObj, 'iiii'); //i.e. '18'

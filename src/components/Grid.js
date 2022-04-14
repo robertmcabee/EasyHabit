@@ -10,8 +10,8 @@ class Grid extends Component {
   render() { 
 
     let columns = this.props.habits.map(column => {
-      return <HabitColumn key={column.habitId} column={column} toggleCompletion={this.props.toggleCompletion}/>
-    })
+      return <HabitColumn key={column.habitId} column={column} toggleCompletion={this.props.toggleCompletion} />
+    });
 
     return (
       <div className='flex h-full bg-neutral-200 space-x-8'>
@@ -22,9 +22,9 @@ class Grid extends Component {
         {/* <button onClick={()=>{console.log(this.state.habits)}}>...</button> */}
         {/* <button onClick={()=>{this.getHabitColumns()}}>...</button> */}
       </div>
-      ) 
-  }
-}
+    );
+  };
+};
  
 export default Grid;
 

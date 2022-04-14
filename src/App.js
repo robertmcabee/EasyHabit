@@ -45,15 +45,7 @@ class App extends Component {
     for (let i = 0; i < numOfDays + 1; i++) {
       result.push(format(add(mostRecentDay, {days: i}), 'yyyy-MM-dd')) //creates an ascending series of formatted days
     };
-    console.log(result)
     return result;
-  };
-
-  consoleLists = () => {
-    console.log("the current dates are:");
-    console.log(this.state.dates);
-    console.log("the current habits are");
-    console.log(this.state.habits);
   };
 
   toggleCompletion = (id) => {
@@ -62,13 +54,13 @@ class App extends Component {
         habit.gridItems.map(item => {
           if (item.gridId === id) {
             item.completed = !item.completed;
-          }
+          };
           return item;
-        })
+        });
         return habit;
       })
     });
-  }
+  };
 
   loadTestState = () => {
     this.setState({
@@ -139,21 +131,21 @@ class App extends Component {
   };
 
   addDay = () => {
-    const lastDate = this.state.dates[this.state.dates.length - 1]
-    const parsedLastDate = parse(lastDate, 'yyyy-MM-dd', new Date()) //convert string into js date object
-    const newDate = add(parsedLastDate, { days: 1 })
-    const formattedNewDate = format(newDate, 'yyyy-MM-dd') //convert new date into string
+    const lastDate = this.state.dates[this.state.dates.length - 1];
+    const parsedLastDate = parse(lastDate, 'yyyy-MM-dd', new Date()); //convert string into js date object
+    const newDate = add(parsedLastDate, { days: 1 });
+    const formattedNewDate = format(newDate, 'yyyy-MM-dd'); //convert new date into string
     this.setState({
       dates: [...this.state.dates, formattedNewDate]
-    })
+    });
     this.state.habits.forEach(habit => { //add new grid items to each habit for the new day
       habit.gridItems.push({
         gridId: habit.habitId + '-' + formattedNewDate,
         date: formattedNewDate,
         completed: false,
-      })
+      });
     });
-  }
+  };
 
   addHabit = (name) => {
     name = name.replace(/([[{};:<>$])/g, ''); //sanitize user input
@@ -173,19 +165,19 @@ class App extends Component {
     });
   };
 
-  addStartDate = () => { 
+  addStartDate = () => {
     this.setState({
       dates: [...this.state.dates, format(new Date(), 'yyyy-MM-dd')],
     });
-  }
+  };
 
   componentDidMount() {
     //check for no days
     if (this.state.dates.length === 0) {
-      this.addStartDate()
+      this.addStartDate();
     }
     //check if day has changed
-  }
+  };
 
   render() { 
 

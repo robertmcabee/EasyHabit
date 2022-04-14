@@ -3,16 +3,16 @@ import React, { Component } from 'react';
 class Form extends Component {
   state = {
     name: 'placeholder',
-  }
+  };
 
 
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.addHabit(this.state.name); //run addHabit() in app.js
     this.setState({ name: '' }); //clear input field
-  }
+  };
 
-  handleChange = (event) => this.setState({[event.target.name]: event.target.value})
+  handleChange = (event) => this.setState({ [event.target.name]: event.target.value });
 
   render() { 
     return (
@@ -29,7 +29,7 @@ class Form extends Component {
         <div className="overlay-background"></div>
       </div>
     );
-  }
-}
+  };
+};
  
 export default Form;

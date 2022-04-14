@@ -4,15 +4,15 @@ class HabitSquare extends Component {
 
   state = {
     color: 'lightgrey',
-  }
+  };
 
   handleClick = () => { 
     this.props.toggleCompletion(this.props.data.gridId)
     this.updateCSS();
   }
   
-  updateCSS = () => { 
-    if (this.props.data.completed) { 
+  updateCSS = () => {
+    if (this.props.data.completed) {
       this.setState({
         color: 'lightgreen'
       });
@@ -20,8 +20,8 @@ class HabitSquare extends Component {
       this.setState({
         color: 'lightgrey'
       });
-    }
-  }
+    };
+  };
 
   componentDidMount() {
     this.updateCSS();
