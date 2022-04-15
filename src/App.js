@@ -171,13 +171,44 @@ class App extends Component {
     });
   };
 
+  setLocalStorage = () => {
+    console.log('-----------storing state-----------');
+    console.log('--------------habits:');
+    console.log(this.state.habits);
+    console.log('--------------dates:');
+    console.log(this.state.dates);
+
+    localStorage.setItem('habits', JSON.stringify(this.state.habits));
+    localStorage.setItem('dates', JSON.stringify(this.state.dates));
+  };
+
+  clearLocalStorage = () => {
+    console.log('clearing state');
+    localStorage.setItem('habits', '');
+    localStorage.setItem('dates', '');
+  };
+
   componentDidMount() {
-    //check for no days
-    if (this.state.dates.length === 0) {
+    //check local storage for previous state
+    if (localStorage.getItem('habits') && localStorage.getItem('dates')) {
+      console.log('-----------loading state-----------');
+      const storedHabits = JSON.parse(localStorage.getItem('habits'));
+      const storedDates = JSON.parse(localStorage.getItem('dates'));
+      console.log(storedHabits);
+      console.log(storedDates);
+      this.setState({
+        dates: storedDates,
+        habits: storedHabits,
+      });
+    } else {
+      console.log('-----------no state found-----------');
       this.addStartDate();
     }
-    //check if day has changed
   };
+
+  componentDidUpdate() {
+    this.setLocalStorage();
+  }
 
   render() { 
 
@@ -186,6 +217,7 @@ class App extends Component {
         <div className='flex space-x-2 my-4'>
           <button onClick={this.addDay} className="bg-neutral-500 text-white rounded-md p-2">New Day</button>
           <button onClick={()=>{this.loadTestState()}} className="bg-neutral-500 text-white rounded-md p-2">Load Test</button>
+          <button onClick={()=>{this.clearLocalStorage()}} className="bg-neutral-500 text-white rounded-md p-2">Clear Local Storage</button>
         </div>
         <Form addHabit={this.addHabit}/>
         <Grid habits={this.state.habits} dates={this.state.dates} toggleCompletion={this.toggleCompletion}/>
