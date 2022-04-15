@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class HabitSquare extends Component {
 
   state = {
-    color: 'lightgrey',
+    filter: "grayscale(100%)"
   };
 
   handleClick = () => { 
@@ -14,11 +14,11 @@ class HabitSquare extends Component {
   updateCSS = () => {
     if (this.props.data.completed) {
       this.setState({
-        color: 'lightgreen'
+      filter: "grayscale(0%)"
       });
     } else {
       this.setState({
-        color: 'lightgrey'
+      filter: "grayscale(100%)"
       });
     };
   };
@@ -29,8 +29,7 @@ class HabitSquare extends Component {
 
   render() { 
     return (
-      <div onClick={this.handleClick} className='h-20 w-20 mt-3' style={{backgroundColor: this.state.color}}>
-        {/* <p>{this.props.data.gridId}</p> */}
+      <div onClick={this.handleClick} className='h-20 w-20 mt-3 bg-lime-400 hover:bg-lime-300 transition-colors' style={{filter: this.state.filter}}>
       </div>
     );
   }

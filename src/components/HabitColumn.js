@@ -9,8 +9,8 @@ class HabitColumn extends Component {
     })
 
     return (
-      <div>
-        <h3 className='h-10 font-bold'>
+      <div className='w-20'>
+        <h3 className='h-10 font-bold text-center'>
           {this.props.column.displayName}
         </h3>
         {squares}
