@@ -76,7 +76,7 @@ class App extends Component {
         {
           habitId: '00680z',
           displayName: 'Anki',
-          color: 'green',
+          color: 'DarkSalmon',
           gridItems: [
             {
               gridId: '00680z-1',
@@ -104,7 +104,7 @@ class App extends Component {
         {
           habitId: '7er11n',
           displayName: 'Stretch',
-          color: 'blue',
+          color: 'DarkSeaGreen',
           gridItems: [
             {
               gridId: '7er11n-1',
@@ -154,7 +154,7 @@ class App extends Component {
     let newHabit = {};
     newHabit['habitId'] = uuidv4().slice(0, 8);
     newHabit['displayName'] = name;
-    newHabit['color'] = 'blue';
+    newHabit['color'] = 'LightSeaGreen';
     newHabit['gridItems'] = this.state.dates.map(date => {
       return {
         gridId: newHabit.habitId + '-' + date,
