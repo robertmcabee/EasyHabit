@@ -9,6 +9,8 @@ class App extends Component {
 
   state = {
 
+    displayForm: false,
+
     dates: [
       // '2022-02-01',
       // '2022-02-02',
@@ -165,6 +167,12 @@ class App extends Component {
     });
   };
 
+  handleClose = () => {
+    this.setState({
+      displayForm: false
+    });
+  };
+
   addStartDate = () => {
     this.setState({
       dates: [...this.state.dates, format(new Date(), 'yyyy-MM-dd')],
@@ -215,11 +223,12 @@ class App extends Component {
     return (
       <div>
         <div className='flex space-x-2 my-4'>
-          <button onClick={this.addDay} className="bg-neutral-500 text-white rounded-md p-2">New Day</button>
-          <button onClick={()=>{this.loadTestState()}} className="bg-neutral-500 text-white rounded-md p-2">Load Test</button>
-          <button onClick={()=>{this.clearLocalStorage()}} className="bg-neutral-500 text-white rounded-md p-2">Clear Local Storage</button>
+          <button onClick={this.addDay} className="bg-neutral-300 text-white rounded-md p-2">New Day</button>
+          <button onClick={()=>{this.loadTestState()}} className="bg-neutral-300 text-white rounded-md p-2">Load Test</button>
+          <button onClick={()=>{this.clearLocalStorage()}} className="bg-neutral-300 text-white rounded-md p-2">Clear Local Storage</button>
         </div>
-        <Form addHabit={this.addHabit}/>
+        <button onClick={()=>{this.setState({displayForm: true})}} className="bg-neutral-800 text-white rounded-md p-2 my-8">New Habit</button>
+        <Form addHabit={this.addHabit} displayForm={this.state.displayForm} handleClose={this.handleClose}/>
         <Grid habits={this.state.habits} dates={this.state.dates} toggleCompletion={this.toggleCompletion}/>
       </div>
     );
