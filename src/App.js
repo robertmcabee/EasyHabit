@@ -67,10 +67,10 @@ class App extends Component {
   loadTestState = () => {
     this.setState({
       dates: [
-        '2022-02-01',
-        '2022-02-02',
-        '2022-02-03',
         '2022-02-04',
+        '2022-02-03',
+        '2022-02-02',
+        '2022-02-01',
       ],
       habits: [
         {
@@ -80,22 +80,22 @@ class App extends Component {
           gridItems: [
             {
               gridId: '00680z-1',
-              date: '2022-02-01',
-              completed: false,
+              date: '2022-02-04',
+              completed: true,
             },
             {
               gridId: '00680z-2',
-              date: '2022-02-02',
+              date: '2022-02-03',
               completed: true,
             },
             {
               gridId: '00680z-3',
-              date: '2022-02-03',
+              date: '2022-02-02',
               completed: false,
             },
             {
               gridId: '00680z-4',
-              date: '2022-02-04',
+              date: '2022-02-01',
               completed: false,
             },
           ],
@@ -108,23 +108,23 @@ class App extends Component {
           gridItems: [
             {
               gridId: '7er11n-1',
-              date: '2022-02-01',
+              date: '2022-02-04',
               completed: true,
             },
             {
               gridId: '7er11n-2',
-              date: '2022-02-02',
-              completed: false,
-            },
-            {
-              gridId: '7er11n-3',
               date: '2022-02-03',
               completed: false,
             },
             {
+              gridId: '7er11n-3',
+              date: '2022-02-02',
+              completed: false,
+            },
+            {
               gridId: '7er11n-4',
-              date: '2022-02-04',
-              completed: true,
+              date: '2022-02-01',
+              completed: false,
             },
           ],
         },
@@ -133,15 +133,15 @@ class App extends Component {
   };
 
   addDay = () => {
-    const lastDate = this.state.dates[this.state.dates.length - 1];
+    const lastDate = this.state.dates[0];
     const parsedLastDate = parse(lastDate, 'yyyy-MM-dd', new Date()); //convert string into js date object
     const newDate = add(parsedLastDate, { days: 1 });
     const formattedNewDate = format(newDate, 'yyyy-MM-dd'); //convert new date into string
     this.setState({
-      dates: [...this.state.dates, formattedNewDate]
+      dates: [formattedNewDate, ...this.state.dates]
     });
     this.state.habits.forEach(habit => { //add new grid items to each habit for the new day
-      habit.gridItems.push({
+      habit.gridItems.unshift({
         gridId: habit.habitId + '-' + formattedNewDate,
         date: formattedNewDate,
         completed: false,
