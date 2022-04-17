@@ -138,7 +138,7 @@ class App extends Component {
     const newDate = add(parsedLastDate, { days: 1 });
     const formattedNewDate = format(newDate, 'yyyy-MM-dd'); //convert new date into string
     this.setState({
-      dates: [formattedNewDate, ...this.state.dates]
+      dates: [formattedNewDate, ...this.state.dates],
     });
     this.state.habits.forEach(habit => { //add new grid items to each habit for the new day
       habit.gridItems.unshift({
@@ -149,12 +149,12 @@ class App extends Component {
     });
   };
 
-  addHabit = (name) => {
+  addHabit = (name, color) => {
     name = name.replace(/([[{};:<>$])/g, ''); //sanitize user input
     let newHabit = {};
     newHabit['habitId'] = uuidv4().slice(0, 8);
     newHabit['displayName'] = name;
-    newHabit['color'] = 'LightSeaGreen';
+    newHabit['color'] = color;
     newHabit['gridItems'] = this.state.dates.map(date => {
       return {
         gridId: newHabit.habitId + '-' + date,
@@ -163,7 +163,8 @@ class App extends Component {
       };
     });
     this.setState({
-      habits: [...this.state.habits, newHabit]
+      habits: [...this.state.habits, newHabit],
+      displayForm: false,
     });
   };
 
