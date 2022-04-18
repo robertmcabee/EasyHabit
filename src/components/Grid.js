@@ -14,7 +14,7 @@ class Grid extends Component {
     });
 
     return (
-      <div className='flex h-full bg-neutral-200 space-x-8'>
+      <div className='flex h-full bg-neutral-100 space-x-6 pb-20'>
         <div className='pt-10'>
           <DateColumn dates={this.props.dates} />
         </div>

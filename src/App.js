@@ -73,61 +73,91 @@ class App extends Component {
         '2022-02-01',
       ],
       habits: [
+
         {
-          habitId: '00680z',
-          displayName: 'Anki',
-          color: 'DarkSalmon',
+          habitId: "000",
+          color: "rgb(34 211 238)",
+          displayName: "Code",
           gridItems: [
             {
-              gridId: '00680z-1',
+              gridId: '000-1',
               date: '2022-02-04',
+              completed: false,
+            },
+            {
+              gridId: '000-2',
+              date: '2022-02-03',
+              completed: false,
+            },
+            {
+              gridId: '000-3',
+              date: '2022-02-02',
               completed: true,
             },
             {
-              gridId: '00680z-2',
+              gridId: '000-4',
+              date: '2022-02-01',
+              completed: true,
+            },
+          ],
+        },
+
+        {
+          habitId: "001",
+          color: "rgb(52 211 153)",
+          displayName: "Stretch",
+          gridItems: [
+            {
+              gridId: '001-1',
+              date: '2022-02-04',
+              completed: false,
+            },
+            {
+              gridId: '001-2',
               date: '2022-02-03',
               completed: true,
             },
             {
-              gridId: '00680z-3',
+              gridId: '001-3',
               date: '2022-02-02',
-              completed: false,
+              completed: true,
             },
             {
-              gridId: '00680z-4',
+              gridId: '001-4',
               date: '2022-02-01',
-              completed: false,
+              completed: true,
             },
           ],
         },
   
         {
-          habitId: '7er11n',
-          displayName: 'Stretch',
-          color: 'DarkSeaGreen',
+          habitId: "002",
+          color: "rgb(163 230 53)",
+          displayName: "Anki",
           gridItems: [
             {
-              gridId: '7er11n-1',
+              gridId: '002-1',
               date: '2022-02-04',
               completed: true,
             },
             {
-              gridId: '7er11n-2',
+              gridId: '002-2',
               date: '2022-02-03',
-              completed: false,
+              completed: true,
             },
             {
-              gridId: '7er11n-3',
+              gridId: '002-3',
               date: '2022-02-02',
-              completed: false,
+              completed: true,
             },
             {
-              gridId: '7er11n-4',
+              gridId: '002-4',
               date: '2022-02-01',
-              completed: false,
+              completed: true,
             },
           ],
         },
+
       ]
     })
   };

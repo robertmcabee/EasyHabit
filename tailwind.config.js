@@ -7,6 +7,7 @@ module.exports = {
       animation: {
         dropin: 'dropin 300ms ease-out',
         fadein: 'fadein 300ms ease-in-out',
+        grow: 'grow 400ms ease-in-out',
       },
       keyframes: {
 
@@ -27,6 +28,25 @@ module.exports = {
           },
           '100%': {
             opacity: '0.5'
+          },
+        },
+
+        grow: {
+          '0%': {
+            opacity: '0',
+            transform: 'scale(0)',
+          },
+          '60%': {
+            opacity: '.8',
+            transform: 'scale(1.15)',
+          },
+          '90%': {
+            opacity: '1',
+            transform: 'scale(.95)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'scale(1)',
           },
         },
 
