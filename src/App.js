@@ -374,7 +374,7 @@ class App extends Component {
 
     return (
       <div className=' text-neutral-700 bg-neutral-50'>
-        <div className='flex w-full justify-center space-x-2 mb-8 opacity-20 hover:opacity-100'>
+        <div className='flex w-full justify-center space-x-2 mb-8 opacity-50 hover:opacity-100'>
           <button onClick={this.addDay} className="text-white rounded-md p-2 sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300 bg-purple-300">New Day</button>
           <button onClick={()=>{this.loadTestStateA()}} className=" text-white rounded-md p-2 sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300 bg-purple-300">Load Test A</button>
           <button onClick={()=>{this.loadTestStateB()}} className=" text-white rounded-md p-2 sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300 bg-purple-300">Load Test B</button>

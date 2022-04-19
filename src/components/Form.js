@@ -51,7 +51,7 @@ class Form extends Component {
       return null
     }
     return (
-      <div>
+      <div className='flex justify-center'>
         <section className='bg-white p-12 m-10 rounded-xl absolute z-50 top-0 drop-shadow-2xl animate-dropin'>
             <h2 className='text-lg font-bold'>What do you want to keep track of?</h2>
             <form onSubmit={this.handleSubmit} className="flex flex-col">
