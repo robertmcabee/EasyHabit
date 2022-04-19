@@ -10,19 +10,19 @@ class Grid extends Component {
 
   render() { 
 
-    let columns = this.props.habits.map(column => {
+    let habitColumns = this.props.habits.map(column => {
       return <HabitColumn key={column.habitId} column={column} toggleCompletion={this.props.toggleCompletion} />
     });
 
     return (
-      <div className='flex h-full bg-neutral-50 space-x-6 pb-20'>
-        <div className='pt-10'>
-          <DateColumn dates={this.props.dates} />
+      <div className='flex w-full h-full'>
+        <div className='flex justify-center h-full w-full space-x-4'>
+          <div className='pt-10 w-full max-w-[10rem] min-w-[5rem]'>
+            <DateColumn dates={this.props.dates} />
+          </div>
+          {habitColumns}
+          <CreateColumn handleOpen={this.props.handleOpen}/>
         </div>
-        {columns}
-        {/* <button onClick={()=>{console.log(this.state.habits)}}>...</button> */}
-        {/* <button onClick={()=>{this.getHabitColumns()}}>...</button> */}
-        <CreateColumn handleOpen={this.props.handleOpen}/>
       </div>
     );
   };

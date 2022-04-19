@@ -23,10 +23,10 @@ class App extends Component {
       // {
       //   habitId: '00680z',
       //   displayName: 'Anki',
-      //   color: 'green',
+      //   color: '#ffffff',
       //   gridItems: [
       //     {
-      //       gridId: '00680z-1',
+      //       gridId: '00680z-2022-02-01',
       //       date: '2022-02-01',
       //       completed: false,
       //     },
@@ -64,7 +64,7 @@ class App extends Component {
     });
   };
 
-  loadTestState = () => {
+  loadTestStateA = () => {
     this.setState({
       dates: [
         '2022-02-04',
@@ -153,6 +153,121 @@ class App extends Component {
             {
               gridId: '002-4',
               date: '2022-02-01',
+              completed: true,
+            },
+          ],
+        },
+
+      ]
+    })
+  };
+
+  loadTestStateB = () => {
+    this.setState({
+      dates: [
+        '2022-02-04',
+      ],
+      habits: [
+
+        {
+          habitId: "000",
+          color: "rgb(34 211 238)",
+          displayName: "Code",
+          gridItems: [
+            {
+              gridId: '000-1',
+              date: '2022-02-04',
+              completed: true,
+            },
+          ],
+        },
+
+        {
+          habitId: "001",
+          color: "rgb(52 211 153)",
+          displayName: "Stretch",
+          gridItems: [
+            {
+              gridId: '001-1',
+              date: '2022-02-04',
+              completed: true,
+            },
+          ],
+        },
+  
+        {
+          habitId: "002",
+          color: "rgb(163 230 53)",
+          displayName: "Anki",
+          gridItems: [
+            {
+              gridId: '002-1',
+              date: '2022-02-04',
+              completed: true,
+            },
+          ],
+        },
+
+        {
+          habitId: "003",
+          color: "rgb(250 204 21)",
+          displayName: "ExampleA",
+          gridItems: [
+            {
+              gridId: '003-1',
+              date: '2022-02-04',
+              completed: true,
+            },
+          ],
+        },
+
+        {
+          habitId: "004",
+          color: "rgb(251 146 60)",
+          displayName: "ExampleB",
+          gridItems: [
+            {
+              gridId: '004-1',
+              date: '2022-02-04',
+              completed: true,
+            },
+          ],
+        },
+
+        {
+          habitId: "005",
+          color: "rgb(251 113 133)",
+          displayName: "ExampleC",
+          gridItems: [
+            {
+              gridId: '005-1',
+              date: '2022-02-04',
+              completed: true,
+            },
+          ],
+        },
+
+        {
+          habitId: "006",
+          color: "rgb(34 211 238)",
+          displayName: "ExampleD",
+          gridItems: [
+            {
+              gridId: '006-1',
+              date: '2022-02-04',
+              completed: true,
+            },
+          ],
+        },
+
+        {
+          habitId: "007",
+          color: "rgb(163 230 53)",
+          displayName: "ExampleE",
+          gridItems: [
+            {
+              gridId: '007-1',
+              date: '2022-02-04',
               completed: true,
             },
           ],
@@ -258,11 +373,12 @@ class App extends Component {
   render() { 
 
     return (
-      <div className='text-neutral-700'>
-        <div className='flex space-x-2 my-4'>
-          <button onClick={this.addDay} className="bg-neutral-300 text-white rounded-md p-2">New Day</button>
-          <button onClick={()=>{this.loadTestState()}} className="bg-neutral-300 text-white rounded-md p-2">Load Test</button>
-          <button onClick={()=>{this.clearLocalStorage()}} className="bg-neutral-300 text-white rounded-md p-2">Clear Local Storage</button>
+      <div className=' text-neutral-700 bg-neutral-50'>
+        <div className='flex w-full justify-center space-x-2 mb-8 opacity-20 hover:opacity-100'>
+          <button onClick={this.addDay} className="text-white rounded-md p-2 sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300 bg-purple-300">New Day</button>
+          <button onClick={()=>{this.loadTestStateA()}} className=" text-white rounded-md p-2 sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300 bg-purple-300">Load Test A</button>
+          <button onClick={()=>{this.loadTestStateB()}} className=" text-white rounded-md p-2 sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300 bg-purple-300">Load Test B</button>
+          <button onClick={()=>{this.clearLocalStorage()}} className=" text-white rounded-md p-2 sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300 bg-purple-300">Clear Local Storage</button>
         </div>
         <Form addHabit={this.addHabit} displayForm={this.state.displayForm} handleClose={this.handleClose}/>
         <Grid habits={this.state.habits} dates={this.state.dates} toggleCompletion={this.toggleCompletion} handleOpen={this.handleOpen}/>
