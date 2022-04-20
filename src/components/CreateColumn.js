@@ -4,7 +4,7 @@ class CreateColumn extends Component {
   state = {  } 
   render() { 
     return (
-      <div onClick={()=>{this.props.handleOpen()}} className='max-w-[10rem] min-w-[5rem] w-full h-min group text-neutral-400 hover:text-neutral-500'>
+      <div onClick={()=>{this.props.handleOpen()}} className='h-min group text-neutral-400 hover:text-neutral-500'>
         <h3 className='h-10 font-bold text-center cursor-pointer'>
           Add New Habit
         </h3>

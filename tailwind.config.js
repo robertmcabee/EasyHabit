@@ -3,6 +3,11 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
+
+    fontFamily: {
+      'sans': ['Poppins', 'Helvetica', 'Arial', 'sans-serif']
+    },
+
     extend: {
       animation: {
         dropin: 'dropin 300ms ease-out',

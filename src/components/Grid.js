@@ -17,11 +17,13 @@ class Grid extends Component {
     return (
       <div className='flex w-full h-full'>
         <div className='flex justify-center h-full w-full space-x-4 p-20'>
-          <div className='pt-10 w-full max-w-[10rem] min-w-[5rem]'>
+          <div className='pt-24 w-full max-w-[10rem] min-w-[5rem]'>
             <DateColumn dates={this.props.dates} />
           </div>
           {habitColumns}
-          <CreateColumn handleOpen={this.props.handleOpen}/>
+          <div className='pt-16 w-full max-w-[10rem] min-w-[5rem]'>
+            <CreateColumn handleOpen={this.props.handleOpen}/>
+          </div>
         </div>
       </div>
     );

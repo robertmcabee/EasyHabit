@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.--slow-transition {
+  transition: all 300ms ease-in-out;
+}
