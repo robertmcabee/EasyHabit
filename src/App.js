@@ -3,6 +3,7 @@ import { format, parse, add, differenceInCalendarDays } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid'; //example: 273a442e-9882-4662-8a99-16be011bd3b6
 import Grid from './components/Grid';
 import Form from './components/Form';
+import Edit from './components/Edit';
 import './style.css'
 
 class App extends Component {
@@ -10,6 +11,12 @@ class App extends Component {
   state = {
 
     displayForm: false,
+    displayEdit: false,
+    habitToEdit: {
+      habitId: '',
+      displayName: '',
+      color: '',
+    },
 
     dates: [
       // '2022-02-01',
@@ -313,15 +320,61 @@ class App extends Component {
     });
   };
 
-  handleClose = () => {
+  deleteHabit = () => {
+    const id = this.state.habitToEdit.habitId;
+    this.setState({
+      habits: [...this.state.habits.filter(habit => habit.habitId !== id)],
+      displayEdit: false,
+    });
+  };
+
+  editHabitName = (name) => {
+    const id = this.state.habitToEdit.habitId;
+    this.setState({
+      habits: this.state.habits.map(habit => {
+        if (habit.habitId === id) {
+          habit.displayName = name;
+        }
+        return habit;
+      }),
+    });
+  }
+
+  editHabitColor = (color) => {
+    const id = this.state.habitToEdit.habitId;
+    this.setState({
+      habits: this.state.habits.map(habit => {
+        if (habit.habitId === id) {
+          habit.color = color;
+        }
+        return habit;
+      }),
+    });
+  }
+
+  handleCloseForm = () => {
     this.setState({
       displayForm: false
     });
   };
 
-  handleOpen = () => {
+  handleOpenForm = () => {
     this.setState({
       displayForm: true
+    });
+  };
+
+  handleCloseEdit = () => {
+    this.setState({
+      displayEdit: false
+    });
+  };
+
+  handleOpenEdit = (id) => {
+    let habitToEdit = this.state.habits.find(habit => habit.habitId === id);
+    this.setState({
+      displayEdit: true,
+      habitToEdit: habitToEdit
     });
   };
 
@@ -380,8 +433,9 @@ class App extends Component {
           <button onClick={()=>{this.loadTestStateB()}} className=" text-white rounded-md p-2 sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300 bg-purple-300">Load Test B</button>
           <button onClick={()=>{this.clearLocalStorage()}} className=" text-white rounded-md p-2 sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300 bg-purple-300">Clear Local Storage</button>
         </div>
-        <Form addHabit={this.addHabit} displayForm={this.state.displayForm} handleClose={this.handleClose}/>
-        <Grid habits={this.state.habits} dates={this.state.dates} toggleCompletion={this.toggleCompletion} handleOpen={this.handleOpen}/>
+        <Edit deleteHabit={this.deleteHabit} editHabitColor={this.editHabitColor} displayEdit={this.state.displayEdit} handleCloseEdit={this.handleCloseEdit} name={this.state.habitToEdit.displayName} color={this.state.habitToEdit.color}/>
+        <Form addHabit={this.addHabit} displayForm={this.state.displayForm} handleCloseForm={this.handleCloseForm}/>
+        <Grid habits={this.state.habits} dates={this.state.dates} toggleCompletion={this.toggleCompletion} handleOpenForm={this.handleOpenForm} handleOpenEdit={this.handleOpenEdit}/>
       </div>
     );
   }

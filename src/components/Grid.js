@@ -11,7 +11,7 @@ class Grid extends Component {
   render() { 
 
     let habitColumns = this.props.habits.map(column => {
-      return <HabitColumn key={column.habitId} column={column} toggleCompletion={this.props.toggleCompletion} />
+      return <HabitColumn key={column.habitId} column={column} toggleCompletion={this.props.toggleCompletion} handleOpenEdit={this.props.handleOpenEdit}/>
     });
 
     return (
@@ -22,7 +22,7 @@ class Grid extends Component {
           </div>
           {habitColumns}
           <div className='pt-16 w-full max-w-[10rem] min-w-[5rem]'>
-            <CreateColumn handleOpen={this.props.handleOpen}/>
+            <CreateColumn handleOpenForm={this.props.handleOpenForm}/>
           </div>
         </div>
       </div>
