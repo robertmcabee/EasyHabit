@@ -1,32 +1,27 @@
-import React, { Component } from 'react'
-import { format, parse, add, differenceInCalendarDays } from 'date-fns';
-import { v4 as uuidv4 } from 'uuid'; //example: 273a442e-9882-4662-8a99-16be011bd3b6
-import Grid from './components/Grid';
-import Form from './components/Form';
-import Edit from './components/Edit';
-import './style.css'
+import React, { Component } from "react";
+import { format, parse, add, differenceInCalendarDays } from "date-fns";
+import { v4 as uuidv4 } from "uuid"; //example: 273a442e-9882-4662-8a99-16be011bd3b6
+import Grid from "./components/Grid";
+import Form from "./components/Form";
+import Edit from "./components/Edit";
+import "./style.css";
 
 class App extends Component {
-
   state = {
-
     displayForm: false,
     displayEdit: false,
     habitToEdit: {
-      habitId: '',
-      displayName: '',
-      color: '',
+      habitId: "",
+      displayName: "",
+      color: "",
     },
-
     dates: [
       // '2022-02-01',
       // '2022-02-02',
       // '2022-02-03',
       // '2022-02-04',
     ],
-
     habits: [
-
       // {
       //   habitId: '00680z',
       //   displayName: 'Anki',
@@ -42,68 +37,61 @@ class App extends Component {
       //     ...
       //   ],
       // },
-
     ],
-
   };
-  
-  daysElapsed = (currentTime, mostRecentDay) => { //returns series of formatted days that have elapsed
+
+  daysElapsed = (currentTime, mostRecentDay) => {
+    //returns series of formatted days that have elapsed
     const numOfDays = differenceInCalendarDays(currentTime, mostRecentDay);
     if (numOfDays < 0) return null;
     const result = [];
     for (let i = 0; i < numOfDays + 1; i++) {
-      result.push(format(add(mostRecentDay, {days: i}), 'yyyy-MM-dd')) //creates an ascending series of formatted days
-    };
+      result.push(format(add(mostRecentDay, { days: i }), "yyyy-MM-dd")); //creates an ascending series of formatted days
+    }
     return result;
   };
 
   toggleCompletion = (id) => {
     this.setState({
-      habits: this.state.habits.map(habit => {
-        habit.gridItems.map(item => {
+      habits: this.state.habits.map((habit) => {
+        habit.gridItems.map((item) => {
           if (item.gridId === id) {
             item.completed = !item.completed;
-          };
+          }
           return item;
         });
         return habit;
-      })
+      }),
     });
   };
 
   loadTestStateA = () => {
     this.setState({
-      dates: [
-        '2022-02-04',
-        '2022-02-03',
-        '2022-02-02',
-        '2022-02-01',
-      ],
+      dates: ["2022-02-04", "2022-02-03", "2022-02-02", "2022-02-01"],
       habits: [
-
         {
           habitId: "000",
           color: "rgb(34 211 238)",
           displayName: "Code",
           gridItems: [
             {
-              gridId: '000-1',
-              date: '2022-02-04',
+              gridId: "000-1",
+              date: "2022-02-04",
               completed: false,
             },
             {
-              gridId: '000-2',
-              date: '2022-02-03',
+              gridId: "000-2",
+              date: "2022-02-03",
               completed: false,
             },
             {
-              gridId: '000-3',
-              date: '2022-02-02',
+              gridId: "000-3",
+              date: "2022-02-02",
               completed: true,
             },
             {
-              gridId: '000-4',
-              date: '2022-02-01',
+              gridId: "000-4",
+              date: "2022-02-01",
               completed: true,
             },
           ],
@@ -115,75 +103,71 @@ class App extends Component {
           displayName: "Stretch",
           gridItems: [
             {
-              gridId: '001-1',
-              date: '2022-02-04',
+              gridId: "001-1",
+              date: "2022-02-04",
               completed: false,
             },
             {
-              gridId: '001-2',
-              date: '2022-02-03',
+              gridId: "001-2",
+              date: "2022-02-03",
               completed: true,
             },
             {
-              gridId: '001-3',
-              date: '2022-02-02',
+              gridId: "001-3",
+              date: "2022-02-02",
               completed: true,
             },
             {
-              gridId: '001-4',
-              date: '2022-02-01',
+              gridId: "001-4",
+              date: "2022-02-01",
               completed: true,
             },
           ],
         },
-  
+
         {
           habitId: "002",
           color: "rgb(163 230 53)",
           displayName: "Anki",
           gridItems: [
             {
-              gridId: '002-1',
-              date: '2022-02-04',
+              gridId: "002-1",
+              date: "2022-02-04",
               completed: true,
             },
             {
-              gridId: '002-2',
-              date: '2022-02-03',
+              gridId: "002-2",
+              date: "2022-02-03",
               completed: true,
             },
             {
-              gridId: '002-3',
-              date: '2022-02-02',
+              gridId: "002-3",
+              date: "2022-02-02",
               completed: true,
             },
             {
-              gridId: '002-4',
-              date: '2022-02-01',
+              gridId: "002-4",
+              date: "2022-02-01",
               completed: true,
             },
           ],
         },
-
-      ]
-    })
+      ],
+    });
   };
 
   loadTestStateB = () => {
     this.setState({
-      dates: [
-        '2022-02-04',
-      ],
+      dates: ["2022-02-04"],
       habits: [
-
         {
           habitId: "000",
           color: "rgb(34 211 238)",
           displayName: "Code",
           gridItems: [
             {
-              gridId: '000-1',
-              date: '2022-02-04',
+              gridId: "000-1",
+              date: "2022-02-04",
               completed: true,
             },
           ],
@@ -195,21 +179,21 @@ class App extends Component {
           displayName: "Stretch",
           gridItems: [
             {
-              gridId: '001-1',
-              date: '2022-02-04',
+              gridId: "001-1",
+              date: "2022-02-04",
               completed: true,
             },
           ],
         },
-  
+
         {
           habitId: "002",
           color: "rgb(163 230 53)",
           displayName: "Anki",
           gridItems: [
             {
-              gridId: '002-1',
-              date: '2022-02-04',
+              gridId: "002-1",
+              date: "2022-02-04",
               completed: true,
             },
           ],
@@ -221,8 +205,8 @@ class App extends Component {
           displayName: "ExampleA",
           gridItems: [
             {
-              gridId: '003-1',
-              date: '2022-02-04',
+              gridId: "003-1",
+              date: "2022-02-04",
               completed: true,
             },
           ],
@@ -234,8 +218,8 @@ class App extends Component {
           displayName: "ExampleB",
           gridItems: [
             {
-              gridId: '004-1',
-              date: '2022-02-04',
+              gridId: "004-1",
+              date: "2022-02-04",
               completed: true,
             },
           ],
@@ -247,8 +231,8 @@ class App extends Component {
           displayName: "ExampleC",
           gridItems: [
             {
-              gridId: '005-1',
-              date: '2022-02-04',
+              gridId: "005-1",
+              date: "2022-02-04",
               completed: true,
             },
           ],
@@ -260,8 +244,8 @@ class App extends Component {
           displayName: "ExampleD",
           gridItems: [
             {
-              gridId: '006-1',
-              date: '2022-02-04',
+              gridId: "006-1",
+              date: "2022-02-04",
               completed: true,
             },
           ],
@@ -273,28 +257,28 @@ class App extends Component {
           displayName: "ExampleE",
           gridItems: [
             {
-              gridId: '007-1',
-              date: '2022-02-04',
+              gridId: "007-1",
+              date: "2022-02-04",
               completed: true,
             },
           ],
         },
-
-      ]
-    })
+      ],
+    });
   };
 
   addDay = () => {
     const lastDate = this.state.dates[0];
-    const parsedLastDate = parse(lastDate, 'yyyy-MM-dd', new Date()); //convert string into js date object
+    const parsedLastDate = parse(lastDate, "yyyy-MM-dd", new Date()); //convert string into js date object
     const newDate = add(parsedLastDate, { days: 1 });
-    const formattedNewDate = format(newDate, 'yyyy-MM-dd'); //convert new date into string
+    const formattedNewDate = format(newDate, "yyyy-MM-dd"); //convert new date into string
     this.setState({
       dates: [formattedNewDate, ...this.state.dates],
     });
-    this.state.habits.forEach(habit => { //add new grid items to each habit for the new day
+    this.state.habits.forEach((habit) => {
+      //add new grid items to each habit for the new day
       habit.gridItems.unshift({
-        gridId: habit.habitId + '-' + formattedNewDate,
+        gridId: habit.habitId + "-" + formattedNewDate,
         date: formattedNewDate,
         completed: false,
       });
@@ -302,14 +286,14 @@ class App extends Component {
   };
 
   addHabit = (name, color) => {
-    name = name.replace(/([[{};:<>$])/g, ''); //sanitize user input
+    name = name.replace(/([[{};:<>$])/g, ""); //sanitize user input
     let newHabit = {};
-    newHabit['habitId'] = uuidv4().slice(0, 8);
-    newHabit['displayName'] = name;
-    newHabit['color'] = color;
-    newHabit['gridItems'] = this.state.dates.map(date => {
+    newHabit["habitId"] = uuidv4().slice(0, 8);
+    newHabit["displayName"] = name;
+    newHabit["color"] = color;
+    newHabit["gridItems"] = this.state.dates.map((date) => {
       return {
-        gridId: newHabit.habitId + '-' + date,
+        gridId: newHabit.habitId + "-" + date,
         date: date,
         completed: false,
       };
@@ -323,7 +307,7 @@ class App extends Component {
   deleteHabit = () => {
     const id = this.state.habitToEdit.habitId;
     this.setState({
-      habits: [...this.state.habits.filter(habit => habit.habitId !== id)],
+      habits: [...this.state.habits.filter((habit) => habit.habitId !== id)],
       displayEdit: false,
     });
   };
@@ -331,82 +315,82 @@ class App extends Component {
   editHabitName = (name) => {
     const id = this.state.habitToEdit.habitId;
     this.setState({
-      habits: this.state.habits.map(habit => {
+      habits: this.state.habits.map((habit) => {
         if (habit.habitId === id) {
           habit.displayName = name;
         }
         return habit;
       }),
     });
-  }
+  };
 
   editHabitColor = (color) => {
     const id = this.state.habitToEdit.habitId;
     this.setState({
-      habits: this.state.habits.map(habit => {
+      habits: this.state.habits.map((habit) => {
         if (habit.habitId === id) {
           habit.color = color;
         }
         return habit;
       }),
     });
-  }
+  };
 
   handleCloseForm = () => {
     this.setState({
-      displayForm: false
+      displayForm: false,
     });
   };
 
   handleOpenForm = () => {
     this.setState({
-      displayForm: true
+      displayForm: true,
     });
   };
 
   handleCloseEdit = () => {
     this.setState({
-      displayEdit: false
+      displayEdit: false,
     });
   };
 
   handleOpenEdit = (id) => {
-    let habitToEdit = this.state.habits.find(habit => habit.habitId === id);
+    let habitToEdit = this.state.habits.find((habit) => habit.habitId === id);
     this.setState({
       displayEdit: true,
-      habitToEdit: habitToEdit
+      habitToEdit: habitToEdit,
     });
   };
 
   addStartDate = () => {
     this.setState({
-      dates: [...this.state.dates, format(new Date(), 'yyyy-MM-dd')],
+      dates: [...this.state.dates, format(new Date(), "yyyy-MM-dd")],
     });
   };
 
   setLocalStorage = () => {
-    console.log('-----------storing state-----------');
-    console.log('--------------habits:');
+    console.log("-----------storing state-----------");
+    console.log("--------------habits:");
     console.log(this.state.habits);
-    console.log('--------------dates:');
+    console.log("--------------dates:");
     console.log(this.state.dates);
 
-    localStorage.setItem('habits', JSON.stringify(this.state.habits));
-    localStorage.setItem('dates', JSON.stringify(this.state.dates));
+    localStorage.setItem("habits", JSON.stringify(this.state.habits));
+    localStorage.setItem("dates", JSON.stringify(this.state.dates));
   };
 
   clearLocalStorage = () => {
-    console.log('clearing state');
-    localStorage.setItem('habits', '');
-    localStorage.setItem('dates', '');
+    console.log("clearing state");
+    localStorage.setItem("habits", "");
+    localStorage.setItem("dates", "");
   };
 
   componentDidMount() {
     //check local storage for previous state
-    if (localStorage.getItem('habits') && localStorage.getItem('dates')) {
-      console.log('-----------loading state-----------');
-      const storedHabits = JSON.parse(localStorage.getItem('habits'));
-      const storedDates = JSON.parse(localStorage.getItem('dates'));
+    if (localStorage.getItem("habits") && localStorage.getItem("dates")) {
+      console.log("-----------loading state-----------");
+      const storedHabits = JSON.parse(localStorage.getItem("habits"));
+      const storedDates = JSON.parse(localStorage.getItem("dates"));
       console.log(storedHabits);
       console.log(storedDates);
       this.setState({
@@ -414,31 +398,73 @@ class App extends Component {
         habits: storedHabits,
       });
     } else {
-      console.log('-----------no state found-----------');
+      console.log("-----------no state found-----------");
       this.addStartDate();
     }
-  };
+  }
 
   componentDidUpdate() {
     this.setLocalStorage();
   }
 
-  render() { 
-
+  render() {
     return (
-      <div className=' text-neutral-700 font-sans bg-neutral-50'>
-        <div className='flex w-full justify-center space-x-2 mb-8 opacity-50 hover:opacity-100'>
-          <button onClick={this.addDay} className="text-white rounded-md p-2 sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300 bg-purple-300">New Day</button>
-          <button onClick={()=>{this.loadTestStateA()}} className=" text-white rounded-md p-2 sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300 bg-purple-300">Load Test A</button>
-          <button onClick={()=>{this.loadTestStateB()}} className=" text-white rounded-md p-2 sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300 bg-purple-300">Load Test B</button>
-          <button onClick={()=>{this.clearLocalStorage()}} className=" text-white rounded-md p-2 sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300 bg-purple-300">Clear Local Storage</button>
+      <div className="bg-neutral-50 font-sans text-neutral-700">
+        <div className="mb-8 flex w-full justify-center space-x-2 opacity-50 hover:opacity-100">
+          <button
+            onClick={this.addDay}
+            className="rounded-md bg-purple-300 p-2 text-white sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300"
+          >
+            New Day
+          </button>
+          <button
+            onClick={() => {
+              this.loadTestStateA();
+            }}
+            className=" rounded-md bg-purple-300 p-2 text-white sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300"
+          >
+            Load Test A
+          </button>
+          <button
+            onClick={() => {
+              this.loadTestStateB();
+            }}
+            className=" rounded-md bg-purple-300 p-2 text-white sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300"
+          >
+            Load Test B
+          </button>
+          <button
+            onClick={() => {
+              this.clearLocalStorage();
+            }}
+            className=" rounded-md bg-purple-300 p-2 text-white sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300"
+          >
+            Clear Local Storage
+          </button>
         </div>
-        <Edit deleteHabit={this.deleteHabit} editHabitColor={this.editHabitColor} displayEdit={this.state.displayEdit} handleCloseEdit={this.handleCloseEdit} name={this.state.habitToEdit.displayName} color={this.state.habitToEdit.color}/>
-        <Form addHabit={this.addHabit} displayForm={this.state.displayForm} handleCloseForm={this.handleCloseForm}/>
-        <Grid habits={this.state.habits} dates={this.state.dates} toggleCompletion={this.toggleCompletion} handleOpenForm={this.handleOpenForm} handleOpenEdit={this.handleOpenEdit}/>
+        <Edit
+          deleteHabit={this.deleteHabit}
+          editHabitColor={this.editHabitColor}
+          displayEdit={this.state.displayEdit}
+          handleCloseEdit={this.handleCloseEdit}
+          name={this.state.habitToEdit.displayName}
+          color={this.state.habitToEdit.color}
+        />
+        <Form
+          addHabit={this.addHabit}
+          displayForm={this.state.displayForm}
+          handleCloseForm={this.handleCloseForm}
+        />
+        <Grid
+          habits={this.state.habits}
+          dates={this.state.dates}
+          toggleCompletion={this.toggleCompletion}
+          handleOpenForm={this.handleOpenForm}
+          handleOpenEdit={this.handleOpenEdit}
+        />
       </div>
     );
   }
 }
- 
+
 export default App;
