@@ -2,18 +2,9 @@ import React, { Component } from "react";
 
 class Edit extends Component {
   state = {
-    name: this.props.displayName,
+    name: "",
     color: this.props.color,
     selectedColorIndex: null,
-  };
-
-  selectColor = (index) => {
-    const color = this.indexToColor(index);
-    this.setState({
-      color: color,
-      selectedColorIndex: index,
-    });
-    this.props.editHabitColor(color);
   };
 
   indexToColor = (index) => {
@@ -63,14 +54,19 @@ class Edit extends Component {
     return selectedColor;
   };
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    // this.props.editHabitName(this.state.name, newHabitColor);
-    this.setState({ name: "" }); //clear input field
+  selectColor = (index) => {
+    const color = this.indexToColor(index);
+    this.setState({
+      color: color,
+      selectedColorIndex: index,
+    });
+    this.props.editHabitColor(color);
   };
 
-  handleChange = (event) =>
-    this.setState({ [event.target.name]: event.target.value });
+  handleChange = (event) => {
+    this.setState({ name: this.state.name });
+    this.props.editHabitName(event.target.value);
+  };
 
   componentDidUpdate() {
     if (this.props.name !== this.state.name) {

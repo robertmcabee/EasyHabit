@@ -314,6 +314,7 @@ class App extends Component {
 
   editHabitName = (name) => {
     const id = this.state.habitToEdit.habitId;
+    name = name.replace(/([[{};:<>$])/g, ""); //sanitize user input
     this.setState({
       habits: this.state.habits.map((habit) => {
         if (habit.habitId === id) {
@@ -445,6 +446,7 @@ class App extends Component {
         <Edit
           deleteHabit={this.deleteHabit}
           editHabitColor={this.editHabitColor}
+          editHabitName={this.editHabitName}
           displayEdit={this.state.displayEdit}
           handleCloseEdit={this.handleCloseEdit}
           name={this.state.habitToEdit.displayName}
