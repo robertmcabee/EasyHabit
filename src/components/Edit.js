@@ -332,7 +332,7 @@ class Edit extends Component {
             ></div>
           </div>
           <button
-            className="mt-6 w-full cursor-pointer rounded-full border-0 bg-rose-400 p-3 font-bold text-white transition-all hover:bg-rose-500"
+            className="mt-6 w-full cursor-pointer rounded-full border-0 bg-rose-400 p-3 font-bold text-white transition-all duration-300 hover:bg-rose-500"
             onClick={() => {
               this.confirmDelete();
             }}

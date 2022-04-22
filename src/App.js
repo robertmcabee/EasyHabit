@@ -26,6 +26,9 @@ class App extends Component {
       //   habitId: '00680z',
       //   displayName: 'Anki',
       //   color: '#ffffff',
+      //   completion: 1,
+      //   currentStreak: 1,
+      //   longestStreak: 1,
       //   gridItems: [
       //     {
       //       gridId: '00680z-2022-02-01',
@@ -60,9 +63,40 @@ class App extends Component {
           }
           return item;
         });
+        let streaks = this.evaluateHabitStreaks(habit);
+        habit.currentStreak = streaks.currentStreak;
+        habit.longestStreak = streaks.longestStreak;
+        habit.completion = this.evaluateHabitCompletion(habit);
         return habit;
       }),
     });
+  };
+
+  evaluateHabitCompletion = (habit) => {
+    //returns the completion percentage of a habit
+    const completed = habit.gridItems.filter((item) => item.completed === true);
+    return completed.length / habit.gridItems.length;
+  };
+
+  evaluateHabitStreaks = (habit) => {
+    let longestStreak = 0;
+    let currentStreak = 0;
+    let streakAtIndex = 0;
+    habit.gridItems
+      .slice() //to create a shalow copy of gridItems to reverse
+      .reverse()
+      .forEach((item) => {
+        if (item.completed) {
+          streakAtIndex++;
+        } else {
+          streakAtIndex = 0;
+        }
+        if (streakAtIndex > longestStreak) {
+          longestStreak = streakAtIndex;
+        }
+      });
+    currentStreak = streakAtIndex;
+    return { longestStreak: longestStreak, currentStreak: currentStreak };
   };
 
   loadTestStateA = () => {
@@ -73,6 +107,9 @@ class App extends Component {
           habitId: "000",
           color: "rgb(34 211 238)",
           displayName: "Code",
+          completion: 0.5,
+          currentStreak: 0,
+          longestStreak: 2,
           gridItems: [
             {
               gridId: "000-1",
@@ -101,6 +138,9 @@ class App extends Component {
           habitId: "001",
           color: "rgb(52 211 153)",
           displayName: "Stretch",
+          completion: 0.75,
+          currentStreak: 0,
+          longestStreak: 3,
           gridItems: [
             {
               gridId: "001-1",
@@ -129,6 +169,9 @@ class App extends Component {
           habitId: "002",
           color: "rgb(163 230 53)",
           displayName: "Anki",
+          completion: 1,
+          currentStreak: 4,
+          longestStreak: 4,
           gridItems: [
             {
               gridId: "002-1",
@@ -291,6 +334,9 @@ class App extends Component {
     newHabit["habitId"] = uuidv4().slice(0, 8);
     newHabit["displayName"] = name;
     newHabit["color"] = color;
+    newHabit["completion"] = 0;
+    newHabit["currentStreak"] = 0;
+    newHabit["longestStreak"] = 0;
     newHabit["gridItems"] = this.state.dates.map((date) => {
       return {
         gridId: newHabit.habitId + "-" + date,
