@@ -14,6 +14,9 @@ class App extends Component {
       habitId: "",
       displayName: "",
       color: "",
+      completion: null,
+      currentStreak: null,
+      longestStreak: null,
     },
     dates: [
       // '2022-02-01',
@@ -495,8 +498,7 @@ class App extends Component {
           editHabitName={this.editHabitName}
           displayEdit={this.state.displayEdit}
           handleCloseEdit={this.handleCloseEdit}
-          name={this.state.habitToEdit.displayName}
-          color={this.state.habitToEdit.color}
+          habitToEdit={this.state.habitToEdit}
         />
         <Form
           addHabit={this.addHabit}

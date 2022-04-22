@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class Edit extends Component {
   state = {
     name: "",
-    color: this.props.color,
+    color: this.props.habitToEdit.color,
     selectedColorIndex: null,
     confirmDelete: false,
     deleteButtonText: "Delete Habit",
@@ -142,13 +142,13 @@ class Edit extends Component {
   };
 
   componentDidUpdate() {
-    if (this.props.name !== this.state.name) {
-      this.setState({ name: this.props.name });
+    if (this.props.habitToEdit.displayName !== this.state.name) {
+      this.setState({ name: this.props.habitToEdit.displayName });
     }
-    if (this.props.color !== this.state.color) {
-      let newIndex = this.indexToColor(this.props.color);
+    if (this.props.habitToEdit.color !== this.state.color) {
+      let newIndex = this.indexToColor(this.props.habitToEdit.color);
       this.setState({
-        color: this.props.color,
+        color: this.props.habitToEdit.color,
         selectedColorIndex: newIndex,
       });
     }
@@ -183,18 +183,33 @@ class Edit extends Component {
               </svg>
             </div>
           </div>
-          <p className="mt-4 text-center font-bold">Name:</p>
-          <div className="flex justify-center">
-            <input
-              type="text"
-              name="name"
-              autoComplete="off"
-              value={this.state.name}
-              onChange={this.handleChange}
-              className="my-4 h-8 w-3/4 rounded-full border-none bg-neutral-100 p-4 text-center font-semibold caret-neutral-400 placeholder:italic placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-300"
-            />
+          <p className="pt-8 font-bold">Stats:</p>
+          <div className="flex justify-between">
+            <p className="mt-2">Completion:</p>
+            {Math.floor(this.props.habitToEdit.completion * 100)}%
           </div>
-          <p className="text-center font-bold">Color:</p>
+          <div className="flex justify-between">
+            <p className="mt-2">Longest Streak:</p>
+            {this.props.habitToEdit.longestStreak}
+          </div>
+          <div className="flex justify-between border-b-2 border-neutral-100 pb-8">
+            <p className="mt-2">Current Streak:</p>
+            {this.props.habitToEdit.currentStreak}
+          </div>
+          <div className="flex justify-between">
+            <p className="mt-4 font-bold">Name:</p>
+            <div className="flex justify-center">
+              <input
+                type="text"
+                name="name"
+                autoComplete="off"
+                value={this.state.name}
+                onChange={this.handleChange}
+                className="my-4 h-8 w-full rounded-full border-none bg-neutral-100 p-4 text-center font-semibold caret-neutral-400 placeholder:italic placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-300"
+              />
+            </div>
+          </div>
+          <p className="font-bold">Color:</p>
           <div className="my-4 mt-2 flex w-full justify-evenly space-x-4">
             <div
               onClick={() => {
