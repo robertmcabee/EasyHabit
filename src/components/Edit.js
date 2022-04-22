@@ -5,6 +5,8 @@ class Edit extends Component {
     name: "",
     color: this.props.color,
     selectedColorIndex: null,
+    confirmDelete: false,
+    deleteButtonText: "Delete Habit",
   };
 
   indexToColor = (index) => {
@@ -54,6 +56,53 @@ class Edit extends Component {
     return selectedColor;
   };
 
+  colorToIndex = (color) => {
+    let index;
+    switch (color) {
+      case "rgb(34 211 238)":
+        index = 0;
+        break;
+      case "rgb(52 211 153)":
+        index = 1;
+        break;
+      case "rgb(163 230 53)":
+        index = 2;
+        break;
+      case "rgb(250 204 21)":
+        index = 3;
+        break;
+      case "rgb(251 146 60)":
+        index = 4;
+        break;
+      case "rgb(251 113 133)":
+        index = 5;
+        break;
+      case "hsl(186,94%,82%)":
+        index = 6;
+        break;
+      case "hsl(152,76%,80%)":
+        index = 7;
+        break;
+      case "hsl(81,88%,80%)":
+        index = 8;
+        break;
+      case "hsl(53,98%,77%)":
+        index = 9;
+        break;
+      case "hsl(32,98%,83%)":
+        index = 10;
+        break;
+      case "hsl(353,96%,90%)":
+        index = 11;
+        break;
+
+      default:
+        index = 0;
+        break;
+    }
+    return index;
+  };
+
   selectColor = (index) => {
     const color = this.indexToColor(index);
     this.setState({
@@ -68,12 +117,40 @@ class Edit extends Component {
     this.props.editHabitName(event.target.value);
   };
 
+  confirmDelete = () => {
+    if (this.state.confirmDelete === false) {
+      this.setState({
+        confirmDelete: true,
+        deleteButtonText: "Are you sure? This cannot be undone.",
+      });
+    } else {
+      this.props.deleteHabit();
+      this.setState({
+        confirmDelete: false,
+        deleteButtonText: "Delete Habit",
+      });
+    }
+  };
+
+  closeEdit = () => {
+    this.props.handleCloseEdit();
+    this.setState({
+      confirmDelete: false,
+      deleteButtonText: "Delete Habit",
+      selectedColorIndex: null,
+    });
+  };
+
   componentDidUpdate() {
     if (this.props.name !== this.state.name) {
       this.setState({ name: this.props.name });
     }
     if (this.props.color !== this.state.color) {
-      this.setState({ color: this.props.color });
+      let newIndex = this.indexToColor(this.props.color);
+      this.setState({
+        color: this.props.color,
+        selectedColorIndex: newIndex,
+      });
     }
   }
 
@@ -83,11 +160,11 @@ class Edit extends Component {
     }
     return (
       <div className="flex justify-center">
-        <section className="absolute top-0 z-50 m-16 animate-dropin rounded-xl bg-white p-10 drop-shadow-2xl">
+        <section className="absolute top-0 z-50 m-16 max-w-[28rem] animate-dropin rounded-xl bg-white p-10">
           <div className="flex justify-between border-b-2 border-neutral-100 pb-8 align-middle">
-            <h2 className="text-lg font-bold">Edit?</h2>
+            <h2 className="text-lg font-bold">Edit Habit</h2>
             <div
-              onClick={this.props.handleCloseEdit}
+              onClick={() => this.closeEdit()}
               className="cursor-pointer hover:text-neutral-900"
             >
               <svg
@@ -106,18 +183,19 @@ class Edit extends Component {
               </svg>
             </div>
           </div>
-          <label htmlFor="name" className="text-center font-bold">
-            Name:
-          </label>
-          <input
-            type="text"
-            name="name"
-            autoComplete="off"
-            value={this.state.name}
-            onChange={this.handleChange}
-            className="mx-8 h-8 rounded-full border-none bg-neutral-100 p-4 text-center font-semibold caret-neutral-400 placeholder:italic placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-300"
-          />
-          <div className="mt-2 flex w-full justify-evenly space-x-2">
+          <p className="mt-4 text-center font-bold">Name:</p>
+          <div className="flex justify-center">
+            <input
+              type="text"
+              name="name"
+              autoComplete="off"
+              value={this.state.name}
+              onChange={this.handleChange}
+              className="my-4 h-8 w-3/4 rounded-full border-none bg-neutral-100 p-4 text-center font-semibold caret-neutral-400 placeholder:italic placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-300"
+            />
+          </div>
+          <p className="text-center font-bold">Color:</p>
+          <div className="my-4 mt-2 flex w-full justify-evenly space-x-4">
             <div
               onClick={() => {
                 this.selectColor(0);
@@ -185,7 +263,7 @@ class Edit extends Component {
               }
             ></div>
           </div>
-          <div className="flex w-full justify-evenly space-x-2">
+          <div className="flex w-full justify-evenly space-x-4">
             <div
               onClick={() => {
                 this.selectColor(6);
@@ -254,15 +332,24 @@ class Edit extends Component {
             ></div>
           </div>
           <button
+            className="mt-6 w-full cursor-pointer rounded-full border-0 bg-rose-400 p-3 font-bold text-white transition-all hover:bg-rose-500"
             onClick={() => {
-              this.props.deleteHabit();
+              this.confirmDelete();
             }}
           >
-            Delete???
+            {this.state.deleteButtonText}
+          </button>
+          <button
+            className="mt-6 w-full cursor-pointer rounded-full border-0 bg-neutral-800 p-3 font-bold text-white transition-all hover:bg-black"
+            onClick={() => {
+              this.closeEdit();
+            }}
+          >
+            Cancel
           </button>
         </section>
         <div
-          onClick={this.props.handleCloseEdit}
+          onClick={() => this.closeEdit()}
           className="absolute top-0 z-40 h-full w-full animate-fadein bg-black opacity-50"
         ></div>
       </div>
