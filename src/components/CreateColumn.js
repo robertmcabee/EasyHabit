@@ -10,10 +10,10 @@ class CreateColumn extends Component {
         }}
         className="group h-min text-neutral-400 hover:text-neutral-500"
       >
-        <h3 className="h-10 cursor-pointer text-center font-bold">
+        <h3 className="mt-10 h-10 cursor-pointer text-center font-bold duration-200">
           Add New Habit
         </h3>
-        <div className="mt-6 h-20 w-full cursor-pointer rounded-full transition-all group-hover:bg-neutral-100 group-hover:shadow-inner">
+        <div className="mt-12 h-20 w-full cursor-pointer rounded-full transition-all duration-200 group-hover:bg-neutral-100 group-hover:shadow-inner">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-20 w-full"

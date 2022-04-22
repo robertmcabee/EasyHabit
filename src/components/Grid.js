@@ -26,7 +26,7 @@ class Grid extends Component {
             <DateColumn dates={this.props.dates} />
           </div>
           {habitColumns}
-          <div className="w-full min-w-[5rem] max-w-[10rem] pt-16">
+          <div className="w-full min-w-[5rem] max-w-[10rem]">
             <CreateColumn handleOpenForm={this.props.handleOpenForm} />
           </div>
         </div>
