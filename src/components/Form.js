@@ -264,7 +264,7 @@ class Form extends Component {
             <input
               value="Create"
               type="submit"
-              className="fixed bottom-[-1.5rem] left-0 w-1/2 translate-x-1/2 cursor-pointer rounded-full border-0 border-white bg-black p-3 font-bold text-white transition-all hover:border-b-4"
+              className="absolute bottom-[-1.5rem] left-0 w-1/2 translate-x-1/2 cursor-pointer rounded-full border-0 border-white bg-black p-3 font-bold text-white transition-all hover:border-b-4"
               style={{ color: this.state.color, borderColor: this.state.color }}
             />
           </form>
