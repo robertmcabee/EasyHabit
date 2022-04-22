@@ -159,8 +159,8 @@ class Edit extends Component {
       return null;
     }
     return (
-      <div className="flex justify-center">
-        <section className="absolute top-0 z-50 m-16 max-w-[28rem] animate-dropin rounded-xl bg-white p-10">
+      <div className="fixed z-50 flex w-full justify-center">
+        <section className="absolute top-0 z-50 max-w-[28rem] animate-dropin rounded-xl bg-white p-10">
           <div className="flex justify-between border-b-2 border-neutral-100 pb-8 align-middle">
             <h2 className="text-lg font-bold">Edit Habit</h2>
             <div
@@ -192,11 +192,11 @@ class Edit extends Component {
             <p className="mt-2">Longest Streak:</p>
             {this.props.habitToEdit.longestStreak}
           </div>
-          <div className="flex justify-between border-b-2 border-neutral-100 pb-8">
+          <div className="flex justify-between border-b-2 border-neutral-100 pb-6">
             <p className="mt-2">Current Streak:</p>
             {this.props.habitToEdit.currentStreak}
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between border-b-2 border-neutral-100 py-4">
             <p className="mt-4 font-bold">Name:</p>
             <div className="flex justify-center">
               <input
@@ -209,7 +209,7 @@ class Edit extends Component {
               />
             </div>
           </div>
-          <p className="font-bold">Color:</p>
+          <p className="mt-4 font-bold">Color:</p>
           <div className="my-4 mt-2 flex w-full justify-evenly space-x-4">
             <div
               onClick={() => {
@@ -365,7 +365,7 @@ class Edit extends Component {
         </section>
         <div
           onClick={() => this.closeEdit()}
-          className="absolute top-0 z-40 h-full w-full animate-fadein bg-black opacity-50"
+          className="fixed top-0 z-40 h-full w-full animate-fadein bg-black opacity-50"
         ></div>
       </div>
     );

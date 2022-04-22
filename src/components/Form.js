@@ -80,8 +80,8 @@ class Form extends Component {
       return null;
     }
     return (
-      <div className="flex justify-center">
-        <section className="absolute top-0 z-50 m-16 animate-dropin rounded-xl bg-white p-10 drop-shadow-2xl">
+      <div className="fixed z-50 flex w-full justify-center">
+        <section className="absolute top-0 z-50 animate-dropin rounded-xl bg-white p-10 drop-shadow-2xl">
           <div className="flex justify-between border-b-2 border-neutral-100 pb-8 align-middle">
             <h2 className="text-lg font-bold">What do you want to track?</h2>
             <div
@@ -264,14 +264,14 @@ class Form extends Component {
             <input
               value="Create"
               type="submit"
-              className="absolute bottom-[-1.5rem] left-0 w-1/2 translate-x-1/2 cursor-pointer rounded-full border-0 border-white bg-black p-3 font-bold text-white transition-all hover:border-b-4"
+              className="fixed bottom-[-1.5rem] left-0 w-1/2 translate-x-1/2 cursor-pointer rounded-full border-0 border-white bg-black p-3 font-bold text-white transition-all hover:border-b-4"
               style={{ color: this.state.color, borderColor: this.state.color }}
             />
           </form>
         </section>
         <div
           onClick={this.props.handleCloseForm}
-          className="absolute top-0 z-40 h-full w-full animate-fadein bg-black opacity-50"
+          className="fixed top-0 z-40 h-full w-full animate-fadein bg-black opacity-50"
         ></div>
       </div>
     );
