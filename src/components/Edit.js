@@ -117,6 +117,12 @@ class Edit extends Component {
     this.props.editHabitName(event.target.value);
   };
 
+  handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      this.closeEdit();
+    }
+  };
+
   confirmDelete = () => {
     if (this.state.confirmDelete === false) {
       this.setState({
@@ -204,6 +210,7 @@ class Edit extends Component {
                 name="name"
                 autoComplete="off"
                 value={this.state.name}
+                onKeyDown={this.handleKeyDown}
                 onChange={this.handleChange}
                 className="my-4 h-8 w-full rounded-full border-none bg-neutral-100 p-4 text-center font-semibold caret-neutral-400 placeholder:italic placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-300"
               />

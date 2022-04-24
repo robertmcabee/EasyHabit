@@ -75,6 +75,12 @@ class Form extends Component {
   handleChange = (event) =>
     this.setState({ [event.target.name]: event.target.value });
 
+  handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      this.handleSubmit(event);
+    }
+  };
+
   render() {
     if (this.props.displayForm === false) {
       return null;
@@ -114,6 +120,7 @@ class Form extends Component {
                 name="name"
                 autoComplete="off"
                 value={this.state.name}
+                onKeyDown={this.handleKeyDown}
                 onChange={this.handleChange}
                 placeholder="e.g. Stretch"
                 className="mx-8 h-8 rounded-full border-none bg-neutral-100 p-4 text-center font-semibold caret-neutral-400 placeholder:italic placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-300"
