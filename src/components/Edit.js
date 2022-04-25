@@ -167,6 +167,7 @@ class Edit extends Component {
     return (
       <div className="fixed z-50 flex w-full justify-center">
         <section className="absolute top-0 z-50 max-w-[28rem] animate-dropin rounded-xl bg-white p-10">
+          {/* ----------Header---------- */}
           <div className="flex justify-between border-b-2 border-neutral-100 pb-8 align-middle">
             <h2 className="text-lg font-bold">Edit Habit</h2>
             <div
@@ -189,6 +190,7 @@ class Edit extends Component {
               </svg>
             </div>
           </div>
+          {/* ----------Stats---------- */}
           <p className="pt-8 font-bold">Stats:</p>
           <div className="flex justify-between">
             <p className="mt-2">Completion:</p>
@@ -202,20 +204,20 @@ class Edit extends Component {
             <p className="mt-2">Current Streak:</p>
             {this.props.habitToEdit.currentStreak}
           </div>
-          <div className="flex justify-between border-b-2 border-neutral-100 py-4">
-            <p className="mt-4 font-bold">Name:</p>
-            <div className="flex justify-center">
-              <input
-                type="text"
-                name="name"
-                autoComplete="off"
-                value={this.state.name}
-                onKeyDown={this.handleKeyDown}
-                onChange={this.handleChange}
-                className="my-4 h-8 w-full rounded-full border-none bg-neutral-100 p-4 text-center font-semibold caret-neutral-400 placeholder:italic placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-300"
-              />
-            </div>
+          {/* ----------Name---------- */}
+          <div className="flex justify-between border-b-2 border-neutral-100 py-4 align-middle">
+            <p className="h-8 self-center font-bold">Name:</p>
+            <input
+              type="text"
+              name="name"
+              autoComplete="off"
+              value={this.state.name}
+              onKeyDown={this.handleKeyDown}
+              onChange={this.handleChange}
+              className="my-4 h-8 w-3/4 rounded-full border-none bg-neutral-100 p-4 text-center font-semibold caret-neutral-400 placeholder:italic placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-300"
+            />
           </div>
+          {/* ----------Color---------- */}
           <p className="mt-4 font-bold">Color:</p>
           <div className="my-4 mt-2 flex w-full justify-evenly space-x-4">
             <div
@@ -353,6 +355,7 @@ class Edit extends Component {
               }
             ></div>
           </div>
+          {/* ----------Buttons---------- */}
           <button
             className="mt-6 w-full cursor-pointer rounded-full border-0 bg-rose-400 p-3 font-bold text-white transition-all duration-300 hover:bg-rose-500"
             onClick={() => {
