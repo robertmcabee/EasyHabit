@@ -8,9 +8,9 @@ class DateColumn extends Component {
     const monthName = format(dateObj, "MMM"); //i.e. 'Jan'
     const dayOfWeek = format(dateObj, "iiii"); //i.e. '18'
     return (
-      <div className="mt-6 flex h-20 w-full min-w-[5rem] max-w-[10rem] flex-col justify-center text-center align-middle font-bold">
+      <div className="mt-6 flex h-20 w-full min-w-[5rem] max-w-[10rem] flex-col justify-center text-center align-middle">
         <p>{dayOfWeek}</p>
-        <p>
+        <p className="font-bold">
           {monthName} {dayOfMonth}
         </p>
       </div>

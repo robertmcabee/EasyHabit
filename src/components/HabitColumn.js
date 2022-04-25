@@ -14,15 +14,24 @@ class HabitColumn extends Component {
     });
 
     return (
-      <div className="w-full min-w-[5rem] max-w-[10rem] text-center">
-        <div className="flex h-16 min-h-[4rem] items-end justify-center hover:h-fit">
-          <h3 className="overflow-hidden text-ellipsis font-bold hover:overflow-visible ">
+      <div className="w-full max-w-[10rem] text-center md:min-w-[5rem]">
+        <div
+          onClick={() => {
+            this.props.handleOpenEdit(
+              this.props.column.habitId,
+              this.props.column.displayName
+            );
+          }}
+          className="flex h-[6.5rem] min-h-[4rem] items-center justify-center sm:h-16 sm:items-end"
+        >
+          <h3 className="w-16 rotate-90 overflow-hidden text-ellipsis font-bold sm:rotate-0 ">
             {this.props.column.displayName}
           </h3>
         </div>
-        <div className="flex justify-center">
+        {/* Edit Button */}
+        <div className="hidden justify-center sm:flex">
           <div
-            className="--slow-transition group flex h-10 w-14 max-w-[5rem] cursor-pointer justify-center rounded-full p-2 align-middle opacity-80 shadow-lg hover:w-full hover:bg-black hover:text-white hover:opacity-100"
+            className="--slow-transition group flex h-10 w-14 max-w-[5rem] cursor-pointer justify-center rounded-full p-2 align-middle opacity-80 shadow-lg hover:bg-black hover:text-white hover:opacity-100 sm:hover:w-full"
             onClick={() => {
               this.props.handleOpenEdit(
                 this.props.column.habitId,

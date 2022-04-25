@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import DateColumn from "./DateColumn";
 import HabitColumn from "./HabitColumn";
 import CreateColumn from "./CreateColumn";
+import CreateButton from "./CreateButton";
 class Grid extends Component {
   state = {
     // habits: this.props.habits,
@@ -20,13 +21,16 @@ class Grid extends Component {
     });
 
     return (
-      <div className="flex h-full w-full">
-        <div className="flex h-full w-full justify-center space-x-4 p-20">
-          <div className="w-full min-w-[5rem] max-w-[10rem] pt-24">
+      <div className="flex h-full w-full min-w-min overflow-scroll pb-10 pt-4">
+        <div className="flex h-full w-full justify-center space-x-1 md:space-x-4">
+          <div className="w-full min-w-[5rem] max-w-[10rem] md:pt-24">
+            <div className="md:hidden">
+              <CreateButton handleOpenForm={this.props.handleOpenForm} />
+            </div>
             <DateColumn dates={this.props.dates} />
           </div>
           {habitColumns}
-          <div className="w-full min-w-[5rem] max-w-[10rem]">
+          <div className="hidden w-full min-w-[5rem] max-w-[10rem] md:block">
             <CreateColumn handleOpenForm={this.props.handleOpenForm} />
           </div>
         </div>

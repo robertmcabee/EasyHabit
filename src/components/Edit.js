@@ -165,8 +165,8 @@ class Edit extends Component {
       return null;
     }
     return (
-      <div className="fixed z-50 flex w-full justify-center">
-        <section className="absolute top-0 z-50 max-w-[28rem] animate-dropin rounded-xl bg-white p-10">
+      <div className="fixed z-50 flex h-full w-full justify-center align-bottom">
+        <section className="z-50 m-auto mb-0 max-h-min max-w-[28rem] animate-dropin rounded-xl bg-white p-10 sm:mb-auto">
           {/* ----------Header---------- */}
           <div className="flex justify-between border-b-2 border-neutral-100 pb-8 align-middle">
             <h2 className="text-lg font-bold">Edit Habit</h2>
@@ -191,7 +191,7 @@ class Edit extends Component {
             </div>
           </div>
           {/* ----------Stats---------- */}
-          <p className="pt-8 font-bold">Stats:</p>
+          <p className="pt-8 text-base font-bold">Stats:</p>
           <div className="flex justify-between">
             <p className="mt-2">Completion:</p>
             {Math.floor(this.props.habitToEdit.completion * 100)}%
@@ -206,7 +206,7 @@ class Edit extends Component {
           </div>
           {/* ----------Name---------- */}
           <div className="flex justify-between border-b-2 border-neutral-100 py-4 align-middle">
-            <p className="h-8 self-center font-bold">Name:</p>
+            <p className="h-8 self-center text-base font-bold">Name:</p>
             <input
               type="text"
               name="name"
@@ -218,8 +218,8 @@ class Edit extends Component {
             />
           </div>
           {/* ----------Color---------- */}
-          <p className="mt-4 font-bold">Color:</p>
-          <div className="my-4 mt-2 flex w-full justify-evenly space-x-4">
+          <p className="mt-4 text-base font-bold">Color:</p>
+          <div className="my-4 mt-2 flex w-full justify-evenly space-x-1 sm:space-x-4">
             <div
               onClick={() => {
                 this.selectColor(0);
@@ -287,7 +287,7 @@ class Edit extends Component {
               }
             ></div>
           </div>
-          <div className="flex w-full justify-evenly space-x-4">
+          <div className="flex w-full justify-evenly space-x-1 sm:space-x-4">
             <div
               onClick={() => {
                 this.selectColor(6);
