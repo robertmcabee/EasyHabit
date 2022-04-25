@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid"; //example: 273a442e-9882-4662-8a99-16be011b
 import Grid from "./components/Grid";
 import Form from "./components/Form";
 import Edit from "./components/Edit";
+import DevelopmentButtons from "./components/DevelopmentButtons";
 import "./style.css";
 
 class App extends Component {
@@ -516,52 +517,13 @@ class App extends Component {
   render() {
     return (
       <div className="bg-neutral-50 font-sans text-neutral-700">
-        <div className="mb-8 flex w-full justify-center space-x-2 opacity-50 hover:opacity-100">
-          <button
-            onClick={this.addDay}
-            className="rounded-md bg-purple-300 p-2 text-white sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300"
-          >
-            New Day
-          </button>
-          <button
-            onClick={this.addElapsedDays}
-            className="rounded-md bg-purple-300 p-2 text-white sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300"
-          >
-            Add Elapsed Days
-          </button>
-          <button
-            onClick={() => {
-              this.loadTestStateA();
-            }}
-            className=" rounded-md bg-purple-300 p-2 text-white sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300"
-          >
-            Load Test A
-          </button>
-          <button
-            onClick={() => {
-              this.loadTestStateB();
-            }}
-            className=" rounded-md bg-purple-300 p-2 text-white sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300"
-          >
-            Load Test B
-          </button>
-          <button
-            onClick={() => {
-              this.loadTestStateC();
-            }}
-            className=" rounded-md bg-purple-300 p-2 text-white sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300"
-          >
-            Load Test C
-          </button>
-          <button
-            onClick={() => {
-              this.clearLocalStorage();
-            }}
-            className=" rounded-md bg-purple-300 p-2 text-white sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300"
-          >
-            Clear Local Storage
-          </button>
-        </div>
+        <DevelopmentButtons
+          addDay={this.addDay}
+          addElapsedDays={this.addElapsedDays}
+          loadTestStateA={this.loadTestStateA}
+          loadTestStateB={this.loadTestStateB}
+          loadTestStateC={this.loadTestStateC}
+        />
         <Edit
           deleteHabit={this.deleteHabit}
           editHabitColor={this.editHabitColor}
