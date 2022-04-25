@@ -75,7 +75,7 @@ class App extends Component {
     let currentStreak = 0;
     let streakAtIndex = 0;
     habit.gridItems
-      .slice() //to create a shalow copy of gridItems to reverse
+      .slice() //to create a shallow copy of gridItems to reverse
       .reverse()
       .forEach((item) => {
         if (item.completed) {
