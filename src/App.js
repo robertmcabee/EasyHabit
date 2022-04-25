@@ -46,17 +46,6 @@ class App extends Component {
     ],
   };
 
-  daysElapsed = (currentTime, mostRecentDay) => {
-    //returns series of formatted days that have elapsed
-    const numOfDays = differenceInCalendarDays(currentTime, mostRecentDay);
-    if (numOfDays < 0) return null;
-    const result = [];
-    for (let i = 0; i < numOfDays + 1; i++) {
-      result.push(format(add(mostRecentDay, { days: i }), "yyyy-MM-dd")); //creates an ascending series of formatted days
-    }
-    return result;
-  };
-
   toggleCompletion = (id) => {
     this.setState({
       habits: this.state.habits.map((habit) => {
@@ -313,6 +302,75 @@ class App extends Component {
     });
   };
 
+  loadTestStateC = () => {
+    this.setState({
+      dates: ["2022-04-20"],
+      habits: [
+        {
+          habitId: "000",
+          color: "rgb(34 211 238)",
+          displayName: "Code",
+          gridItems: [
+            {
+              gridId: "000-1",
+              date: "2022-04-20",
+              completed: true,
+            },
+          ],
+        },
+
+        {
+          habitId: "007",
+          color: "rgb(163 230 53)",
+          displayName: "Anki",
+          gridItems: [
+            {
+              gridId: "007-1",
+              date: "2022-04-20",
+              completed: true,
+            },
+          ],
+        },
+      ],
+    });
+  };
+
+  addElapsedDays = () => {
+    const today = new Date();
+    const mostRecentDay = parse(this.state.dates[0], "yyyy-MM-dd", new Date());
+    const numOfDays = differenceInCalendarDays(today, mostRecentDay);
+
+    console.log("mostRecentDay");
+    console.log(mostRecentDay);
+    console.log("today");
+    console.log(today);
+    console.log("numOfDays");
+    console.log(numOfDays);
+
+    if (numOfDays < 0) return null;
+    const daysToAdd = [];
+    for (let i = 1; i < numOfDays + 1; i++) {
+      const date = add(mostRecentDay, { days: i });
+      console.log("date");
+      console.log(format(date, "yyyy-MM-dd"));
+      daysToAdd.unshift(format(date, "yyyy-MM-dd"));
+    }
+
+    this.setState({
+      dates: [...daysToAdd, ...this.state.dates],
+    });
+    daysToAdd.forEach((day) => {
+      this.state.habits.forEach((habit) => {
+        //add new grid items to each habit for the new day
+        habit.gridItems.unshift({
+          gridId: habit.habitId + "-" + day,
+          date: day,
+          completed: false,
+        });
+      });
+    });
+  };
+
   addDay = () => {
     const lastDate = this.state.dates[0];
     const parsedLastDate = parse(lastDate, "yyyy-MM-dd", new Date()); //convert string into js date object
@@ -443,10 +501,15 @@ class App extends Component {
       const storedDates = JSON.parse(localStorage.getItem("dates"));
       console.log(storedHabits);
       console.log(storedDates);
-      this.setState({
-        dates: storedDates,
-        habits: storedHabits,
-      });
+      this.setState(
+        {
+          dates: storedDates,
+          habits: storedHabits,
+        },
+        () => {
+          this.addElapsedDays();
+        }
+      );
     } else {
       console.log("-----------no state found-----------");
       this.addStartDate();
@@ -468,6 +531,12 @@ class App extends Component {
             New Day
           </button>
           <button
+            onClick={this.addElapsedDays}
+            className="rounded-md bg-purple-300 p-2 text-white sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300"
+          >
+            Add Elapsed Days
+          </button>
+          <button
             onClick={() => {
               this.loadTestStateA();
             }}
@@ -482,6 +551,14 @@ class App extends Component {
             className=" rounded-md bg-purple-300 p-2 text-white sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300"
           >
             Load Test B
+          </button>
+          <button
+            onClick={() => {
+              this.loadTestStateC();
+            }}
+            className=" rounded-md bg-purple-300 p-2 text-white sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300"
+          >
+            Load Test C
           </button>
           <button
             onClick={() => {
