@@ -336,32 +336,25 @@ class App extends Component {
   };
 
   addElapsedDays = () => {
+    //creates new dates between most recent date and today & coresponding habit grid items
     const today = new Date();
     const mostRecentDay = parse(this.state.dates[0], "yyyy-MM-dd", new Date());
     const numOfDays = differenceInCalendarDays(today, mostRecentDay);
-
-    console.log("mostRecentDay");
-    console.log(mostRecentDay);
-    console.log("today");
-    console.log(today);
-    console.log("numOfDays");
-    console.log(numOfDays);
-
+    //if most recent date is in the future, do nothing
     if (numOfDays < 0) return null;
+    //creates array of formatted dates
     const daysToAdd = [];
     for (let i = 1; i < numOfDays + 1; i++) {
       const date = add(mostRecentDay, { days: i });
-      console.log("date");
-      console.log(format(date, "yyyy-MM-dd"));
       daysToAdd.unshift(format(date, "yyyy-MM-dd"));
     }
-
+    //sets state with new dates
     this.setState({
       dates: [...daysToAdd, ...this.state.dates],
     });
+    //for each day, add a new grid item to each habit
     daysToAdd.forEach((day) => {
       this.state.habits.forEach((habit) => {
-        //add new grid items to each habit for the new day
         habit.gridItems.unshift({
           gridId: habit.habitId + "-" + day,
           date: day,
