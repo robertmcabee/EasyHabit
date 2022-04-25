@@ -5,3 +5,7 @@
 .--slow-transition {
   transition: all 300ms ease-in-out;
 }
+
+body {
+  background-color: rgb(250 250 250);
+}
