@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import DateColumn from "./DateColumn";
 import HabitColumn from "./HabitColumn";
 import CreateColumn from "./CreateColumn";
-import CreateButton from "./CreateButton";
+import UpperButtons from "./UpperButtons";
 class Grid extends Component {
   state = {
     // habits: this.props.habits,
@@ -16,16 +16,20 @@ class Grid extends Component {
           column={column}
           toggleCompletion={this.props.toggleCompletion}
           handleOpenEdit={this.props.handleOpenEdit}
+          displayOptions={this.props.displayOptions}
         />
       );
     });
 
     return (
-      <div className="flex h-full w-full min-w-min select-none overflow-scroll pb-10 sm:pt-4">
+      <div className="flex h-full w-full min-w-min select-none overflow-scroll pb-10 pr-4 sm:pt-4">
         <div className="flex h-full w-full grow-0 justify-center space-x-1 md:space-x-4">
-          <div className="w-full min-w-[5rem] max-w-[10rem] pt-24">
-            <div className="md:hidden">
-              <CreateButton handleOpenForm={this.props.handleOpenForm} />
+          <div className="w-full min-w-[5rem] max-w-[10rem]">
+            <div className="flex justify-center">
+              <UpperButtons
+                handleOpenForm={this.props.handleOpenForm}
+                handleOpenOptions={this.props.handleOpenOptions}
+              />
             </div>
             <DateColumn dates={this.props.dates} />
           </div>
