@@ -41,9 +41,9 @@ class Options extends Component {
     }
     return (
       <div className="fixed z-50 flex h-full w-full select-none justify-center align-bottom">
-        <section className="z-50 m-auto mb-0 max-h-min max-w-[28rem] animate-dropin rounded-xl bg-white p-10 shadow-2xl sm:mb-auto">
+        <section className="z-50 m-auto mb-0 max-h-min max-w-[28rem] animate-dropin rounded-xl bg-white p-10 shadow-2xl dark:bg-neutral-700 dark:shadow-none sm:mb-auto">
           {/* ----------Header---------- */}
-          <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-8 align-middle">
+          <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-8 align-middle dark:border-neutral-600">
             <h2 className="text-lg font-bold">Options</h2>
             <div
               onClick={() => {
@@ -68,7 +68,7 @@ class Options extends Component {
             </div>
           </div>
           {/* ----------Info---------- */}
-          <div className="border-b-2 border-neutral-100 py-8 pb-8 text-neutral-500">
+          <div className="border-b-2 border-neutral-100 py-8 pb-8 text-neutral-500 dark:border-neutral-600 dark:text-neutral-300">
             <p className="mb-2 font-bold">
               Created with &lt;3 by{" "}
               <a

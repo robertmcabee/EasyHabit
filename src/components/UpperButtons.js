@@ -9,7 +9,7 @@ class UpperButtons extends Component {
           onClick={() => {
             this.props.handleOpenOptions();
           }}
-          className="flex h-10 w-10 cursor-pointer justify-center rounded-full bg-neutral-100 align-middle shadow-inner transition-all duration-300 hover:rotate-90 hover:bg-neutral-200"
+          className="flex h-10 w-10 cursor-pointer justify-center rounded-full bg-neutral-100 align-middle shadow-inner transition-all duration-300 hover:rotate-90 hover:bg-neutral-200 dark:bg-neutral-700 dark:shadow-none dark:hover:bg-neutral-600"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@ class UpperButtons extends Component {
           onClick={() => {
             this.props.handleOpenForm();
           }}
-          className="flex h-10 w-10 cursor-pointer justify-center rounded-full bg-neutral-100 align-middle shadow-inner transition-all duration-300 hover:rotate-90 hover:bg-neutral-200 md:hidden"
+          className="flex h-10 w-10 cursor-pointer justify-center rounded-full bg-neutral-100 align-middle shadow-inner transition-all duration-300 hover:rotate-90 hover:bg-neutral-200 dark:bg-neutral-700 dark:shadow-none dark:hover:bg-neutral-600 md:hidden"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -166,9 +166,9 @@ class Edit extends Component {
     }
     return (
       <div className="fixed z-50 flex h-full w-full justify-center align-bottom">
-        <section className="z-50 m-auto mb-0 max-h-min max-w-[28rem] animate-dropin rounded-xl bg-white p-10 sm:mb-auto">
+        <section className="z-50 m-auto mb-0 max-h-min max-w-[28rem] animate-dropin rounded-xl bg-white p-10 dark:bg-neutral-700 sm:mb-auto">
           {/* ----------Header---------- */}
-          <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-8 align-middle">
+          <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-8 align-middle dark:border-neutral-600">
             <h2 className="text-lg font-bold">Edit Habit</h2>
             <div
               onClick={() => this.closeEdit()}
@@ -200,12 +200,12 @@ class Edit extends Component {
             <p className="mt-2">Longest Streak:</p>
             {this.props.habitToEdit.longestStreak}
           </div>
-          <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-6">
+          <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-6 dark:border-neutral-600">
             <p className="mt-2">Current Streak:</p>
             {this.props.habitToEdit.currentStreak}
           </div>
           {/* ----------Name---------- */}
-          <div className="flex justify-between border-b-2 border-neutral-100 py-4 align-middle">
+          <div className="flex justify-between border-b-2 border-neutral-100 py-4 align-middle dark:border-neutral-600">
             <p className="h-8 select-none self-center text-base font-bold">
               Name:
             </p>
@@ -216,7 +216,7 @@ class Edit extends Component {
               value={this.state.name}
               onKeyDown={this.handleKeyDown}
               onChange={this.handleChange}
-              className="my-4 h-8 w-3/4 rounded-full border-none bg-neutral-100 p-4 text-center font-semibold caret-neutral-400 placeholder:italic placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-300"
+              className="my-4 h-8 w-3/4 rounded-full border-0 border-none bg-neutral-100 p-4 text-center font-semibold caret-neutral-400 placeholder:italic placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:bg-neutral-800 dark:focus:border-neutral-50 dark:focus:ring-neutral-500"
             />
           </div>
           {/* ----------Color---------- */}
@@ -226,66 +226,66 @@ class Edit extends Component {
               onClick={() => {
                 this.selectColor(0);
               }}
-              className="h-12 w-12 cursor-pointer rounded-full bg-[rgb(34,211,238)] transition-all hover:opacity-75"
+              className="h-12 w-12 cursor-pointer rounded-full border-8 border-neutral-50 bg-[rgb(34,211,238)] transition-all hover:opacity-75 dark:border-neutral-600"
               style={
                 this.state.selectedColorIndex === 0
                   ? { border: "6px solid rgb(34,211,238)" }
-                  : { border: "6px solid hsl(0,0%,95%)" }
+                  : { border: "" }
               }
             ></div>
             <div
               onClick={() => {
                 this.selectColor(1);
               }}
-              className="h-12 w-12 cursor-pointer rounded-full bg-[rgb(52,211,153)] transition-all hover:opacity-75"
+              className="h-12 w-12 cursor-pointer rounded-full border-8 border-neutral-50 bg-[rgb(52,211,153)] transition-all hover:opacity-75 dark:border-neutral-600"
               style={
                 this.state.selectedColorIndex === 1
                   ? { border: "6px solid rgb(52,211,153)" }
-                  : { border: "6px solid hsl(0,0%,95%)" }
+                  : { border: "" }
               }
             ></div>
             <div
               onClick={() => {
                 this.selectColor(2);
               }}
-              className="h-12 w-12 cursor-pointer rounded-full bg-[rgb(163,230,53)] transition-all hover:opacity-75"
+              className="h-12 w-12 cursor-pointer rounded-full border-8 border-neutral-50 bg-[rgb(163,230,53)] transition-all hover:opacity-75 dark:border-neutral-600"
               style={
                 this.state.selectedColorIndex === 2
                   ? { border: "6px solid rgb(163,230,53)" }
-                  : { border: "6px solid hsl(0,0%,95%)" }
+                  : { border: "" }
               }
             ></div>
             <div
               onClick={() => {
                 this.selectColor(3);
               }}
-              className="h-12 w-12 cursor-pointer rounded-full bg-[rgb(250,204,21)] transition-all hover:opacity-75"
+              className="h-12 w-12 cursor-pointer rounded-full border-8 border-neutral-50 bg-[rgb(250,204,21)] transition-all hover:opacity-75 dark:border-neutral-600"
               style={
                 this.state.selectedColorIndex === 3
                   ? { border: "6px solid rgb(250,204,21)" }
-                  : { border: "6px solid hsl(0,0%,95%)" }
+                  : { border: "" }
               }
             ></div>
             <div
               onClick={() => {
                 this.selectColor(4);
               }}
-              className="h-12 w-12 cursor-pointer rounded-full bg-[rgb(251,146,60)] transition-all hover:opacity-75"
+              className="h-12 w-12 cursor-pointer rounded-full border-8 border-neutral-50 bg-[rgb(251,146,60)] transition-all hover:opacity-75 dark:border-neutral-600"
               style={
                 this.state.selectedColorIndex === 4
                   ? { border: "6px solid rgb(251,146,60)" }
-                  : { border: "6px solid hsl(0,0%,95%)" }
+                  : { border: "" }
               }
             ></div>
             <div
               onClick={() => {
                 this.selectColor(5);
               }}
-              className="h-12 w-12 cursor-pointer rounded-full bg-[rgb(251,113,133)] transition-all hover:opacity-75"
+              className="h-12 w-12 cursor-pointer rounded-full border-8 border-neutral-50 bg-[rgb(251,113,133)] transition-all hover:opacity-75 dark:border-neutral-600"
               style={
                 this.state.selectedColorIndex === 5
                   ? { border: "6px solid rgb(251,113,133)" }
-                  : { border: "6px solid hsl(0,0%,95%)" }
+                  : { border: "" }
               }
             ></div>
           </div>
@@ -294,66 +294,66 @@ class Edit extends Component {
               onClick={() => {
                 this.selectColor(6);
               }}
-              className="h-12 w-12 cursor-pointer rounded-full bg-[hsl(186,94%,82%)] transition-all hover:opacity-75"
+              className="h-12 w-12 cursor-pointer rounded-full border-8 border-neutral-50 bg-[hsl(186,94%,82%)] transition-all hover:opacity-75 dark:border-neutral-600"
               style={
                 this.state.selectedColorIndex === 6
                   ? { border: "6px solid hsl(186,94%,82%)" }
-                  : { border: "6px solid hsl(0,0%,95%)" }
+                  : { border: "" }
               }
             ></div>
             <div
               onClick={() => {
                 this.selectColor(7);
               }}
-              className="h-12 w-12 cursor-pointer rounded-full bg-[hsl(152,76%,80%)] transition-all hover:opacity-75"
+              className="h-12 w-12 cursor-pointer rounded-full border-8 border-neutral-50 bg-[hsl(152,76%,80%)] transition-all hover:opacity-75 dark:border-neutral-600"
               style={
                 this.state.selectedColorIndex === 7
                   ? { border: "6px solid hsl(152,76%,80%)" }
-                  : { border: "6px solid hsl(0,0%,95%)" }
+                  : { border: "" }
               }
             ></div>
             <div
               onClick={() => {
                 this.selectColor(8);
               }}
-              className="h-12 w-12 cursor-pointer rounded-full bg-[hsl(81,88%,80%)] transition-all hover:opacity-75"
+              className="h-12 w-12 cursor-pointer rounded-full border-8 border-neutral-50 bg-[hsl(81,88%,80%)] transition-all hover:opacity-75 dark:border-neutral-600"
               style={
                 this.state.selectedColorIndex === 8
                   ? { border: "6px solid hsl(81,88%,80%)" }
-                  : { border: "6px solid hsl(0,0%,95%)" }
+                  : { border: "" }
               }
             ></div>
             <div
               onClick={() => {
                 this.selectColor(9);
               }}
-              className="h-12 w-12 cursor-pointer rounded-full bg-[hsl(53,98%,77%)] transition-all hover:opacity-75"
+              className="h-12 w-12 cursor-pointer rounded-full border-8 border-neutral-50 bg-[hsl(53,98%,77%)] transition-all hover:opacity-75 dark:border-neutral-600"
               style={
                 this.state.selectedColorIndex === 9
                   ? { border: "6px solid hsl(53,98%,77%)" }
-                  : { border: "6px solid hsl(0,0%,95%)" }
+                  : { border: "" }
               }
             ></div>
             <div
               onClick={() => {
                 this.selectColor(10);
               }}
-              className="h-12 w-12 cursor-pointer rounded-full bg-[hsl(32,98%,83%)] transition-all hover:opacity-75"
+              className="h-12 w-12 cursor-pointer rounded-full border-8 border-neutral-50 bg-[hsl(32,98%,83%)] transition-all hover:opacity-75 dark:border-neutral-600"
               style={
                 this.state.selectedColorIndex === 10
                   ? { border: "6px solid hsl(32,98%,83%)" }
-                  : { border: "6px solid hsl(0,0%,95%)" }
+                  : { border: "" }
               }
             ></div>
             <div
               onClick={() => {
                 this.selectColor(11);
               }}
-              className="h-12 w-12 cursor-pointer rounded-full bg-[hsl(353,96%,90%)] transition-all hover:opacity-75"
+              className="h-12 w-12 cursor-pointer rounded-full border-8 border-neutral-50 bg-[hsl(353,96%,90%)] transition-all hover:opacity-75 dark:border-neutral-600"
               style={
                 this.state.selectedColorIndex === 11
                   ? { border: "6px solid hsl(353,96%,90%)" }
-                  : { border: "6px solid hsl(0,0%,95%)" }
+                  : { border: "" }
               }
             ></div>
           </div>

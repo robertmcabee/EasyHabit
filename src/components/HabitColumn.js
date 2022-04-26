@@ -25,7 +25,7 @@ class HabitColumn extends Component {
           {/* ********** Edit Button ********** */}
           <div className="flex justify-center py-2 sm:py-0">
             <div
-              className="group flex h-9 w-14 max-w-[5rem] cursor-pointer justify-center rounded-full p-2 align-middle opacity-80 shadow-lg duration-500 hover:bg-black hover:text-white hover:opacity-100 sm:hover:w-full md:h-10"
+              className="group flex h-9 w-14 max-w-[5rem] cursor-pointer justify-center rounded-full p-2 align-middle opacity-80 shadow-lg duration-500 hover:bg-black hover:text-white hover:opacity-100 dark:bg-neutral-700 dark:shadow-none dark:hover:bg-neutral-600 sm:hover:w-full md:h-10"
               onClick={() => {
                 this.props.handleOpenEdit(
                   this.props.column.habitId,
