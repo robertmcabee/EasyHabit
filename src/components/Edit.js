@@ -168,7 +168,7 @@ class Edit extends Component {
       <div className="fixed z-50 flex h-full w-full justify-center align-bottom">
         <section className="z-50 m-auto mb-0 max-h-min max-w-[28rem] animate-dropin rounded-xl bg-white p-10 sm:mb-auto">
           {/* ----------Header---------- */}
-          <div className="flex justify-between border-b-2 border-neutral-100 pb-8 align-middle">
+          <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-8 align-middle">
             <h2 className="text-lg font-bold">Edit Habit</h2>
             <div
               onClick={() => this.closeEdit()}
@@ -191,22 +191,24 @@ class Edit extends Component {
             </div>
           </div>
           {/* ----------Stats---------- */}
-          <p className="pt-8 text-base font-bold">Stats:</p>
-          <div className="flex justify-between">
+          <p className="select-none pt-8 text-base font-bold">Stats:</p>
+          <div className="flex select-none justify-between">
             <p className="mt-2">Completion:</p>
             {Math.floor(this.props.habitToEdit.completion * 100)}%
           </div>
-          <div className="flex justify-between">
+          <div className="flex select-none justify-between">
             <p className="mt-2">Longest Streak:</p>
             {this.props.habitToEdit.longestStreak}
           </div>
-          <div className="flex justify-between border-b-2 border-neutral-100 pb-6">
+          <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-6">
             <p className="mt-2">Current Streak:</p>
             {this.props.habitToEdit.currentStreak}
           </div>
           {/* ----------Name---------- */}
           <div className="flex justify-between border-b-2 border-neutral-100 py-4 align-middle">
-            <p className="h-8 self-center text-base font-bold">Name:</p>
+            <p className="h-8 select-none self-center text-base font-bold">
+              Name:
+            </p>
             <input
               type="text"
               name="name"
@@ -218,7 +220,7 @@ class Edit extends Component {
             />
           </div>
           {/* ----------Color---------- */}
-          <p className="mt-4 text-base font-bold">Color:</p>
+          <p className="mt-4 select-none text-base font-bold">Color:</p>
           <div className="my-4 mt-2 flex w-full justify-evenly space-x-1 sm:space-x-4">
             <div
               onClick={() => {
@@ -357,7 +359,7 @@ class Edit extends Component {
           </div>
           {/* ----------Buttons---------- */}
           <button
-            className="mt-6 w-full cursor-pointer rounded-full border-0 bg-rose-400 p-3 font-bold text-white transition-all duration-300 hover:bg-rose-500"
+            className="mt-6 w-full cursor-pointer select-none rounded-full border-0 bg-rose-400 p-3 font-bold text-white transition-all duration-300 hover:bg-rose-500"
             onClick={() => {
               this.confirmDelete();
             }}
@@ -370,7 +372,7 @@ class Edit extends Component {
               this.closeEdit();
             }}
           >
-            Cancel
+            Close
           </button>
         </section>
         <div

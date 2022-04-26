@@ -516,7 +516,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="font-sans text-sm text-neutral-700 md:text-base">
+      <div className="h-screen bg-neutral-50 font-sans text-sm text-neutral-700 md:text-base">
         <DevelopmentButtons
           addDay={this.addDay}
           addElapsedDays={this.addElapsedDays}

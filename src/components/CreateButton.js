@@ -8,7 +8,7 @@ class CreateButton extends Component {
         onClick={() => {
           this.props.handleOpenForm();
         }}
-        className="align-center relative top-[-1rem] flex h-24 cursor-pointer flex-col justify-center rounded-b-full bg-neutral-200 text-center font-bold shadow-xl transition-colors hover:bg-neutral-300"
+        className="align-center fixed top-7 left-0 flex h-24 w-20 cursor-pointer flex-col justify-center rounded-r-full bg-neutral-200 text-center font-bold shadow-inner transition-colors hover:bg-neutral-300"
       >
         <p>New</p>
         <p>Habit</p>

@@ -87,8 +87,8 @@ class Form extends Component {
     }
     return (
       <div className="fixed z-50 flex h-full w-full justify-center">
-        <section className="z-50 m-auto mb-20 max-h-min animate-dropin rounded-xl bg-white p-10 drop-shadow-2xl sm:mb-auto">
-          <div className="flex justify-between border-b-2 border-neutral-100 pb-8 align-middle">
+        <section className="fixed top-1/4 z-50 m-auto mb-20 max-h-min animate-dropin rounded-xl bg-white p-10 drop-shadow-2xl sm:mb-auto">
+          <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-8 align-middle">
             <h2 className="text-lg font-bold">What do you want to track?</h2>
             <div
               onClick={this.props.handleCloseForm}

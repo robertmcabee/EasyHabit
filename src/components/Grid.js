@@ -21,9 +21,9 @@ class Grid extends Component {
     });
 
     return (
-      <div className="flex h-full w-full min-w-min overflow-scroll pb-10 pt-4">
-        <div className="flex h-full w-full justify-center space-x-1 md:space-x-4">
-          <div className="w-full min-w-[5rem] max-w-[10rem] md:pt-24">
+      <div className="flex h-full w-full min-w-min select-none overflow-scroll pb-10 sm:pt-4">
+        <div className="flex h-full w-full grow-0 justify-center space-x-1 md:space-x-4">
+          <div className="w-full min-w-[5rem] max-w-[10rem] pt-24">
             <div className="md:hidden">
               <CreateButton handleOpenForm={this.props.handleOpenForm} />
             </div>
