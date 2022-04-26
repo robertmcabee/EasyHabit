@@ -4,12 +4,14 @@ import { v4 as uuidv4 } from "uuid"; //example: 273a442e-9882-4662-8a99-16be011b
 import Grid from "./components/Grid";
 import Form from "./components/Form";
 import Edit from "./components/Edit";
+import Options from "./components/Options";
 import DevelopmentButtons from "./components/DevelopmentButtons";
 import "./style.css";
 
 class App extends Component {
   state = {
     displayForm: false,
+    displayOptions: false,
     displayEdit: false,
     habitToEdit: {
       habitId: "",
@@ -450,6 +452,18 @@ class App extends Component {
     });
   };
 
+  handleCloseOptions = () => {
+    this.setState({
+      displayOptions: false,
+    });
+  };
+
+  handleOpenOptions = () => {
+    this.setState({
+      displayOptions: true,
+    });
+  };
+
   handleCloseEdit = () => {
     this.setState({
       displayEdit: false,
@@ -537,12 +551,19 @@ class App extends Component {
           displayForm={this.state.displayForm}
           handleCloseForm={this.handleCloseForm}
         />
+        <Options
+          displayOptions={this.state.displayOptions}
+          handleCloseOptions={this.handleCloseOptions}
+          clearLocalStorage={this.clearLocalStorage}
+        />
         <Grid
           habits={this.state.habits}
           dates={this.state.dates}
           toggleCompletion={this.toggleCompletion}
           handleOpenForm={this.handleOpenForm}
           handleOpenEdit={this.handleOpenEdit}
+          handleOpenOptions={this.handleOpenOptions}
+          displayOptions={this.state.displayOptions}
         />
       </div>
     );
