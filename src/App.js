@@ -40,6 +40,7 @@ class App extends Component {
       //       gridId: '00680z-2022-02-01',
       //       date: '2022-02-01',
       //       completed: false,
+      //       displayBurst: false,
       //     },
       //     ...
       //     ...
@@ -50,21 +51,70 @@ class App extends Component {
   };
 
   toggleCompletion = (id) => {
-    this.setState({
-      habits: this.state.habits.map((habit) => {
-        habit.gridItems.map((item) => {
-          if (item.gridId === id) {
-            item.completed = !item.completed;
-          }
-          return item;
-        });
-        let streaks = this.evaluateHabitStreaks(habit);
-        habit.currentStreak = streaks.currentStreak;
-        habit.longestStreak = streaks.longestStreak;
-        habit.completion = this.evaluateHabitCompletion(habit);
-        return habit;
-      }),
+    const date = id.slice(-10);
+    this.setState(
+      {
+        habits: this.state.habits.map((habit) => {
+          habit.gridItems.map((item) => {
+            if (item.gridId === id) {
+              item.completed = !item.completed;
+            }
+            return item;
+          });
+          let streaks = this.evaluateHabitStreaks(habit);
+          habit.currentStreak = streaks.currentStreak;
+          habit.longestStreak = streaks.longestStreak;
+          habit.completion = this.evaluateHabitCompletion(habit);
+          return habit;
+        }),
+      },
+      () => {
+        this.evaluateDayCompletion(date);
+      }
+    );
+  };
+
+  evaluateDayCompletion = (date) => {
+    const index = this.state.dates.indexOf(date);
+    //check if all habits are complete for that day
+    let displayBurst = true;
+    const idArray = [];
+    this.state.habits.forEach((habit) => {
+      habit.gridItems[index].completed
+        ? idArray.push(habit.gridItems[index].gridId)
+        : (displayBurst = false);
     });
+    if (!displayBurst) return false;
+    //apply class to completed days
+    this.setState(
+      {
+        habits: this.state.habits.map((habit) => {
+          habit.gridItems.map((item) => {
+            if (idArray.includes(item.gridId)) {
+              item.displayBurst = true;
+            }
+            return item;
+          });
+          return habit;
+        }),
+      },
+      //then remove class after 1000ms
+      () => {
+        setTimeout(() => {
+          this.setState({
+            habits: this.state.habits.map((habit) => {
+              habit.gridItems.map((item) => {
+                if (idArray.includes(item.gridId)) {
+                  item.displayBurst = false;
+                }
+                return item;
+              });
+              return habit;
+            }),
+          });
+        }, 1000);
+      }
+    );
   };
 
   evaluateHabitCompletion = (habit) => {
@@ -100,93 +150,105 @@ class App extends Component {
       habits: [
         {
           habitId: "000",
-          color: "rgb(34 211 238)",
+          color: "rgb(34,211,238)",
           displayName: "Code",
           completion: 0.5,
           currentStreak: 0,
           longestStreak: 2,
           gridItems: [
             {
-              gridId: "000-1",
+              gridId: "000-12022-02-04",
               date: "2022-02-04",
               completed: false,
+              displayBurst: false,
             },
             {
-              gridId: "000-2",
+              gridId: "000-22022-02-03",
               date: "2022-02-03",
               completed: false,
+              displayBurst: false,
             },
             {
-              gridId: "000-3",
+              gridId: "000-32022-02-02",
               date: "2022-02-02",
               completed: true,
+              displayBurst: false,
             },
             {
-              gridId: "000-4",
+              gridId: "000-42022-02-01",
               date: "2022-02-01",
               completed: true,
+              displayBurst: false,
             },
           ],
         },
 
         {
           habitId: "001",
-          color: "rgb(52 211 153)",
+          color: "rgb(52,211,153)",
           displayName: "Stretch",
           completion: 0.75,
           currentStreak: 0,
           longestStreak: 3,
           gridItems: [
             {
-              gridId: "001-1",
+              gridId: "001-12022-02-04",
               date: "2022-02-04",
               completed: false,
+              displayBurst: false,
             },
             {
-              gridId: "001-2",
+              gridId: "001-22022-02-03",
               date: "2022-02-03",
               completed: true,
+              displayBurst: false,
             },
             {
-              gridId: "001-3",
+              gridId: "001-32022-02-02",
               date: "2022-02-02",
               completed: true,
+              displayBurst: false,
             },
             {
-              gridId: "001-4",
+              gridId: "001-42022-02-01",
               date: "2022-02-01",
               completed: true,
+              displayBurst: false,
             },
           ],
         },
 
         {
           habitId: "002",
-          color: "rgb(163 230 53)",
+          color: "rgb(163,230,53)",
           displayName: "Anki",
           completion: 1,
           currentStreak: 4,
           longestStreak: 4,
           gridItems: [
             {
-              gridId: "002-1",
+              gridId: "002-12022-02-04",
               date: "2022-02-04",
               completed: true,
+              displayBurst: false,
             },
             {
-              gridId: "002-2",
+              gridId: "002-22022-02-03",
               date: "2022-02-03",
               completed: true,
+              displayBurst: false,
             },
             {
-              gridId: "002-3",
+              gridId: "002-32022-02-02",
               date: "2022-02-02",
               completed: true,
+              displayBurst: false,
             },
             {
-              gridId: "002-4",
+              gridId: "002-42022-02-01",
               date: "2022-02-01",
               completed: true,
+              displayBurst: false,
             },
           ],
         },
@@ -200,104 +262,112 @@ class App extends Component {
       habits: [
         {
           habitId: "000",
-          color: "rgb(34 211 238)",
+          color: "rgb(34,211,238)",
           displayName: "Code",
           gridItems: [
             {
-              gridId: "000-1",
+              gridId: "000-12022-02-04",
               date: "2022-02-04",
               completed: true,
+              displayBurst: false,
             },
           ],
         },
 
         {
           habitId: "001",
-          color: "rgb(52 211 153)",
+          color: "rgb(52,211,153)",
           displayName: "Stretch",
           gridItems: [
             {
-              gridId: "001-1",
+              gridId: "001-12022-02-04",
               date: "2022-02-04",
               completed: true,
+              displayBurst: false,
             },
           ],
         },
 
         {
           habitId: "002",
-          color: "rgb(163 230 53)",
+          color: "rgb(163,230,53)",
           displayName: "Anki",
           gridItems: [
             {
-              gridId: "002-1",
+              gridId: "002-12022-02-04",
               date: "2022-02-04",
               completed: true,
+              displayBurst: false,
             },
           ],
         },
 
         {
           habitId: "003",
-          color: "rgb(250 204 21)",
+          color: "rgb(250,204,21)",
           displayName: "ExampleA",
           gridItems: [
             {
-              gridId: "003-1",
+              gridId: "003-12022-02-04",
               date: "2022-02-04",
               completed: true,
+              displayBurst: false,
             },
           ],
         },
 
         {
           habitId: "004",
-          color: "rgb(251 146 60)",
+          color: "rgb(251,146,60)",
           displayName: "ExampleB",
           gridItems: [
             {
-              gridId: "004-1",
+              gridId: "004-12022-02-04",
               date: "2022-02-04",
               completed: true,
+              displayBurst: false,
             },
           ],
         },
 
         {
           habitId: "005",
-          color: "rgb(251 113 133)",
+          color: "rgb(251,113,133)",
           displayName: "ExampleC",
           gridItems: [
             {
-              gridId: "005-1",
+              gridId: "005-12022-02-04",
               date: "2022-02-04",
               completed: true,
+              displayBurst: false,
             },
           ],
         },
 
         {
           habitId: "006",
-          color: "rgb(34 211 238)",
+          color: "rgb(34,211,238)",
           displayName: "ExampleD",
           gridItems: [
             {
-              gridId: "006-1",
+              gridId: "006-12022-02-04",
               date: "2022-02-04",
               completed: true,
+              displayBurst: false,
             },
           ],
         },
 
         {
           habitId: "007",
-          color: "rgb(163 230 53)",
+          color: "rgb(163,230,53)",
           displayName: "ExampleE",
           gridItems: [
             {
-              gridId: "007-1",
+              gridId: "007-12022-02-04",
               date: "2022-02-04",
               completed: true,
+              displayBurst: false,
             },
           ],
         },
@@ -311,26 +381,28 @@ class App extends Component {
       habits: [
         {
           habitId: "000",
-          color: "rgb(34 211 238)",
+          color: "rgb(34,211,238)",
           displayName: "Code",
           gridItems: [
             {
-              gridId: "000-1",
+              gridId: "000-12022-0420",
               date: "2022-04-20",
               completed: true,
+              displayBurst: false,
             },
           ],
         },
 
         {
           habitId: "007",
-          color: "rgb(163 230 53)",
+          color: "rgb(163,230,53)",
           displayName: "Anki",
           gridItems: [
             {
-              gridId: "007-1",
+              gridId: "007-12022-04-20",
               date: "2022-04-20",
               completed: true,
+              displayBurst: false,
             },
           ],
         },
@@ -362,6 +434,7 @@ class App extends Component {
           gridId: habit.habitId + "-" + day,
           date: day,
           completed: false,
+          displayBurst: false,
         });
       });
     });
@@ -381,6 +454,7 @@ class App extends Component {
         gridId: habit.habitId + "-" + formattedNewDate,
         date: formattedNewDate,
         completed: false,
+        displayBurst: false,
       });
     });
   };
@@ -485,11 +559,11 @@ class App extends Component {
   };
 
   setLocalStorage = () => {
-    console.log("-----------storing state-----------");
-    console.log("--------------habits:");
-    console.log(this.state.habits);
-    console.log("--------------dates:");
-    console.log(this.state.dates);
+    // console.log("-----------storing state-----------");
+    // console.log("--------------habits:");
+    // console.log(this.state.habits);
+    // console.log("--------------dates:");
+    // console.log(this.state.dates);
 
     localStorage.setItem("habits", JSON.stringify(this.state.habits));
     localStorage.setItem("dates", JSON.stringify(this.state.dates));

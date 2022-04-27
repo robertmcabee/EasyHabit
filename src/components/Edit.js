@@ -13,22 +13,22 @@ class Edit extends Component {
     let selectedColor;
     switch (index) {
       case 0:
-        selectedColor = "rgb(34 211 238)";
+        selectedColor = "rgb(34,211,238)";
         break;
       case 1:
-        selectedColor = "rgb(52 211 153)";
+        selectedColor = "rgb(52,211,153)";
         break;
       case 2:
-        selectedColor = "rgb(163 230 53)";
+        selectedColor = "rgb(163,230,53)";
         break;
       case 3:
-        selectedColor = "rgb(250 204 21)";
+        selectedColor = "rgb(250,204,21)";
         break;
       case 4:
-        selectedColor = "rgb(251 146 60)";
+        selectedColor = "rgb(251,146,60)";
         break;
       case 5:
-        selectedColor = "rgb(251 113 133)";
+        selectedColor = "rgb(251,113,133)";
         break;
       case 6:
         selectedColor = "hsl(186,94%,82%)";
@@ -59,22 +59,22 @@ class Edit extends Component {
   colorToIndex = (color) => {
     let index;
     switch (color) {
-      case "rgb(34 211 238)":
+      case "rgb(34,211,238)":
         index = 0;
         break;
-      case "rgb(52 211 153)":
+      case "rgb(52,211,153)":
         index = 1;
         break;
-      case "rgb(163 230 53)":
+      case "rgb(163,230,53)":
         index = 2;
         break;
-      case "rgb(250 204 21)":
+      case "rgb(250,204 21)":
         index = 3;
         break;
-      case "rgb(251 146 60)":
+      case "rgb(251,146 60)":
         index = 4;
         break;
-      case "rgb(251 113 133)":
+      case "rgb(251,113 133)":
         index = 5;
         break;
       case "hsl(186,94%,82%)":

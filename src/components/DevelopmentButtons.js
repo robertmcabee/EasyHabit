@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class DevelopmentButtons extends Component {
   state = {};
   render() {
-    if (true) return null;
+    if (false) return null;
     return (
       <div className="mb-8 flex w-full justify-center space-x-2">
         <button

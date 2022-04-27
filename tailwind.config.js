@@ -10,6 +10,7 @@ module.exports = {
         dropin: "dropin 300ms ease-out",
         fadein: "fadein 300ms ease-in-out",
         grow: "grow 400ms ease-in-out",
+        burst: "burst 950ms ease-out",
       },
       keyframes: {
         dropin: {
@@ -24,6 +25,17 @@ module.exports = {
           "100%": {
             transform: "none",
             opacity: "1",
+          },
+        },
+
+        burst: {
+          "0%": {
+            transform: "scale(1, 1)",
+            opacity: "100%",
+          },
+          "100%": {
+            transform: "scale(1.5, 2)",
+            opacity: "0%",
           },
         },
 
