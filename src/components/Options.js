@@ -72,7 +72,7 @@ class Options extends Component {
             <p className="mb-2 font-bold">
               Created with &lt;3 by{" "}
               <a
-                className="underline underline-offset-2 hover:text-black"
+                className="underline underline-offset-2 transition-colors hover:text-black dark:hover:text-white"
                 href="https://robertmcabee.netlify.app/"
               >
                 Robert McAbee
@@ -88,7 +88,7 @@ class Options extends Component {
               If you encounter any bugs or would like any features added,
               please&nbsp;
               <a
-                className="underline underline-offset-2 hover:text-black"
+                className="underline underline-offset-2 transition-colors hover:text-black dark:hover:text-white"
                 href="https://robertmcabee.netlify.app/#contact"
               >
                 let me know!
