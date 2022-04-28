@@ -22,7 +22,7 @@ class Grid extends Component {
     });
 
     return (
-      <div className="flex h-full w-full select-none overflow-scroll pb-10 sm:pt-4">
+      <div className="flex h-full w-full min-w-max select-none pb-10 sm:pt-4">
         <div className="flex h-full w-full grow-0 justify-center space-x-1 md:space-x-4">
           <div className="w-12 max-w-[10rem] sm:w-full sm:min-w-[5rem] ">
             <div className="flex justify-center">

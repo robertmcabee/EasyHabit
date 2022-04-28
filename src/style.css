@@ -4,6 +4,7 @@
 
 body {
   background-color: rgb(250, 250, 250);
+  overflow-y: scroll;
 }
 
 @media (prefers-color-scheme: dark) {
