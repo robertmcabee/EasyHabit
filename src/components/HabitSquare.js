@@ -40,10 +40,9 @@ class HabitSquare extends Component {
   // };
 
   getBubbleClasses = () => {
-    let classes =
-      "relative z-10 h-20 w-full rounded-full shadow-xl dark:shadow-none";
+    let classes = "relative z-10 h-20 w-full rounded-full";
     if (this.props.data.completed) {
-      classes += ` animate-grow bg-[${this.props.parentColor}]`;
+      classes += ` animate-grow bg-[${this.props.parentColor}] shadow-xl dark:shadow-none`;
     }
     return classes;
   };
