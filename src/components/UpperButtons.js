@@ -4,7 +4,7 @@ class UpperButtons extends Component {
   state = {};
   render() {
     return (
-      <div className="flex h-40 w-fit flex-col justify-center space-y-2 align-middle sm:h-24">
+      <div className="flex h-40 w-fit flex-col justify-center space-y-2 pt-10 align-middle sm:h-24 sm:pt-0">
         <div
           onClick={() => {
             this.props.handleOpenOptions();

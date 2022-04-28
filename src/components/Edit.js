@@ -166,9 +166,9 @@ class Edit extends Component {
     }
     return (
       <div className="fixed z-50 flex h-full w-full justify-center align-bottom">
-        <section className="z-50 m-auto mb-0 max-h-min max-w-[28rem] animate-dropin rounded-xl bg-white p-10 dark:bg-neutral-700 sm:mb-auto">
+        <section className="z-50 m-auto mb-auto max-h-min max-w-[28rem] animate-dropin rounded-2xl bg-white p-10 dark:bg-neutral-700">
           {/* ----------Header---------- */}
-          <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-8 align-middle dark:border-neutral-600">
+          <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-4 align-middle dark:border-neutral-600 sm:pb-8">
             <h2 className="text-lg font-bold">Edit Habit</h2>
             <div
               onClick={() => this.closeEdit()}
@@ -191,7 +191,7 @@ class Edit extends Component {
             </div>
           </div>
           {/* ----------Stats---------- */}
-          <p className="select-none pt-8 text-base font-bold">Stats:</p>
+          <p className="select-none pt-4 text-base font-bold sm:pt-8">Stats:</p>
           <div className="flex select-none justify-between">
             <p className="mt-2">Completion:</p>
             {Math.floor(this.props.habitToEdit.completion * 100)}%
@@ -200,12 +200,12 @@ class Edit extends Component {
             <p className="mt-2">Longest Streak:</p>
             {this.props.habitToEdit.longestStreak}
           </div>
-          <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-6 dark:border-neutral-600">
+          <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-4 dark:border-neutral-600 sm:pb-6">
             <p className="mt-2">Current Streak:</p>
             {this.props.habitToEdit.currentStreak}
           </div>
           {/* ----------Name---------- */}
-          <div className="flex justify-between border-b-2 border-neutral-100 py-4 align-middle dark:border-neutral-600">
+          <div className="flex justify-between border-b-2 border-neutral-100 py-1 align-middle dark:border-neutral-600 sm:py-4">
             <p className="h-8 select-none self-center text-base font-bold">
               Name:
             </p>
@@ -221,7 +221,7 @@ class Edit extends Component {
           </div>
           {/* ----------Color---------- */}
           <p className="mt-4 select-none text-base font-bold">Color:</p>
-          <div className="my-4 mt-2 flex w-full justify-evenly space-x-1 sm:space-x-4">
+          <div className="my-1 mt-2 flex w-full justify-evenly space-x-1 sm:my-4 sm:space-x-4">
             <div
               onClick={() => {
                 this.selectColor(0);
@@ -359,7 +359,7 @@ class Edit extends Component {
           </div>
           {/* ----------Buttons---------- */}
           <button
-            className="mt-6 w-full cursor-pointer select-none rounded-full border-0 bg-rose-400 p-3 font-bold text-white transition-all duration-300 hover:bg-rose-500"
+            className="mt-4 w-full cursor-pointer select-none rounded-full border-0 bg-rose-400 p-3 font-bold text-white transition-all duration-300 hover:bg-rose-500 sm:mt-6"
             onClick={() => {
               this.confirmDelete();
             }}
@@ -367,7 +367,7 @@ class Edit extends Component {
             {this.state.deleteButtonText}
           </button>
           <button
-            className="mt-6 w-full cursor-pointer rounded-full border-0 bg-neutral-800 p-3 font-bold text-white transition-all hover:bg-black"
+            className="mt-4 w-full cursor-pointer rounded-full border-0 bg-neutral-800 p-3 font-bold text-white transition-all hover:bg-black sm:mt-6"
             onClick={() => {
               this.closeEdit();
             }}

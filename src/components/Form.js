@@ -87,8 +87,8 @@ class Form extends Component {
     }
     return (
       <div className="fixed z-50 flex h-full w-full justify-center">
-        <section className="fixed top-1/4 z-50 m-auto mb-20 max-h-min animate-dropin rounded-xl bg-white p-10 drop-shadow-2xl dark:bg-neutral-700 dark:shadow-none sm:mb-auto">
-          <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-8 align-middle dark:border-neutral-600">
+        <section className="fixed top-1/4 z-50 m-auto mb-20 max-h-min animate-dropin rounded-2xl bg-white p-10 pb-2 drop-shadow-2xl dark:bg-neutral-700 dark:shadow-none sm:mb-auto sm:pb-10">
+          <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-4 align-middle dark:border-neutral-600 sm:pb-8">
             <h2 className="text-lg font-bold">What do you want to track?</h2>
             <div
               onClick={this.props.handleCloseForm}
@@ -111,7 +111,7 @@ class Form extends Component {
             </div>
           </div>
           <form onSubmit={this.handleSubmit}>
-            <fieldset className="flex flex-col justify-center space-y-4 py-6">
+            <fieldset className="flex flex-col justify-center space-y-2 py-6 sm:space-y-4">
               <label htmlFor="name" className="text-center font-bold">
                 Name:
               </label>
@@ -123,15 +123,15 @@ class Form extends Component {
                 onKeyDown={this.handleKeyDown}
                 onChange={this.handleChange}
                 placeholder="e.g. Stretch"
-                className="mx-8 h-8 rounded-full border-none bg-neutral-100 p-4 text-center font-semibold caret-neutral-400 placeholder:italic placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:bg-neutral-800 dark:placeholder:text-neutral-500 dark:focus:border-neutral-500 dark:focus:ring-neutral-500"
+                className="h-8 rounded-full border-none bg-neutral-100 p-4 text-center font-semibold caret-neutral-400 placeholder:italic placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:bg-neutral-800 dark:placeholder:text-neutral-500 dark:focus:border-neutral-500 dark:focus:ring-neutral-500 sm:mx-8"
               />
               <label
                 htmlFor="color"
-                className="h-8 border-t-2 border-neutral-100 pt-6 pb-6 text-center font-bold dark:border-neutral-600"
+                className="h-8 border-neutral-100 pt-6 pb-6 text-center font-bold dark:border-neutral-600 sm:pt-2"
               >
                 Color:
               </label>
-              <div className="my-4 mt-2 flex w-full justify-evenly space-x-1 sm:space-x-4">
+              <div className="mt-2 flex w-full justify-evenly space-x-1 sm:my-4 sm:space-x-4">
                 <div
                   onClick={() => {
                     this.selectColor(0);
