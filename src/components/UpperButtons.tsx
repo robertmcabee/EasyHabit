@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 
-class UpperButtons extends Component {
+type Props = {
+  handleOpenOptions: () => void;
+  handleOpenForm: () => void;
+};
+
+class UpperButtons extends Component<Props> {
   state = {};
   render() {
     return (

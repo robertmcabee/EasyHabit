@@ -1,8 +1,12 @@
 import { format, parse } from "date-fns";
 import React, { Component } from "react";
 
-class DateColumn extends Component {
-  formatDate = (dateString) => {
+type Props = {
+  dates: string[];
+};
+
+class DateColumn extends Component<Props> {
+  formatDate = (dateString: string) => {
     const dateObj = parse(dateString, "yyyy-MM-dd", new Date());
     const dayOfWeek = format(dateObj, "iiii"); //i.e. 'Monday'
     const shortDayOfWeek = format(dateObj, "iii"); //i.e. 'Mon' (for mobile screen sizes)

@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 
-class CreateColumn extends Component {
+type Props = {
+  handleOpenForm: () => void;
+};
+
+class CreateColumn extends Component<Props> {
   state = {};
   render() {
     return (

@@ -1,6 +1,25 @@
 import React, { Component } from "react";
 import HabitSquare from "./HabitSquare";
-class HabitColumn extends Component {
+
+type Props = {
+  column: {
+    gridItems: GridItem[];
+    color: string;
+    habitId: string;
+    name: string;
+  };
+  toggleCompletion: (id: string) => void;
+  handleOpenEdit: (id: string) => void;
+};
+
+type GridItem = {
+  date: string;
+  gridId: string;
+  displayBurst: boolean;
+  completed: boolean;
+};
+
+class HabitColumn extends Component<Props> {
   render() {
     let squares = this.props.column.gridItems.map((square) => {
       return (
@@ -19,7 +38,7 @@ class HabitColumn extends Component {
           {/* ********** Heading ********** */}
           <div className="sm:sw-24 flex h-[6.5rem] min-h-[4rem] items-center justify-center sm:h-16 sm:items-end">
             <h3 className="min-w-[7rem] rotate-90 overflow-hidden text-ellipsis leading-tight sm:min-w-[5rem] sm:rotate-0 ">
-              {this.props.column.displayName}
+              {this.props.column.name}
             </h3>
           </div>
           {/* ********** Edit Button ********** */}
@@ -27,10 +46,7 @@ class HabitColumn extends Component {
             <div
               className="group flex h-9 w-14 max-w-[5rem] cursor-pointer justify-center rounded-full p-2 align-middle opacity-80 shadow-lg duration-500 hover:bg-black hover:text-white hover:opacity-100 dark:bg-neutral-700 dark:shadow-none dark:hover:bg-neutral-600 sm:hover:w-full md:h-10"
               onClick={() => {
-                this.props.handleOpenEdit(
-                  this.props.column.habitId,
-                  this.props.column.displayName
-                );
+                this.props.handleOpenEdit(this.props.column.habitId);
               }}
             >
               <svg

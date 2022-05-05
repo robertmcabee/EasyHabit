@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 
-class Options extends Component {
+type Props = {
+  clearLocalStorage: () => void;
+  handleCloseOptions: () => void;
+  displayOptions: boolean;
+};
+
+class Options extends Component<Props> {
   state = {
     confirmDelete: false,
     deleteButtonText: "Reset app and delete all data",

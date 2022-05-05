@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 
-class DevelopmentButtons extends Component {
+type Props = {
+  addDay: () => void;
+  addElapsedDays: () => void;
+  loadTestStateA: () => void;
+  loadTestStateB: () => void;
+  loadTestStateC: () => void;
+};
+
+class DevelopmentButtons extends Component<Props> {
   state = {};
   render() {
     if (true) return null;
@@ -41,14 +49,6 @@ class DevelopmentButtons extends Component {
           className=" rounded-md bg-purple-300 p-2 text-white sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300"
         >
           Load Test C
-        </button>
-        <button
-          onClick={() => {
-            this.props.clearLocalStorage();
-          }}
-          className=" rounded-md bg-purple-300 p-2 text-white sm:bg-red-300 md:bg-orange-300 lg:bg-yellow-300 xl:bg-green-300"
-        >
-          Clear Local Storage
         </button>
       </div>
     );

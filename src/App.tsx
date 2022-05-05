@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { format, parse, add, differenceInCalendarDays } from "date-fns";
-import { v4 as uuidv4 } from "uuid"; //example: 273a442e-9882-4662-8a99-16be011bd3b6
 import Grid from "./components/Grid";
 import Form from "./components/Form";
 import Edit from "./components/Edit";
@@ -8,18 +7,45 @@ import Options from "./components/Options";
 import DevelopmentButtons from "./components/DevelopmentButtons";
 import "./style.css";
 
+type State = {
+  displayForm: boolean;
+  displayOptions: boolean;
+  displayEdit: boolean;
+  habits: Habit[];
+  habitToEdit: Habit;
+  dates: string[];
+};
+
+type Habit = {
+  habitId: string;
+  name: string;
+  color: string;
+  completion: number;
+  currentStreak: number;
+  longestStreak: number;
+  gridItems: GridItem[];
+};
+
+type GridItem = {
+  date: string;
+  gridId: string;
+  displayBurst: boolean;
+  completed: boolean;
+};
+
 class App extends Component {
-  state = {
+  state: State = {
     displayForm: false,
     displayOptions: false,
     displayEdit: false,
     habitToEdit: {
       habitId: "",
-      displayName: "",
+      name: "",
       color: "",
-      completion: null,
-      currentStreak: null,
-      longestStreak: null,
+      completion: 0,
+      currentStreak: 0,
+      longestStreak: 0,
+      gridItems: [],
     },
     dates: [
       // '2022-02-01',
@@ -30,7 +56,7 @@ class App extends Component {
     habits: [
       // {
       //   habitId: '00680z',
-      //   displayName: 'Anki',
+      //   name: 'Anki',
       //   color: '#ffffff',
       //   completion: 1,
       //   currentStreak: 1,
@@ -50,7 +76,7 @@ class App extends Component {
     ],
   };
 
-  toggleCompletion = (id) => {
+  toggleCompletion = (id: string) => {
     const date = id.slice(-10);
     this.setState(
       {
@@ -74,11 +100,11 @@ class App extends Component {
     );
   };
 
-  evaluateDayCompletion = (date) => {
+  evaluateDayCompletion = (date: string) => {
     const index = this.state.dates.indexOf(date);
     //check if all habits are complete for that day
     let displayBurst = true;
-    const idArray = [];
+    const idArray: string[] = [];
     this.state.habits.forEach((habit) => {
       habit.gridItems[index].completed
         ? idArray.push(habit.gridItems[index].gridId)
@@ -117,13 +143,13 @@ class App extends Component {
     );
   };
 
-  evaluateHabitCompletion = (habit) => {
+  evaluateHabitCompletion = (habit: Habit) => {
     //returns the completion percentage of a habit
     const completed = habit.gridItems.filter((item) => item.completed === true);
     return completed.length / habit.gridItems.length;
   };
 
-  evaluateHabitStreaks = (habit) => {
+  evaluateHabitStreaks = (habit: Habit) => {
     let longestStreak = 0;
     let currentStreak = 0;
     let streakAtIndex = 0;
@@ -151,7 +177,7 @@ class App extends Component {
         {
           habitId: "000",
           color: "rgb(34,211,238)",
-          displayName: "Code",
+          name: "Code",
           completion: 0.5,
           currentStreak: 0,
           longestStreak: 2,
@@ -186,7 +212,7 @@ class App extends Component {
         {
           habitId: "001",
           color: "rgb(52,211,153)",
-          displayName: "Stretch",
+          name: "Stretch",
           completion: 0.75,
           currentStreak: 0,
           longestStreak: 3,
@@ -221,7 +247,7 @@ class App extends Component {
         {
           habitId: "002",
           color: "rgb(163,230,53)",
-          displayName: "Anki",
+          name: "Anki",
           completion: 1,
           currentStreak: 4,
           longestStreak: 4,
@@ -263,7 +289,7 @@ class App extends Component {
         {
           habitId: "000",
           color: "rgb(34,211,238)",
-          displayName: "Code",
+          name: "Code",
           gridItems: [
             {
               gridId: "000-12022-02-04",
@@ -277,7 +303,7 @@ class App extends Component {
         {
           habitId: "001",
           color: "rgb(52,211,153)",
-          displayName: "Stretch",
+          name: "Stretch",
           gridItems: [
             {
               gridId: "001-12022-02-04",
@@ -291,7 +317,7 @@ class App extends Component {
         {
           habitId: "002",
           color: "rgb(163,230,53)",
-          displayName: "Anki",
+          name: "Anki",
           gridItems: [
             {
               gridId: "002-12022-02-04",
@@ -305,7 +331,7 @@ class App extends Component {
         {
           habitId: "003",
           color: "rgb(250,204,21)",
-          displayName: "ExampleA",
+          name: "ExampleA",
           gridItems: [
             {
               gridId: "003-12022-02-04",
@@ -319,7 +345,7 @@ class App extends Component {
         {
           habitId: "004",
           color: "rgb(251,146,60)",
-          displayName: "ExampleB",
+          name: "ExampleB",
           gridItems: [
             {
               gridId: "004-12022-02-04",
@@ -333,7 +359,7 @@ class App extends Component {
         {
           habitId: "005",
           color: "rgb(251,113,133)",
-          displayName: "ExampleC",
+          name: "ExampleC",
           gridItems: [
             {
               gridId: "005-12022-02-04",
@@ -347,7 +373,7 @@ class App extends Component {
         {
           habitId: "006",
           color: "rgb(34,211,238)",
-          displayName: "ExampleD",
+          name: "ExampleD",
           gridItems: [
             {
               gridId: "006-12022-02-04",
@@ -361,7 +387,7 @@ class App extends Component {
         {
           habitId: "007",
           color: "rgb(163,230,53)",
-          displayName: "ExampleE",
+          name: "ExampleE",
           gridItems: [
             {
               gridId: "007-12022-02-04",
@@ -382,7 +408,7 @@ class App extends Component {
         {
           habitId: "000",
           color: "rgb(34,211,238)",
-          displayName: "Code",
+          name: "Code",
           gridItems: [
             {
               gridId: "000-12022-0420",
@@ -396,7 +422,7 @@ class App extends Component {
         {
           habitId: "007",
           color: "rgb(163,230,53)",
-          displayName: "Anki",
+          name: "Anki",
           gridItems: [
             {
               gridId: "007-12022-04-20",
@@ -459,15 +485,17 @@ class App extends Component {
     });
   };
 
-  addHabit = (name, color) => {
+  addHabit = (name: string, color: string) => {
     name = name.replace(/([[{};:<>$])/g, ""); //sanitize user input
-    let newHabit = {};
-    newHabit["habitId"] = uuidv4().slice(0, 8);
-    newHabit["displayName"] = name;
-    newHabit["color"] = color;
-    newHabit["completion"] = 0;
-    newHabit["currentStreak"] = 0;
-    newHabit["longestStreak"] = 0;
+    let newHabit = {
+      habitId: Math.random().toString(36).substring(2, 12),
+      name: name,
+      color: color,
+      completion: 0,
+      currentStreak: 0,
+      longestStreak: 0,
+      gridItems: {},
+    };
     newHabit["gridItems"] = this.state.dates.map((date) => {
       return {
         gridId: newHabit.habitId + "-" + date,
@@ -482,6 +510,7 @@ class App extends Component {
   };
 
   deleteHabit = () => {
+    if (this.state.habitToEdit === null) return; //guard
     const id = this.state.habitToEdit.habitId;
     this.setState({
       habits: [...this.state.habits.filter((habit) => habit.habitId !== id)],
@@ -489,20 +518,22 @@ class App extends Component {
     });
   };
 
-  editHabitName = (name) => {
+  editHabitName = (name: string) => {
+    if (this.state.habitToEdit === null) return; //guard
     const id = this.state.habitToEdit.habitId;
     name = name.replace(/([[{};:<>$])/g, ""); //sanitize user input
     this.setState({
       habits: this.state.habits.map((habit) => {
         if (habit.habitId === id) {
-          habit.displayName = name;
+          habit.name = name;
         }
         return habit;
       }),
     });
   };
 
-  editHabitColor = (color) => {
+  editHabitColor = (color: string) => {
+    if (this.state.habitToEdit === null) return; //guard
     const id = this.state.habitToEdit.habitId;
     this.setState({
       habits: this.state.habits.map((habit) => {
@@ -544,7 +575,7 @@ class App extends Component {
     });
   };
 
-  handleOpenEdit = (id) => {
+  handleOpenEdit = (id: string) => {
     let habitToEdit = this.state.habits.find((habit) => habit.habitId === id);
     this.setState({
       displayEdit: true,
@@ -559,27 +590,16 @@ class App extends Component {
   };
 
   setLocalStorage = () => {
-    // console.log("-----------storing state-----------");
-    // console.log("--------------habits:");
-    // console.log(this.state.habits);
-    // console.log("--------------dates:");
-    // console.log(this.state.dates);
-
     localStorage.setItem("habits", JSON.stringify(this.state.habits));
     localStorage.setItem("dates", JSON.stringify(this.state.dates));
   };
 
-  clearLocalStorage = () => {
-    console.log("clearing state");
-    localStorage.setItem("habits", "");
-    localStorage.setItem("dates", "");
-  };
-
-  componentDidMount() {
-    //check local storage for previous state
+  loadLocalStorage = () => {
     if (localStorage.getItem("habits") && localStorage.getItem("dates")) {
       console.log("-----------loading state-----------");
+      //@ts-ignore
       const storedHabits = JSON.parse(localStorage.getItem("habits"));
+      //@ts-ignore
       const storedDates = JSON.parse(localStorage.getItem("dates"));
       console.log(storedHabits);
       console.log(storedDates);
@@ -596,6 +616,16 @@ class App extends Component {
       console.log("-----------no state found-----------");
       this.addStartDate();
     }
+  };
+
+  clearLocalStorage = () => {
+    console.log("clearing state");
+    localStorage.setItem("habits", "");
+    localStorage.setItem("dates", "");
+  };
+
+  componentDidMount() {
+    this.loadLocalStorage();
   }
 
   componentDidUpdate() {
@@ -637,7 +667,6 @@ class App extends Component {
           handleOpenForm={this.handleOpenForm}
           handleOpenEdit={this.handleOpenEdit}
           handleOpenOptions={this.handleOpenOptions}
-          displayOptions={this.state.displayOptions}
         />
       </div>
     );

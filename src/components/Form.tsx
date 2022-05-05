@@ -1,20 +1,32 @@
 import React, { Component } from "react";
 
-class Form extends Component {
-  state = {
+type Props = {
+  displayForm: boolean;
+  addHabit: (name: string, color: string) => void;
+  handleCloseForm: () => void;
+};
+
+type State = {
+  name: string;
+  color: string;
+  selectedColorIndex: number | null;
+};
+
+class Form extends Component<Props> {
+  state: State = {
     name: "",
     color: "",
     selectedColorIndex: null,
   };
 
-  selectColor = (index) => {
+  selectColor = (index: number) => {
     this.setState({
       color: this.indexToColor(index),
       selectedColorIndex: index,
     });
   };
 
-  indexToColor = (index) => {
+  indexToColor = (index: number) => {
     let selectedColor;
     switch (index) {
       case 0:
@@ -61,7 +73,7 @@ class Form extends Component {
     return selectedColor;
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = (event: any) => {
     event.preventDefault();
     let newHabitColor = this.state.color;
     if (newHabitColor === "") {
@@ -72,10 +84,10 @@ class Form extends Component {
     this.setState({ name: "" }); //clear input field
   };
 
-  handleChange = (event) =>
+  handleChange = (event: any) =>
     this.setState({ [event.target.name]: event.target.value });
 
-  handleKeyDown = (event) => {
+  handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       this.handleSubmit(event);
     }

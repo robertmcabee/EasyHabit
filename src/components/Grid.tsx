@@ -3,10 +3,35 @@ import DateColumn from "./DateColumn";
 import HabitColumn from "./HabitColumn";
 import CreateColumn from "./CreateColumn";
 import UpperButtons from "./UpperButtons";
-class Grid extends Component {
-  state = {
-    // habits: this.props.habits,
-  };
+
+type Props = {
+  habits: Habit[];
+  dates: string[];
+  toggleCompletion: (id: string) => void;
+  handleOpenEdit: (id: string) => void;
+  handleOpenForm: () => void;
+  handleOpenOptions: () => void;
+};
+
+type Habit = {
+  habitId: string;
+  name: string;
+  color: string;
+  completion: number;
+  currentStreak: number;
+  longestStreak: number;
+  gridItems: GridItem[];
+};
+
+type GridItem = {
+  date: string;
+  gridId: string;
+  displayBurst: boolean;
+  completed: boolean;
+};
+
+class Grid extends Component<Props> {
+  state = {};
 
   render() {
     let habitColumns = this.props.habits.map((column) => {
@@ -16,7 +41,6 @@ class Grid extends Component {
           column={column}
           toggleCompletion={this.props.toggleCompletion}
           handleOpenEdit={this.props.handleOpenEdit}
-          displayOptions={this.props.displayOptions}
         />
       );
     });

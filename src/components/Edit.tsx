@@ -1,7 +1,33 @@
 import React, { Component } from "react";
 
-class Edit extends Component {
-  state = {
+type Props = {
+  habitToEdit: Habit;
+  displayEdit: boolean;
+  editHabitColor: (color: string) => void;
+  editHabitName: (name: string) => void;
+  handleCloseEdit: () => void;
+  deleteHabit: () => void;
+};
+
+type Habit = {
+  habitId: string;
+  name: string;
+  color: string;
+  completion: number;
+  currentStreak: number;
+  longestStreak: number;
+};
+
+type State = {
+  name: string;
+  color: string;
+  selectedColorIndex: number | null;
+  confirmDelete: boolean;
+  deleteButtonText: "Delete Habit" | "Are you sure? This cannot be undone.";
+};
+
+class Edit extends Component<Props> {
+  state: State = {
     name: "",
     color: this.props.habitToEdit.color,
     selectedColorIndex: null,
@@ -9,7 +35,7 @@ class Edit extends Component {
     deleteButtonText: "Delete Habit",
   };
 
-  indexToColor = (index) => {
+  indexToColor = (index: number) => {
     let selectedColor;
     switch (index) {
       case 0:
@@ -56,7 +82,7 @@ class Edit extends Component {
     return selectedColor;
   };
 
-  colorToIndex = (color) => {
+  colorToIndex = (color: string) => {
     let index;
     switch (color) {
       case "rgb(34,211,238)":
@@ -103,7 +129,7 @@ class Edit extends Component {
     return index;
   };
 
-  selectColor = (index) => {
+  selectColor = (index: number) => {
     const color = this.indexToColor(index);
     this.setState({
       color: color,
@@ -112,12 +138,12 @@ class Edit extends Component {
     this.props.editHabitColor(color);
   };
 
-  handleChange = (event) => {
+  handleChange = (event: any) => {
     this.setState({ name: this.state.name });
     this.props.editHabitName(event.target.value);
   };
 
-  handleKeyDown = (event) => {
+  handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       this.closeEdit();
     }
@@ -148,11 +174,11 @@ class Edit extends Component {
   };
 
   componentDidUpdate() {
-    if (this.props.habitToEdit.displayName !== this.state.name) {
-      this.setState({ name: this.props.habitToEdit.displayName });
+    if (this.props.habitToEdit.name !== this.state.name) {
+      this.setState({ name: this.props.habitToEdit.name });
     }
     if (this.props.habitToEdit.color !== this.state.color) {
-      let newIndex = this.indexToColor(this.props.habitToEdit.color);
+      let newIndex = this.colorToIndex(this.props.habitToEdit.color);
       this.setState({
         color: this.props.habitToEdit.color,
         selectedColorIndex: newIndex,
