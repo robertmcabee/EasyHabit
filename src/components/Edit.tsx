@@ -1,3 +1,4 @@
+import { type } from "@testing-library/user-event/dist/type";
 import React, { Component } from "react";
 
 type Props = {
@@ -25,7 +26,6 @@ type State = {
   confirmDelete: boolean;
   deleteButtonText: "Delete Habit" | "Are you sure? This cannot be undone.";
 };
-
 class Edit extends Component<Props> {
   state: State = {
     name: "",
@@ -94,13 +94,13 @@ class Edit extends Component<Props> {
       case "rgb(163,230,53)":
         index = 2;
         break;
-      case "rgb(250,204 21)":
+      case "rgb(250,204,21)":
         index = 3;
         break;
-      case "rgb(251,146 60)":
+      case "rgb(251,146,60)":
         index = 4;
         break;
-      case "rgb(251,113 133)":
+      case "rgb(251,113,133)":
         index = 5;
         break;
       case "hsl(186,94%,82%)":
