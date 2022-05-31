@@ -32,7 +32,7 @@ class Edit extends Component<Props> {
     deleteButtonText: "Delete Habit",
   };
 
-  handleChange = (event: any) => {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ name: this.state.name });
     this.props.editHabitName(event.target.value);
   };

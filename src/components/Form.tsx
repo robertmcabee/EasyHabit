@@ -34,7 +34,7 @@ class Form extends Component<Props> {
     this.setState({ name: "" }); //clear input field
   };
 
-  handleChange = (event: any) =>
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     this.setState({ [event.target.name]: event.target.value });
 
   handleKeyDown = (event: React.KeyboardEvent) => {
