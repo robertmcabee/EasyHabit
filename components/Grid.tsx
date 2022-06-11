@@ -3,28 +3,15 @@ import DateColumn from "./DateColumn";
 import HabitColumn from "./HabitColumn";
 import CreateColumn from "./CreateColumn";
 import UpperButtons from "./UpperButtons";
+import { HabitType } from "../types/types";
 
 type Props = {
-  habits: Habit[];
+  habits: HabitType[];
   dates: string[];
   toggleCompletion: (id: string) => void;
   handleOpenEdit: (id: string) => void;
   handleOpenForm: () => void;
   handleOpenOptions: () => void;
-};
-
-type Habit = {
-  habitId: string;
-  name: string;
-  color: string;
-  gridItems: GridItem[];
-};
-
-type GridItem = {
-  date: string;
-  gridId: string;
-  displayBurst: boolean;
-  completed: boolean;
 };
 
 class Grid extends Component<Props> {

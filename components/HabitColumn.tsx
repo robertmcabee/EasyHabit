@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import HabitSquare from "./HabitSquare";
+import { GridItemType } from "../types/types";
 
 type Props = {
   column: {
-    gridItems: GridItem[];
+    gridItems: GridItemType[];
     color: string;
     habitId: string;
     name: string;
@@ -11,14 +12,6 @@ type Props = {
   toggleCompletion: (id: string) => void;
   handleOpenEdit: (id: string) => void;
 };
-
-type GridItem = {
-  date: string;
-  gridId: string;
-  displayBurst: boolean;
-  completed: boolean;
-};
-
 class HabitColumn extends Component<Props> {
   render() {
     let squares = this.props.column.gridItems.map((square) => {

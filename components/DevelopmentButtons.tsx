@@ -8,7 +8,7 @@ type Props = {
 class DevelopmentButtons extends Component<Props> {
   state = {};
   render() {
-    if (!process.env.NEXT_PUBLIC_LOCAL_ENV) {
+    if (process.env.NEXT_PUBLIC_LOCAL_ENV) {
       return (
         <div className="mb-8 flex w-full justify-center space-x-2">
           <button

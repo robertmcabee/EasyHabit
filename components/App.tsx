@@ -5,30 +5,16 @@ import Form from "./Form";
 import Edit from "./Edit";
 import Options from "./Options";
 import DevelopmentButtons from "./DevelopmentButtons";
+import { HabitType } from "../types/types";
 
 type State = {
   displayForm: boolean;
   displayOptions: boolean;
   displayEdit: boolean;
-  habits: Habit[];
-  habitToEdit: Habit;
+  habits: HabitType[];
+  habitToEdit: HabitType;
   dates: string[];
 };
-
-type Habit = {
-  habitId: string;
-  name: string;
-  color: string;
-  gridItems: GridItem[];
-};
-
-type GridItem = {
-  date: string;
-  gridId: string;
-  displayBurst: boolean;
-  completed: boolean;
-};
-
 class App extends Component {
   state: State = {
     displayForm: false,
@@ -56,7 +42,6 @@ class App extends Component {
       //       gridId: '00680z-2022-02-01',
       //       date: '2022-02-01',
       //       completed: false,
-      //       displayBurst: false,
       //     },
       //     ...
       //     ...
@@ -105,7 +90,6 @@ class App extends Component {
           gridId: habit.habitId + "-" + day,
           date: day,
           completed: false,
-          displayBurst: false,
         });
       });
     });
@@ -125,7 +109,6 @@ class App extends Component {
         gridId: habit.habitId + "-" + formattedNewDate,
         date: formattedNewDate,
         completed: false,
-        displayBurst: false,
       });
     });
   };

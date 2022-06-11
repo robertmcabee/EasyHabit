@@ -1,27 +1,14 @@
 import React, { Component } from "react";
 import ColorSelect from "./ColorSelect";
+import { HabitType } from "../types/types";
 
 type Props = {
-  habitToEdit: Habit;
+  habitToEdit: HabitType;
   displayEdit: boolean;
   editHabitColor: (color: string) => void;
   editHabitName: (name: string) => void;
   handleCloseEdit: () => void;
   deleteHabit: () => void;
-};
-
-type Habit = {
-  habitId: string;
-  name: string;
-  color: string;
-  gridItems: GridItem[];
-};
-
-type GridItem = {
-  date: string;
-  gridId: string;
-  displayBurst: boolean;
-  completed: boolean;
 };
 
 type State = {
@@ -75,7 +62,7 @@ class Edit extends Component<Props> {
     });
   };
 
-  evaluateHabitCompletion = (habit: Habit) => {
+  evaluateHabitCompletion = (habit: HabitType) => {
     //returns the completion percentage of a habit
     const completed = this.props.habitToEdit.gridItems.filter(
       (item) => item.completed === true
@@ -84,7 +71,7 @@ class Edit extends Component<Props> {
     return `${Math.floor(decimal * 100)} %`;
   };
 
-  evaluateHabitStreaks = (habit: Habit) => {
+  evaluateHabitStreaks = (habit: HabitType) => {
     let longestStreak = 0;
     let currentStreak = 0;
     let streakAtIndex = 0;

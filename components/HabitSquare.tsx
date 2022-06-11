@@ -4,7 +4,6 @@ type Props = {
   data: {
     gridId: string;
     completed: boolean;
-    displayBurst: boolean;
   };
   toggleCompletion: (id: string) => void;
   parentColor: string;
@@ -26,15 +25,6 @@ class HabitSquare extends Component<Props> {
     return classes;
   };
 
-  getBurstClasses = () => {
-    let classes =
-      "z-20 h-20 top-[-5rem] w-full relative rounded-full animate-burst";
-    if (!this.props.data.displayBurst) {
-      classes += " hidden";
-    }
-    return classes;
-  };
-
   render() {
     return (
       <div
@@ -44,10 +34,6 @@ class HabitSquare extends Component<Props> {
         <div
           style={{ background: this.props.parentColor }}
           className={this.getBubbleClasses()}
-        ></div>
-        <div
-          style={{ background: this.props.parentColor }}
-          className={this.getBurstClasses()}
         ></div>
       </div>
     );
