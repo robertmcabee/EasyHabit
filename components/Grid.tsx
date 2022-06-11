@@ -17,9 +17,6 @@ type Habit = {
   habitId: string;
   name: string;
   color: string;
-  completion: number;
-  currentStreak: number;
-  longestStreak: number;
   gridItems: GridItem[];
 };
 

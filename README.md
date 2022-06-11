@@ -7,7 +7,7 @@ A straightforward open-source habit tracker built with React and TailwindCSS.
 
 ## How It's Made:
 
-**Tech used:** React, TypeScript, TailwindCSS, HTML, Date-FNS
+**Tech used:** React, TypeScript, Next.js, TailwindCSS, HTML, Date-FNS
 
 Easyhabit uses browser local storage to carry over data between visits. It also uses the Date-FNS library to handle everything date-related, because dates can be a headache in JavaScript.
 

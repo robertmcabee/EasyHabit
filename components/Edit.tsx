@@ -1,4 +1,3 @@
-import { type } from "@testing-library/user-event/dist/type";
 import React, { Component } from "react";
 import ColorSelect from "./ColorSelect";
 
@@ -15,9 +14,14 @@ type Habit = {
   habitId: string;
   name: string;
   color: string;
-  completion: number;
-  currentStreak: number;
-  longestStreak: number;
+  gridItems: GridItem[];
+};
+
+type GridItem = {
+  date: string;
+  gridId: string;
+  displayBurst: boolean;
+  completed: boolean;
 };
 
 type State = {
@@ -71,6 +75,36 @@ class Edit extends Component<Props> {
     });
   };
 
+  evaluateHabitCompletion = (habit: Habit) => {
+    //returns the completion percentage of a habit
+    const completed = this.props.habitToEdit.gridItems.filter(
+      (item) => item.completed === true
+    );
+    let decimal = completed.length / this.props.habitToEdit.gridItems.length;
+    return `${Math.floor(decimal * 100)} %`;
+  };
+
+  evaluateHabitStreaks = (habit: Habit) => {
+    let longestStreak = 0;
+    let currentStreak = 0;
+    let streakAtIndex = 0;
+    habit.gridItems
+      .slice() //to create a shallow copy of gridItems to reverse
+      .reverse()
+      .forEach((item) => {
+        if (item.completed) {
+          streakAtIndex++;
+        } else {
+          streakAtIndex = 0;
+        }
+        if (streakAtIndex > longestStreak) {
+          longestStreak = streakAtIndex;
+        }
+      });
+    currentStreak = streakAtIndex;
+    return { longestStreak: longestStreak, currentStreak: currentStreak };
+  };
+
   componentDidUpdate() {
     if (this.props.habitToEdit.name !== this.state.name) {
       this.setState({ name: this.props.habitToEdit.name });
@@ -111,15 +145,15 @@ class Edit extends Component<Props> {
           <p className="select-none pt-4 text-base font-bold sm:pt-8">Stats:</p>
           <div className="flex select-none justify-between">
             <p className="mt-2">Completion:</p>
-            {Math.floor(this.props.habitToEdit.completion * 100)}%
+            {this.evaluateHabitCompletion(this.props.habitToEdit)}
           </div>
           <div className="flex select-none justify-between">
             <p className="mt-2">Longest Streak:</p>
-            {this.props.habitToEdit.longestStreak}
+            {this.evaluateHabitStreaks(this.props.habitToEdit).longestStreak}
           </div>
           <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-4 dark:border-neutral-600 sm:pb-6">
             <p className="mt-2">Current Streak:</p>
-            {this.props.habitToEdit.currentStreak}
+            {this.evaluateHabitStreaks(this.props.habitToEdit).currentStreak}
           </div>
           {/* ----------Name---------- */}
           <div className="flex justify-between border-b-2 border-neutral-100 py-1 align-middle dark:border-neutral-600 sm:py-4">
