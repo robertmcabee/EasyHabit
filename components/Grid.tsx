@@ -4,10 +4,10 @@ import HabitColumn from "./HabitColumn";
 import CreateColumn from "./CreateColumn";
 import UpperButtons from "./UpperButtons";
 import { HabitType } from "../types/types";
+import { format } from "date-fns";
 
 type Props = {
   habits: HabitType[];
-  dates: string[];
   toggleCompletion: (id: string) => void;
   handleOpenEdit: (id: string) => void;
   handleOpenForm: () => void;
@@ -15,7 +15,17 @@ type Props = {
 };
 
 class Grid extends Component<Props> {
-  state = {};
+  dates = () => {
+    let dateArray: string[] = [];
+    if (this.props.habits.length === 0) {
+      dateArray.push(format(new Date(), "yyyy-MM-dd"));
+    } else {
+      for (const dates of this.props.habits[0].gridItems) {
+        dateArray = [...dateArray, dates.date];
+      }
+    }
+    return dateArray;
+  };
 
   render() {
     let habitColumns = this.props.habits.map((column) => {
@@ -39,7 +49,7 @@ class Grid extends Component<Props> {
                 handleOpenOptions={this.props.handleOpenOptions}
               />
             </div>
-            <DateColumn dates={this.props.dates} />
+            <DateColumn dates={this.dates()} />
           </div>
           {habitColumns}
           <div className="hidden w-full min-w-[5rem] max-w-[10rem] md:block">
