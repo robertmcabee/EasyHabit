@@ -353,7 +353,16 @@ class App extends Component {
       .select("habit_json");
     if (error) {
       console.log("error", error);
+      return;
+    }
+    if (habits && habits.length === 0) {
+      console.log("no data found, attempting to create new row");
+      const { data, error } = await supabase.from("habits").insert([
+        // @ts-ignore
+        { habit_json: this.state.habits, user_id: supabase.auth.user().id },
+      ]);
     } else if (habits) {
+      console.log("data found");
       console.log("data", habits[0].habit_json);
       const storedHabits = JSON.parse(habits[0].habit_json);
       this.setState(
