@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 type Props = {
-  clearLocalStorage: () => void;
+  deleteAllData: () => void;
   handleCloseOptions: () => void;
   displayOptions: boolean;
 };
@@ -34,8 +34,8 @@ class Options extends Component<Props> {
           deleteButtonText: "Reset app and delete all data",
         },
         () => {
-          this.props.clearLocalStorage();
-          window.location.reload();
+          this.props.deleteAllData();
+          this.closeOptions();
         }
       );
     }

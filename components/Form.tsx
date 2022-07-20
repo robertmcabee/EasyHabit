@@ -3,6 +3,7 @@ import ColorSelect from "./ColorSelect";
 
 type Props = {
   displayForm: boolean;
+  formErrorMessage: string | null;
   addHabit: (name: string, color: string) => void;
   handleCloseForm: () => void;
 };
@@ -51,6 +52,7 @@ class Form extends Component<Props> {
       <div className="fixed z-50 flex h-full w-full justify-center">
         <section className="fixed top-1/4 z-50 m-auto mb-20 max-h-min animate-dropin rounded-2xl bg-white p-10 pb-2 drop-shadow-2xl dark:bg-neutral-700 dark:shadow-none sm:mb-auto sm:pb-10">
           <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-4 align-middle dark:border-neutral-600 sm:pb-8">
+            {/* Header */}
             <h2 className="text-lg font-bold">What do you want to track?</h2>
             <div
               onClick={this.props.handleCloseForm}
@@ -72,6 +74,13 @@ class Form extends Component<Props> {
               </svg>
             </div>
           </div>
+          {/* Error Messgae */}
+          {this.props.formErrorMessage ? (
+            <p className="text-center italic pt-4">
+              {this.props.formErrorMessage}
+            </p>
+          ) : null}
+          {/* Form */}
           <form onSubmit={this.handleSubmit}>
             <fieldset className="flex flex-col justify-center space-y-2 py-6 sm:space-y-4">
               <label htmlFor="name" className="text-center font-bold">

@@ -5,13 +5,13 @@ import Form from "./Form";
 import Edit from "./Edit";
 import Options from "./Options";
 import Login from "./Login";
-import DevelopmentButtons from "./DevelopmentButtons";
 import { HabitType } from "../types/types";
 import { supabase } from "../utils/supabase";
 
 type State = {
-  user: any;
+  user: null | object;
   displayForm: boolean;
+  formErrorMessage: null | string;
   displayOptions: boolean;
   displayEdit: boolean;
   displayLogin: boolean;
@@ -23,6 +23,7 @@ class App extends Component {
   state: State = {
     user: null,
     displayForm: false,
+    formErrorMessage: null,
     displayOptions: false,
     displayLogin: false,
     displayEdit: false,
@@ -35,18 +36,18 @@ class App extends Component {
     },
 
     habits: [
-      {
-        habitId: "00680z",
-        name: "Anki",
-        color: "#ffffff",
-        gridItems: [
-          {
-            gridId: "00680z-2022-06-01",
-            date: "2022-06-01",
-            completed: false,
-          },
-        ],
-      },
+      // {
+      //   habitId: "00680z",
+      //   name: "Stretch",
+      //   color: "#ffffff",
+      //   gridItems: [
+      //     {
+      //       gridId: "00680z-2022-06-01",
+      //       date: "2022-06-01",
+      //       completed: false,
+      //     },
+      //   ],
+      // },
     ],
   };
 
@@ -68,6 +69,8 @@ class App extends Component {
       }
     );
   };
+
+  async getUser() {}
 
   checkForNewDays = () => {
     if (this.state.habits.length === 0) return;
@@ -112,6 +115,21 @@ class App extends Component {
   };
 
   addHabit = (name: string, color: string) => {
+    if (!name) {
+      this.setState({
+        formErrorMessage: "Please enter a name",
+      });
+      return;
+    }
+    if (this.state.habits.length >= 20) {
+      this.setState({
+        formErrorMessage: "You cannot have more than 20 habits",
+      });
+      return;
+    }
+    this.setState({
+      formErrorMessage: null,
+    });
     name = name.replace(/([[{};:<>$])/g, ""); //sanitize user input
     let newHabit = {
       habitId: Math.random().toString(36).substring(2, 12),
@@ -191,10 +209,32 @@ class App extends Component {
   };
 
   setUserState = () => {
-    const user = supabase.auth.user();
-    if (user === null) return;
-    this.setState({
-      user: user,
+    //check for token
+    if (supabase.auth.user()) {
+      console.log("user is signed in");
+
+      this.setState({
+        user: supabase.auth.user(),
+      });
+    }
+    //listen for user changes
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN") {
+        console.log("signing in");
+        this.setState(
+          {
+            user: supabase.auth.user(),
+          },
+          () => {
+            this.fetchStateFromCloud();
+          }
+        );
+      } else if (event === "SIGNED_OUT") {
+        console.log("signing out");
+        this.setState({
+          user: null,
+        });
+      }
     });
   };
 
@@ -251,15 +291,17 @@ class App extends Component {
   };
 
   setLocalStorage = () => {
+    console.log("saving state");
     localStorage.setItem("habits", JSON.stringify(this.state.habits));
   };
 
   loadLocalStorage = () => {
     if (localStorage.getItem("habits")) {
       console.log("-----------loading state-----------");
+      console.log(localStorage.getItem("habits"));
+
       //@ts-ignore
       const storedHabits = JSON.parse(localStorage.getItem("habits"));
-      console.log(storedHabits);
       this.setState(
         {
           habits: storedHabits,
@@ -273,30 +315,71 @@ class App extends Component {
     }
   };
 
-  clearLocalStorage = () => {
+  deleteAllData = () => {
     console.log("clearing state");
-    localStorage.setItem("habits", "");
+    if (this.state.user) {
+      this.setState(
+        {
+          habits: [],
+        },
+        () => {
+          this.storeStateToCloud();
+        }
+      );
+    } else {
+      localStorage.setItem("habits", "");
+      this.setState({
+        habits: [],
+      });
+    }
   };
 
-  fetchSupabaseData = () => {
-    //TODO
+  storeStateToCloud = async () => {
+    console.log("storing data to cloud");
+    const { data, error } = await supabase
+      .from("habits")
+      .update({ habit_json: JSON.stringify(this.state.habits) })
+      .limit(1)
+      .order("id", { ascending: false });
+    if (error) {
+      console.log("error", error);
+    }
+  };
+
+  fetchStateFromCloud = async () => {
+    console.log("fetching data from cloud");
+    let { data: habits, error } = await supabase
+      .from("habits")
+      .select("habit_json");
+    if (error) {
+      console.log("error", error);
+    } else if (habits) {
+      console.log("data", habits[0].habit_json);
+      const storedHabits = JSON.parse(habits[0].habit_json);
+      this.setState(
+        {
+          habits: storedHabits,
+        },
+        () => {
+          this.checkForNewDays();
+        }
+      );
+    }
   };
 
   componentDidMount() {
     this.setUserState();
-    if (this.state.user) {
-      this.fetchSupabaseData();
-    } else {
+    if (!this.state.user && !supabase.auth.user()) {
       this.loadLocalStorage();
+    } else {
+      this.fetchStateFromCloud();
     }
   }
 
   saveState() {
     if (this.state.user) {
-      // TODO
-      console.log("saving to cloud storage");
+      this.storeStateToCloud();
     } else {
-      console.log("saving to local storage");
       this.setLocalStorage();
     }
   }
@@ -306,20 +389,19 @@ class App extends Component {
       <div className="h-screen bg-neutral-50 font-sans text-sm text-neutral-700 dark:bg-neutral-800 dark:text-neutral-50 md:text-base">
         {this.state.user ? (
           <button
-            className="p-4 bg-black"
+            className="fixed text-black bottom-0 right-0 m-2 px-4 py-2 z-50 opacity-75 transition-opacity hover:opacity-100 cursor-pointer bg-neutral-100 border-2 border-neutral-200 rounded-full shadow-md"
             onClick={() => this.handleOpenLogin()}
           >
-            Signed in as {this.state.user["email"]}
+            Signed in.
           </button>
         ) : (
           <button
-            className="p-4 bg-black"
+            className="fixed text-black bottom-0 right-0 m-2 px-4 py-2 z-50 opacity-75 transition-opacity hover:opacity-100 cursor-pointer bg-neutral-100 border-2 border-neutral-200 rounded-full shadow-md"
             onClick={() => this.handleOpenLogin()}
           >
             Not Logged in
           </button>
         )}
-        <DevelopmentButtons addDay={this.addDay} />
         <Edit
           deleteHabit={this.deleteHabit}
           editHabitColor={this.editHabitColor}
@@ -331,20 +413,21 @@ class App extends Component {
         <Form
           addHabit={this.addHabit}
           displayForm={this.state.displayForm}
+          formErrorMessage={this.state.formErrorMessage}
           handleCloseForm={this.handleCloseForm}
         />
         <Options
           displayOptions={this.state.displayOptions}
           handleCloseOptions={this.handleCloseOptions}
-          clearLocalStorage={this.clearLocalStorage}
+          deleteAllData={this.deleteAllData}
         />
         <Login
           displayLogin={this.state.displayLogin}
           closeLogin={this.handleCloseLogin}
+          user={this.state.user}
         />
         <Grid
           habits={this.state.habits}
-          // dates={this.state.dates}
           toggleCompletion={this.toggleCompletion}
           handleOpenForm={this.handleOpenForm}
           handleOpenEdit={this.handleOpenEdit}

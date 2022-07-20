@@ -143,7 +143,7 @@ class Edit extends Component<Props> {
             {this.evaluateHabitStreaks(this.props.habitToEdit).currentStreak}
           </div>
           {/* ----------Name---------- */}
-          <div className="flex justify-between border-b-2 border-neutral-100 py-1 align-middle dark:border-neutral-600 sm:py-4">
+          <div className="flex justify-between py-1 align-middle  sm:py-4">
             <p className="h-8 select-none self-center text-base font-bold">
               Name:
             </p>

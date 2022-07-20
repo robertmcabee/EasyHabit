@@ -24,7 +24,7 @@ function ColorSelect({
     "h-12 w-12 cursor-pointer rounded-full transition-all hover:opacity-75 border-neutral-300 dark:border-neutral-500";
 
   return (
-    <div className="mt-2 grid w-full grid-cols-6 grid-rows-2 justify-evenly gap-1.5 sm:gap-4">
+    <div className=" grid w-full grid-cols-6 grid-rows-2 justify-evenly gap-1.5 sm:gap-4">
       {colorArr.map((item, index) => {
         return (
           <div
