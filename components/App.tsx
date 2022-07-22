@@ -10,6 +10,7 @@ import { supabase } from "../utils/supabase";
 
 type State = {
   user: null | object;
+  displayWelcome: boolean;
   displayForm: boolean;
   formErrorMessage: null | string;
   displayOptions: boolean;
@@ -22,7 +23,8 @@ type State = {
 class App extends Component {
   state: State = {
     user: null,
-    displayForm: false,
+    displayWelcome: true,
+    displayForm: true,
     formErrorMessage: null,
     displayOptions: false,
     displayLogin: false,
@@ -158,6 +160,7 @@ class App extends Component {
       {
         habits: [...this.state.habits, newHabit],
         displayForm: false,
+        displayWelcome: false,
       },
       () => {
         this.saveState();
@@ -238,6 +241,12 @@ class App extends Component {
     });
   };
 
+  hideWelcome = () => {
+    this.setState({
+      displayWelcome: false,
+    });
+  };
+
   handleCloseLogin = () => {
     this.setState({
       displayLogin: false,
@@ -253,6 +262,8 @@ class App extends Component {
   handleCloseForm = () => {
     this.setState({
       displayForm: false,
+      formErrorMessage: null,
+      displayWelcome: false,
     });
   };
 
@@ -305,6 +316,8 @@ class App extends Component {
       this.setState(
         {
           habits: storedHabits,
+          displayForm: false,
+          displayWelcome: false,
         },
         () => {
           this.checkForNewDays();
@@ -340,7 +353,7 @@ class App extends Component {
       .from("habits")
       .update({ habit_json: JSON.stringify(this.state.habits) })
       .limit(1)
-      .order("id", { ascending: false });
+      .order("id", { ascending: true });
     if (error) {
       console.log("error", error);
     }
@@ -358,8 +371,11 @@ class App extends Component {
     if (habits && habits.length === 0) {
       console.log("no data found, attempting to create new row");
       const { data, error } = await supabase.from("habits").insert([
-        // @ts-ignore
-        { habit_json: this.state.habits, user_id: supabase.auth.user().id },
+        {
+          habit_json: JSON.stringify(this.state.habits),
+          // @ts-ignore
+          user_id: supabase.auth.user().id,
+        },
       ]);
     } else if (habits) {
       console.log("data found");
@@ -368,6 +384,8 @@ class App extends Component {
       this.setState(
         {
           habits: storedHabits,
+          displayForm: false,
+          displayWelcome: false,
         },
         () => {
           this.checkForNewDays();
@@ -420,6 +438,8 @@ class App extends Component {
           habitToEdit={this.state.habitToEdit}
         />
         <Form
+          displayWelcome={this.state.displayWelcome}
+          hideWelcome={this.hideWelcome}
           addHabit={this.addHabit}
           displayForm={this.state.displayForm}
           formErrorMessage={this.state.formErrorMessage}
@@ -429,11 +449,14 @@ class App extends Component {
           displayOptions={this.state.displayOptions}
           handleCloseOptions={this.handleCloseOptions}
           deleteAllData={this.deleteAllData}
+          user={this.state.user}
+          handleOpenLogin={this.handleOpenLogin}
         />
         <Login
           displayLogin={this.state.displayLogin}
           closeLogin={this.handleCloseLogin}
           user={this.state.user}
+          deleteAllData={this.deleteAllData}
         />
         <Grid
           habits={this.state.habits}

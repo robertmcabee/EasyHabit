@@ -4,12 +4,14 @@ import { useState } from "react";
 interface Props {
   displayLogin: boolean;
   closeLogin: () => void;
+  deleteAllData: () => void;
   user: any;
 }
 
 function Login({ displayLogin, closeLogin, user }: Props) {
   const [loading, setLoading] = useState(false);
   const [userEmail, setUserEmail] = useState("");
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const handleLogin = async (userEmail: string) => {
     try {
@@ -26,7 +28,6 @@ function Login({ displayLogin, closeLogin, user }: Props) {
 
   async function handleLogout() {
     await supabase.auth.signOut();
-    // window.location.reload();
   }
 
   if (displayLogin === false) return null;
@@ -34,7 +35,7 @@ function Login({ displayLogin, closeLogin, user }: Props) {
     <div className="fixed z-50 flex h-full w-full justify-center align-bottom">
       <section className="z-50 m-auto mb-auto max-h-min max-w-[28rem] animate-dropin rounded-2xl bg-white p-10 dark:bg-neutral-700">
         {/* ----------Header---------- */}
-        <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-4 align-middle dark:border-neutral-600 sm:pb-8">
+        <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-4 mb-4 align-middle dark:border-neutral-600 sm:pb-8">
           <h2 className="text-lg font-bold">Login</h2>
           <div
             onClick={() => closeLogin()}
@@ -84,27 +85,25 @@ function Login({ displayLogin, closeLogin, user }: Props) {
                 onChange={(e) => setUserEmail(e.target.value)}
               />
             </div>
-            <div className="flex gap-4">
-              <button
-                className="mt-4 w-full cursor-pointer rounded-full border-0 bg-neutral-800 p-3 font-bold text-white transition-all hover:bg-black sm:mt-6"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLogin(userEmail);
-                }}
-                disabled={loading}
-              >
-                <span>{loading ? "Processing..." : "Send login link"}</span>
-              </button>
+            <button
+              className="mt-4 w-full cursor-pointer rounded-full border-0 bg-neutral-800 p-3 font-bold text-white transition-all hover:bg-black sm:mt-6"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLogin(userEmail);
+              }}
+              disabled={loading}
+            >
+              <span>{loading ? "Processing..." : "Send login link"}</span>
+            </button>
 
-              <button
-                className="mt-4 w-full cursor-pointer rounded-full border-0 bg-neutral-800 p-3 font-bold text-white transition-all hover:bg-black sm:mt-6"
-                onClick={() => {
-                  closeLogin();
-                }}
-              >
-                No thanks.
-              </button>
-            </div>
+            <button
+              className="mt-4 w-full cursor-pointer rounded-full border-0 bg-neutral-800 p-3 font-bold text-white transition-all hover:bg-black sm:mt-6"
+              onClick={() => {
+                closeLogin();
+              }}
+            >
+              Close
+            </button>
           </div>
         )}
       </section>

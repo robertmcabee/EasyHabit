@@ -3,7 +3,9 @@ import React, { Component } from "react";
 type Props = {
   deleteAllData: () => void;
   handleCloseOptions: () => void;
+  handleOpenLogin: () => void;
   displayOptions: boolean;
+  user: any;
 };
 
 class Options extends Component<Props> {
@@ -74,21 +76,25 @@ class Options extends Component<Props> {
             </div>
           </div>
           {/* ----------Info---------- */}
-          <div className="border-b-2 border-neutral-100 py-8 pb-8 text-neutral-500 dark:border-neutral-600 dark:text-neutral-300">
-            <p className="mb-2 font-bold">
-              Created with &lt;3 by{" "}
-              <a
-                className="underline underline-offset-2 transition-colors hover:text-black dark:hover:text-white"
-                href="https://robertmcabee.netlify.app/"
+          <div className="border-b-2 border-neutral-100 py-8 text-neutral-500 dark:border-neutral-600 dark:text-neutral-300">
+            <div className="flex justify-center">
+              <button
+                className="w-fit cursor-pointer rounded-full border-0 bg-neutral-800 p-3 px-6 mb-6 font-bold text-white transition-all hover:bg-black"
+                onClick={() => {
+                  this.props.handleOpenLogin();
+                  this.closeOptions();
+                }}
               >
-                Robert McAbee
-              </a>{" "}
-            </p>
+                {this.props.user
+                  ? "You are logged in"
+                  : "You are not logged in"}
+              </button>
+            </div>
+
             <p className="mb-2 italic">Thanks for using Easyhabit!</p>
             <p className="mb-2 italic">
               I didn't like any habit trackers availble, so I built my own. I
-              hope you find it helpful and enjoyable! I plan to add more
-              features in time.
+              hope you find it helpful and enjoyable!
             </p>
             <p className="italic">
               If you encounter any bugs or would like any features added,
