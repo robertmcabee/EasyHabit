@@ -33,7 +33,7 @@ function Login({ displayLogin, closeLogin, user }: Props) {
   if (displayLogin === false) return null;
   return (
     <div className="fixed z-50 flex h-full w-full justify-center align-bottom">
-      <section className="z-50 m-auto mb-auto max-h-min max-w-[28rem] animate-dropin rounded-2xl bg-white p-10 dark:bg-neutral-700">
+      <section className="z-50 m-auto mb-auto max-h-min max-w-[28rem] text-base animate-dropin rounded-2xl bg-white p-10 dark:bg-neutral-700">
         {/* ----------Header---------- */}
         <div className="flex select-none justify-between border-b-2 border-neutral-100 pb-4 mb-4 align-middle dark:border-neutral-600 sm:pb-8">
           <h2 className="text-lg font-bold">Login</h2>
@@ -76,7 +76,7 @@ function Login({ displayLogin, closeLogin, user }: Props) {
               all your devices? It's free, and all you need to to is enter your
               email, and we'll send you a login link.
             </p>
-            <div>
+            <div className="">
               <input
                 className="my-4 h-8 w-full rounded-full border-0 border-none bg-neutral-100 p-4 text-center font-semibold caret-neutral-400 placeholder:italic placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:bg-neutral-800 dark:focus:border-neutral-50 dark:focus:ring-neutral-500"
                 type="email"

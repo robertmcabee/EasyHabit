@@ -115,10 +115,8 @@ class Form extends Component<Props> {
               ) : null}
               {/* Form */}
               <form onSubmit={this.handleSubmit}>
-                <fieldset className="flex flex-col justify-center align-middle space-y-2 sm:space-y-4">
-                  <label className="select-none text-base font-bold">
-                    Name:
-                  </label>
+                <fieldset className="flex flex-col justify-center align-middle space-y-2 sm:space-y-4 text-base">
+                  <label className="select-none font-bold">Name:</label>
                   <input
                     type="text"
                     name="name"
@@ -127,12 +125,12 @@ class Form extends Component<Props> {
                     onKeyDown={this.handleKeyDown}
                     onChange={this.handleChange}
                     placeholder="e.g. Stretch"
-                    className=" h-8 rounded-full self-center w-full border-0 border-none bg-neutral-100 p-4 text-center font-semibold caret-neutral-400 placeholder:italic placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:bg-neutral-800 dark:focus:border-neutral-50 dark:focus:ring-neutral-500"
+                    className="h-8 rounded-full self-center w-full border-0 border-none bg-neutral-100 p-4 text-center font-semibold caret-neutral-400 placeholder:italic placeholder:text-neutral-400 focus:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:bg-neutral-800 dark:focus:border-neutral-50 dark:focus:ring-neutral-500"
                   />
 
                   <label
                     htmlFor="color"
-                    className="h-8 border-neutral-100 font-bold dark:border-neutral-600 sm:pt-2"
+                    className="h-8 border-neutral-100 font-bold dark:border-neutral-600 pt-2"
                   >
                     Color:
                   </label>
